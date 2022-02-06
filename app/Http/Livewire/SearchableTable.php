@@ -1,19 +1,27 @@
 <?php
 
 namespace App\Http\Livewire;
-namespace App\Models;
 
 use Livewire\Component;
 
 class SearchableTable extends Component
 {
-    // Params
     public $class;
 
     public function render()
     {
-        $data = $this->class::query()->all;
+        $jsonString = file_get_contents(base_path('/resources/views/livewire/searchable-table.json'));
+        $json = json_decode($jsonString, true);
+        $config= $json[$this->class];
 
-        return view('livewire.searchable-table',['data'=>$data]);
+        $className =  '\App\Models\\'.$this->class;
+        $class = new $className();
+        $query = $class::query()->get()->all();
+
+        $data = [];
+        $data['config'] = $config;
+        $data['query'] = $query;
+
+        return view('livewire.searchable-table', ['data' => $data]);
     }
 }

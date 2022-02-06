@@ -1,0 +1,24 @@
+{
+    "Game": {
+        "name": {
+            "type": "text",
+            "display_name": "Name"
+        },
+        "player_count": {
+            "type": "number",
+            "display_name": "Spieler"
+        },
+        "price": {
+            "type": "number",
+            "display_name": "Preis"
+        },
+        "source": {
+            "type": "text",
+            "display_name": "Quelle"
+        },
+        "already_played": {
+            "type": "checkbox",
+            "display_name": "Schon gespielt"
+        }
+    }
+}
