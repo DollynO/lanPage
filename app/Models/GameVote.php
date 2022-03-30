@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class GameVote extends Model
 {
     use HasFactory;
+
+    public function games(){
+        $this->belongsTo(Game::class);
+    }
 }

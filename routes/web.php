@@ -23,3 +23,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // GameController
     Route::get('/games',[GameController::class, 'index'])->name('games');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

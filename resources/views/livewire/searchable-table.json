@@ -14,11 +14,16 @@
         },
         "source": {
             "type": "text",
-            "display_name": "Quelle"
+            "display_name": "Quelle",
+            "max_width": 300
         },
         "already_played": {
             "type": "checkbox",
             "display_name": "Schon gespielt"
+        },
+        "rating": {
+            "type": "number",
+            "display_name": "Rating"
         }
     }
 }
