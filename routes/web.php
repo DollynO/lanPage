@@ -22,6 +22,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/dashboard',function (){ return view('dashboard');})->name('dashboard');
     // GameController
     Route::get('/games',[GameController::class, 'index'])->name('games');
+    Route::get('/games/create',function(){ return view('new_entries/new_game');})->name('new_game');
+    Route::get('/games/{id}',function(){ return view('new_entries/new_game');})->name('new_game');
 });
 
 Auth::routes();

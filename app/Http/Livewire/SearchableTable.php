@@ -8,9 +8,9 @@ class SearchableTable extends Component
 {
     public $class;
     public $search;
-    public $sortField = 'player_count';
-    public $sortDirection = 'asc';
-    public $showSearch = false;
+    public string $sortField = 'name';
+    public string $sortDirection = 'asc';
+    public bool $showSearch = false;
 
     public function render()
     {
@@ -28,6 +28,7 @@ class SearchableTable extends Component
 
         $query = $query->with('gameRatings')->orderBy($this->sortField, $this->sortDirection)->get()->all();
         $data = [];
+        $data['class'] = strtolower( $this->class );
         $data['config'] = $config;
         $data['query'] = $query;
 
@@ -49,7 +50,11 @@ class SearchableTable extends Component
     }
 
     public function openSearch(){
-        $this->
-        showSearch = !$this->showSearch;
+        $this->showSearch = !$this->showSearch;
+        $this->emit('focus-searchbar');
+    }
+
+    public function addNewEntry(){
+
     }
 }

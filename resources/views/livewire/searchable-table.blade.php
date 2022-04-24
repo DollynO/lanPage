@@ -1,21 +1,19 @@
 <div>
-    <div class="w-full flex flex-row">
-        <div class="w-1/20" >
-            <i wire:click="openSearch" class="bi bi-search"></i>
+    <div class="w-full flex flex-row mb-2 justify-between">
+        <div class="flex flex-row w-1/2">
+                <i class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest transition bi bi-search"></i>
+                <div class="ml-1 w-full">
+                    <input id="searchInput" wire:model="search" type="text" class="-ml-4 w-full h-9 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block">
+                </div>
         </div>
-
-        @if($showSearch)
-        <div class="w-full">
-            <input wire:model="search" type="text" class="w-full h-5">
-
-        </div>
-        @endif
-            <div class="w-1/20">
-            <i wire:click="addGame" class="bi bi-plus-circle"></i>
+        <div>
+            <button onclick="window.location.href='{{ route('new_'.$data['class']) }}'"
+                    class="h-9 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">new Item</button>
         </div>
     </div>
+    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
     <table class="w-full">
-        <thead>
+        <thead class="text-lg font-medium">
         <tr>
             @foreach($data['config'] as $key=>$value)
                 <th class="border cursor-pointer" sortable wire:click="sort('{{$key}}')">
@@ -39,7 +37,7 @@
             @endforeach
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-sm">
         @foreach($data['query'] as $item)
             <tr>
                 @foreach($data['config'] as $key=>$value)
@@ -69,4 +67,5 @@
         @endforeach
         </tbody>
     </table>
+    </div>
 </div>
