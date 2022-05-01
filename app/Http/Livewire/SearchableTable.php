@@ -8,6 +8,7 @@ class SearchableTable extends Component
 {
     public $class;
     public $search;
+    public $entry;
     public string $sortField = 'name';
     public string $sortDirection = 'asc';
     public bool $showSearch = false;
@@ -31,6 +32,7 @@ class SearchableTable extends Component
         $data['class'] = strtolower( $this->class );
         $data['config'] = $config;
         $data['query'] = $query;
+        $data['entry'] = $this->entry;
 
         return view('livewire.searchable-table', ['data' => $data]);
     }
@@ -54,7 +56,11 @@ class SearchableTable extends Component
         $this->emit('focus-searchbar');
     }
 
-    public function addNewEntry(){
+    public function detail($entry){
+        $this->entry = $entry;
+    }
 
+    public function cancelDetail(){
+        $this->entry = null;
     }
 }

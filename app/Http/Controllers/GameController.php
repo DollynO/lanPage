@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use http\Env\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\Array_;
@@ -16,12 +17,17 @@ class GameController extends Controller
         return view('games', ['data'=>$games]);
     }
 
-    public function create(Array $request){
+    /**
+     * @param array $request
+     * @return JsonResponse
+     */
+    public function create(Array $request): JsonResponse
+    {
         $validator = Validator::make($request, [
             'player_count' => 'required|numeric',
             'price' => 'required|numeric',
             'name' => 'required|string',
-            'note' => 'nullable|integer',
+            'note' => 'nullable|string',
             'source' => 'required|string',
             'already_played' => 'nullable|boolean'
         ]);
@@ -41,5 +47,33 @@ class GameController extends Controller
         $game->save();
 
         return response()->json($game, 200);
+    }
+
+    /**
+     * @param array $request
+     * @return JsonResponse
+     */
+    public function update(Array $request): JsonResponse
+    {
+        $validator = Validator::make($request, [
+            'id'=>'required|integer|exists:games,id,deleted_at,NULL',
+            'player_count' => 'required|numeric',
+            'price' => 'required|numeric',
+            'name' => 'required|string',
+            'note' => 'nullable|integer',
+            'source' => 'required|string',
+            'already_played' => 'nullable|boolean'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $game = Game::query()->whereKey($request['id'])->first();
+        $game->fill($request);
+        $game->save();
+
+        return response()->json($game, 200);
+
     }
 }

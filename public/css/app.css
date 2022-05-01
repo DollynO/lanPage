@@ -19170,6 +19170,9 @@ select {
 .h-20 {
   height: 5rem;
 }
+.h-full {
+  height: 100%;
+}
 .min-h-screen {
   min-height: 100vh;
 }

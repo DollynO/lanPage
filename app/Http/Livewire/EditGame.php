@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class EditGame extends Component
 {
+    public $gameId;
     public $name;
     public $source;
     public $price;
@@ -32,7 +33,12 @@ class EditGame extends Component
         $validatedData = $this->validate();
 
         $gameController = new GameController();
-        $response = $gameController->create($validatedData);
+
+        if( !empty( $validatedData->gameId)){
+            $response = $gameController->update($validatedData);
+        }else{
+            $response = $gameController->create($validatedData);
+        }
 
         dd($response);
     }

@@ -7,7 +7,7 @@
                 </div>
         </div>
         <div>
-            <button onclick="window.location.href='{{ route('new_'.$data['class']) }}'"
+            <button onclick="window.location.href='{{ route('table_entry.'.$data['class']) }}'"
                     class="h-9 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">new Item</button>
         </div>
     </div>
@@ -39,7 +39,7 @@
         </thead>
         <tbody class="text-sm">
         @foreach($data['query'] as $item)
-            <tr>
+            <tr id="{{$item['id']}}" wire:click="detail({{$item}})" class="cursor-pointer">
                 @foreach($data['config'] as $key=>$value)
                     <td class="border">
                         @switch($value['type'])
@@ -68,4 +68,9 @@
         </tbody>
     </table>
     </div>
+    @if( $data['entry'] != null )
+        <div class="fixed right-0 top-0 col-3 h-full bg-white">
+            @livewire('table-entry-detail',['entry'=> $data['entry'] ])
+        </div>
+    @endif
 </div>
