@@ -3,32 +3,37 @@
         "name": {
             "type": "text",
             "display_name": "Name",
+            "style": "",
             "isEditable": true
         },
         "player_count": {
             "type": "number",
             "display_name": "Spieler",
+            "style": "",
             "isEditable": true
         },
         "price": {
             "type": "number",
             "display_name": "Preis",
+            "style": "",
             "isEditable": true
         },
         "source": {
             "type": "text",
             "display_name": "Quelle",
-            "max_width": 300,
+            "style": "",
             "isEditable": true
         },
         "already_played": {
             "type": "checkbox",
             "display_name": "Schon gespielt",
+            "style": "",
             "isEditable": true
         },
         "rating": {
             "type": "number",
             "display_name": "Rating",
+            "style": "",
             "isEditable": false
         }
     }

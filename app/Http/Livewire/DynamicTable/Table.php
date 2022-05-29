@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\DynamicTable;
 
 use Livewire\Component;
+use function view;
 
-class SearchableTable extends Component
+class Table extends Component
 {
     public $class;
     public $search;
@@ -13,9 +14,11 @@ class SearchableTable extends Component
     public string $sortDirection = 'asc';
     public bool $showSearch = false;
 
+    protected $listeners = ['selectEntry', 'cancelDetail'];
+
     public function render()
     {
-        $jsonString = file_get_contents(base_path('/resources/views/livewire/searchable-table.json'));
+        $jsonString = file_get_contents(base_path('/resources/views/livewire/dynamic-table/config.json'));
         $json = json_decode($jsonString, true);
         $config = $json[$this->class];
 
@@ -34,7 +37,7 @@ class SearchableTable extends Component
         $data['query'] = $query;
         $data['entry'] = $this->entry;
 
-        return view('livewire.searchable-table', ['data' => $data]);
+        return view('livewire.dynamic-table.table', ['data' => $data]);
     }
 
     public function search($name)
@@ -56,7 +59,11 @@ class SearchableTable extends Component
         $this->emit('focus-searchbar');
     }
 
-    public function detail($entry){
+    public function selectEntry($id){
+        $className = '\App\Models\\' . $this->class;
+        $class = new $className();
+        $entry = $class::query()->whereKey($id)->first()->toArray();
+
         $this->entry = $entry;
     }
 

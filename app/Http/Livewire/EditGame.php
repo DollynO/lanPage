@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Http\Controllers\GameController;
-use Illuminate\Routing\Route;
 use Livewire\Component;
 
 class EditGame extends Component
@@ -39,8 +38,7 @@ class EditGame extends Component
         }else{
             $response = $gameController->create($validatedData);
         }
-
-        dd($response);
+        redirect()->to('/games');
     }
 
     public function render()
