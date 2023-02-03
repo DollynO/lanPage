@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('New Game') }}
+            {{ $id == null ? __('New Game') : __('Edit Game') }}
         </h2>
     </x-slot>
 
@@ -11,7 +11,7 @@
             <div class="mt-10 sm:mt-0">
                 <div class="md:gap-6">
                     <div class="mt-5 md:mt-0">
-                        @livewire('edit-game')
+                        @livewire('edit-game',['id'=> $id])
                     </div>
                 </div>
             </div>
