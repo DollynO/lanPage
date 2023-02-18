@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
-use http\Env\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Expr\Array_;
 
 class GameController extends Controller
 {
@@ -56,11 +53,11 @@ class GameController extends Controller
     public function update(Array $request): JsonResponse
     {
         $validator = Validator::make($request, [
-            'id'=>'required|integer|exists:games,id,deleted_at,NULL',
+            'id'=>'required|integer|exists:games,id',
             'player_count' => 'required|numeric',
             'price' => 'required|numeric',
             'name' => 'required|string',
-            'note' => 'nullable|integer',
+            'note' => 'nullable|string',
             'source' => 'required|string',
             'already_played' => 'nullable|boolean'
         ]);
@@ -70,7 +67,7 @@ class GameController extends Controller
         }
 
         $game = Game::query()->whereKey($request['id'])->first();
-        $game->fill($request);
+        $game->fill($validator->validated());
         $game->save();
 
         return response()->json($game, 200);

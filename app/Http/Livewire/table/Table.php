@@ -7,9 +7,12 @@ use Livewire\Component;
 
 abstract class Table extends Component
 {
-    public $sortBy = '';
     public $sortDirection = 'asc';
+    public $sortBy = '';
     public $search = '';
+    public $showDetail = false;
+    public int $objectId;
+    public $object;
 
     public abstract function query(): Builder;
 
@@ -17,7 +20,13 @@ abstract class Table extends Component
 
     public abstract function searchField() : string;
 
+
     public abstract function new();
+    public abstract function detailComponent();
+    public function detail($object){
+        $this->showDetail = true;
+        $this->object = $object;
+    }
 
     public function data()
     {

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\table;
 use App\Http\Livewire\Column;
 use App\Models\Game;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 
 class GameTable extends Table
 {
@@ -33,7 +34,13 @@ class GameTable extends Table
         return 'name';
     }
 
-    public function new(){
-        return;
+    public function new()
+    {
+        return redirect()->route('new_game');
+    }
+
+    public function detailComponent()
+    {
+        return 'table.detail.game-detail';
     }
 }

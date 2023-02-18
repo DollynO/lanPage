@@ -17,6 +17,7 @@ class EditGame extends Component
     public $player_count;
 
     protected $rules= [
+        'gameId' => 'nullable|integer',
         'name'=>'required|string',
         'source' => 'required|string',
         'price' => 'numeric|nullable',
@@ -31,13 +32,14 @@ class EditGame extends Component
 
     public function submit(){
         $validatedData = $this->validate();
-
         $gameController = new GameController();
 
-        if( !empty( $validatedData->gameId)){
-            $response = $gameController->update($validatedData);
+        if( !empty( $validatedData['gameId']))
+        {
+            $validatedData['id'] = $validatedData['gameId'];
+            $gameController->update($validatedData);
         }else{
-            $response = $gameController->create($validatedData);
+            $gameController->create($validatedData);
         }
         redirect()->to('/games');
     }
@@ -55,7 +57,6 @@ class EditGame extends Component
 
     public function render()
     {
-
         return view('livewire.edit-game');
     }
 }

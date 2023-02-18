@@ -20,8 +20,8 @@ class CreateGamesTable extends Migration
             $table->string('note')->nullable();
             $table->string('source');
             $table->integer('player_count');
-            $table->decimal('price')->default(0.00);
-            $table->boolean('already_played')->default(false);
+            $table->decimal('price')->nullable()->default(0.00);
+            $table->boolean('already_played')->nullable()->default(false);
         });
     }
 

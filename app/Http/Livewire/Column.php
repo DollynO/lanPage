@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 class Column
 {
     public string $component = 'columns.column';
+    public array $livewireParams;
 
     public string $key;
 
@@ -15,6 +16,7 @@ class Column
         $this->key = $key;
         $this->label = $label;
     }
+
 
     public static function make($key, $label)
     {
@@ -28,9 +30,10 @@ class Column
         return $this;
     }
 
-    public function livewire()
+    public function livewire($params = [])
     {
         $this->isLivewire = true;
+        $this->livewireParams = $params;
 
         return $this;
     }

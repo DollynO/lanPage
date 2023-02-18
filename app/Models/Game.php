@@ -16,6 +16,16 @@ class Game extends Model
         'rating'
     ];
 
+    protected $fillable =[
+        'id',
+        'name',
+        'note',
+        'source',
+        'player_count',
+        'price',
+        'already_played'
+    ];
+
     public function ratings() : MorphMany
     {
         return $this->morphMany(Rating::class, 'model');
@@ -31,5 +41,11 @@ class Game extends Model
     public function getRatingAttribute() : int
     {
         return round( $this->ratings()->avg('rating'),0);
+    }
+
+    public function delete()
+    {
+        $this->ratings()->delete();
+        return parent::delete();
     }
 }
