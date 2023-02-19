@@ -17,7 +17,7 @@ class GameDetail extends Component
         'game.note' => 'nullable|string',
         'game.source' => 'required|string',
         'game.player_count' => 'required|integer|min:0',
-        'game.price' => 'nullable|numeric',
+        'game.price' => 'nullable|numeric|min:0',
         'game.already_played' => 'nullable|boolean',
     ];
 
@@ -38,6 +38,9 @@ class GameDetail extends Component
 
     public function saveGame()
     {
+        $this->game['price'] = empty($this->game['price']) ? null : $this->game['price'];
+        $this->game['note'] = empty($this->game['note']) ? null : $this->game['note'];
+
         $validatedData = $this->validate();
 
         $game = Game::query()->whereKey($this->game['id'])->first();

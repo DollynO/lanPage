@@ -91,13 +91,13 @@
                 <div class="grid grid-cols-2 gap-2 mt-2">
                     <div class="flex flex-column">
                         <label>{{__('Price')}}</label>
-                        <input type="text" id="price" wire:model.defer="game.price" x-bind:disabled="!inEditState"
+                        <input type="number" id="price" wire:model.defer="game.price" x-bind:disabled="!inEditState"
                                class="disabled:border-1"/>
                         @error('game.price') <span class="error text-red-400">{{ $message }}</span> @enderror
                     </div>
                     <div class="flex flex-column">
                         <label>{{__('Player count')}}</label>
-                        <input type="text" id="player_count" wire:model.defer="game.player_count" x-bind:disabled="!inEditState"
+                        <input type="number" id="player_count" wire:model.defer="game.player_count" x-bind:disabled="!inEditState"
                                class="disabled:border-1"/>
                         @error('game.player_count') <span class="error text-red-400">{{ $message }}</span> @enderror
                     </div>

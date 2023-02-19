@@ -19,7 +19,8 @@ class GameTable extends Table
         return[
             Column::make('name','Name'),
             Column::make('player_count', 'Player'),
-            Column::make('price', 'Price'),
+            Column::make('price', 'Price')
+            ->component('columns.numeric'),
             Column::make('source','Source'),
             Column::make('already_played','Already played')
             ->component('columns.checkbox'),
