@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+});
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    // Dashboard
+    Route::get('/dashboard',function (){ return view('dashboard');})->name('dashboard');
+    // GameController
+    Route::get('/games',[GameController::class, 'index'])->name('games');
+    Route::get('/games/create',function(){ return view('entries/game',['id' => null]);})->name('new_game');
+    Route::get('/games/{id}',function($id){ return view('entries/game',['id' => $id]);})->name('edit_game');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
