@@ -14,9 +14,7 @@
             placeholder="Search for items">
         </div>
         <div class="">
-            <button wire:click="new()">
-            new Item
-            </button>
+            <x-button dark x-on:click="$wire.new()" label="{{__('new Item')}}"/>
         </div>
     </div>
     <div class="relative overflow-x-auto shadow-md rounded-lg">
@@ -77,59 +75,9 @@
             </tbody>
         </table>
     </div>
-
-    <section
-        x-data="{ open: @entangle('showDetail') }"
-        @keydown.window.escape="open = false"
-        x-show="open"
-        x-cloak
-        class="relative z-10"
-        aria-labelledby="slide-over-title"
-        x-ref="dialog"
-        aria-modal="true"
-    >
-
-        <div
-            x-show="open"
-            x-cloak
-            x-transition:enter="ease-in-out duration-500"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="ease-in-out duration-500"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-        ></div>
-
-        <div class="fixed inset-0 overflow-hidden">
-            <div class="absolute inset-0 overflow-hidden">
-                <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-
-                    <div
-                        x-show="open"
-                        x-cloak
-                        x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
-                        x-transition:enter-start="translate-x-full"
-                        x-transition:enter-end="translate-x-0"
-                        x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
-                        x-transition:leave-start="translate-x-0"
-                        x-transition:leave-end="translate-x-full"
-                        class="pointer-events-auto w-screen max-w-md"
-                        @click.away="open = false"
-                    >
-                        <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                            @if ($this->detailComponent() && $this->showDetail)
-                                @livewire($this->detailComponent(), ['object' => $object])
-                            @else
-                                <div class="absolute inset-0 px-4 sm:px-6">
-                                    <div class="h-full border-2 border-dashed border-gray-200" aria-hidden="true"></div>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <div x-data="{ open: @entangle('showDetail')}">
+        @if($showDetail)
+            @livewire($this->detailComponent(), ['object' => $object])
+        @endif
+    </div>
 </div>

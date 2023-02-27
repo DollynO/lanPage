@@ -35,11 +35,17 @@ abstract class Table extends Component
             ->when($this->search !== '', function ($query){
                 $query->where($this->searchField(), 'LIKE', "%{$this->search}%");
             })
+            ->get()
             ->when($this->sortBy !== '', function ($query){
-                $query->orderBy($this->sortBy,
-                $this->sortDirection);
-            })
-            ->get();
+                if ($this->sortDirection === 'asc'){
+
+                    return $query->sortBy($this->sortBy);
+                }
+                else
+                {
+                    return $query->sortByDesc($this->sortBy);
+                }
+            });
     }
 
     public function sort($key)

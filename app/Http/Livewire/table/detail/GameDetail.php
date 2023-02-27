@@ -5,11 +5,9 @@ namespace App\Http\Livewire\table\detail;
 use App\Models\Game;
 use Livewire\Component;
 
-class GameDetail extends Component
+class GameDetail extends Detail
 {
     public $game;
-    public $inEditState;
-    public $confirmDelete = false;
 
     protected $rules =[
         'game.id' => 'sometimes|required|exists:games,id',
@@ -36,7 +34,7 @@ class GameDetail extends Component
         $game->delete();
     }
 
-    public function saveGame()
+    public function save()
     {
         $this->game['price'] = empty($this->game['price']) ? null : $this->game['price'];
         $this->game['note'] = empty($this->game['note']) ? null : $this->game['note'];
