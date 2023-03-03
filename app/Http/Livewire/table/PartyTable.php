@@ -35,7 +35,7 @@ class PartyTable extends Table
 
     public function new()
     {
-        return redirect()->route('new_game');
+        return redirect()->route('new_party');
     }
 
     public function detailComponent()

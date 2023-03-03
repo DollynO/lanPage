@@ -9,6 +9,8 @@ class Column
     public string $key;
 
     public string $label;
+
+    public string $filterType;
     public bool $isLivewire = false;
 
     public function __construct($key, $label)
@@ -36,6 +38,11 @@ class Column
         $this->livewireParams = $params;
 
         return $this;
+    }
+
+    public function filter($filterType, )
+    {
+
     }
 }
 
