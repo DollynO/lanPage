@@ -2,11 +2,8 @@
 
 namespace App\Http\Livewire\table;
 
-use App\Http\Livewire\Column;
-use App\Models\Game;
 use App\Models\Party;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\RedirectResponse;
 
 class PartyTable extends Table
 {
