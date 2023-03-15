@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,8 +60,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function parties() : HasMany
+    public function parties() : BelongsToMany
     {
-        return $this->hasMany(Party::class);
+        return $this->belongsToMany(Party::class);
     }
 }

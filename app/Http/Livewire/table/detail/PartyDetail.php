@@ -10,6 +10,7 @@ class PartyDetail extends Detail
 
     protected $rules =[
         'party.id' => 'sometimes|required|exists:parties,id',
+        'party.is_active' => 'required|boolean',
         'party.location' => 'required|string',
         'party.start_date' => 'required|date',
         'party.end_date' => 'required|date|after:start_date'
@@ -35,9 +36,10 @@ class PartyDetail extends Detail
         $validatedData = $this->validate();
 
         $party = Party::query()->whereKey($this->party['id'])->first();
-        $party->start_date = $validatedData['party']['name'];
-        $party->end_date = $validatedData['party']['note'];
-        $party->location = $validatedData['party']['source'];
+        $party->start_date = $validatedData['party']['start_date'];
+        $party->end_date = $validatedData['party']['end_date'];
+        $party->is_active = $validatedData['party']['is_active'];
+        $party->location = $validatedData['party']['location'];
         $party->save();
         $this->party = $party->toArray();
         $this->inEditState = false;

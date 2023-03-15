@@ -37,6 +37,16 @@ class PartyTable extends Table
 
     public function detailComponent()
     {
-        return 'table.detail.game-detail';
+        return 'table.detail.party-detail';
+    }
+
+    public function filters(): array
+    {
+        return [];
+    }
+
+    public function getTableName(): string
+    {
+        return 'parties';
     }
 }
