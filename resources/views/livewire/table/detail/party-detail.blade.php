@@ -1,13 +1,13 @@
 @component('components.SlideIn')
     @slot('title')
-        {{$game['name']}}
+        {{$party['start_date']}} - {{$party['end_date']}}
     @endslot
 
     @slot('upperButton')
-        @if(array_key_exists('images',$game))
+        @if(array_key_exists('images',$party))
             <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
                 <div class="carousel-inner relative w-full overflow-hidden">
-                    @foreach($game['images'] as $image)
+                    @foreach($party['images'] as $image)
                         <div class="carousel-item active relative float-left w-full">
                             <div class="relative overflow-hidden bg-no-repeat bg-cover"
                                  style="background-position: 50%;">
@@ -41,40 +41,8 @@
         @endif
     @endslot
 
-    <label>{{__('Name')}}</label>
-    <input type="text" id="name" wire:model.defer="game.name" x-bind:disabled="!inEditState"/>
-    @error('game.name') <span class="error text-red-400">{{ $message }}</span> @enderror
-
-    <label class="mt-2">{{__('Source')}}</label>
-    <input type="text" id="source" wire:model.defer="game.source" x-bind:disabled="!inEditState"/>
-    @error('game.source') <span class="error text-red-400">{{ $message }}</span> @enderror
-
-    <div class="grid grid-cols-2 gap-2 mt-2">
-        <div class="flex flex-column">
-            <label>{{__('Price')}}</label>
-            <input type="number" id="price" wire:model.defer="game.price" x-bind:disabled="!inEditState"
-                   class="disabled:border-1"/>
-            @error('game.price') <span class="error text-red-400">{{ $message }}</span> @enderror
-        </div>
-        <div class="flex flex-column">
-            <label>{{__('Player count')}}</label>
-            <input type="number" id="player_count" wire:model.defer="game.player_count" x-bind:disabled="!inEditState"
-                   class="disabled:border-1"/>
-            @error('game.player_count') <span class="error text-red-400">{{ $message }}</span> @enderror
-        </div>
-    </div>
-
-    <div class="flex flex-row mt-4">
-        <label>
-            <input type="checkbox" id="already_played" wire:model.defer="game.already_played"
-                   x-bind:disabled="!inEditState">
-            {{__('Already played')}}
-            @error('game.already_played') <span class="error text-red-400">{{ $message }}</span> @enderror
-        </label>
-    </div>
-
-    <label class="mt-2">{{__('Note')}}</label>
-    <textarea id="note" wire:model.defer="game.note" x-bind:disabled="!inEditState"
-              class="disabled:border-1"/>
-    @error('game.note') <span class="error text-red-400">{{ $message }}</span> @enderror
+    <x-datetime-picker  wire:model.defer="party.start_date" x-bind:disabled="!inEditState" label="{{__('Start date')}}" :without-time="true"/>
+    <x-datetime-picker  wire:model.defer="party.end_date" x-bind:disabled="!inEditState" label="{{__('End date')}}" :without-time="true"/>
+    <x-input wire:model.defer="party.location" x-bind:disabled="!inEditState" label="{{__('Location')}}"/>
+    <x-checkbox wire:model="party.is_active" x-bind:disabled="!inEditState" left-label="{{__('Active')}}"/>
 @endcomponent

@@ -6,9 +6,8 @@ use App\Http\Controllers\GameController;
 use App\Models\Game;
 use Livewire\Component;
 
-class EditGame extends Component
+class NewGame extends Component
 {
-    public $gameId;
     public $name;
     public $source;
     public $price;
@@ -17,7 +16,6 @@ class EditGame extends Component
     public $player_count;
 
     protected $rules= [
-        'gameId' => 'nullable|integer',
         'name'=>'required|string',
         'source' => 'required|string',
         'price' => 'numeric|nullable',
@@ -32,31 +30,15 @@ class EditGame extends Component
 
     public function submit(){
         $validatedData = $this->validate();
+
         $gameController = new GameController();
+        $gameController->create($validatedData);
 
-        if( !empty( $validatedData['gameId']))
-        {
-            $validatedData['id'] = $validatedData['gameId'];
-            $gameController->update($validatedData);
-        }else{
-            $gameController->create($validatedData);
-        }
         redirect()->to('/games');
-    }
-
-    public function mount($id){
-        $game = Game::find($id);
-        $this->gameId = $game->id ?? '';
-        $this->name = $game->name ?? 'new game';
-        $this->note = $game->note ?? '';
-        $this->source = $game->source ?? '';
-        $this->player_count = $game->player_count ?? 0;
-        $this->price = $game->price ?? 0.00;
-        $this->already_played = $game->already_played ?? false;
     }
 
     public function render()
     {
-        return view('livewire.edit-game');
+        return view('livewire.new-game');
     }
 }

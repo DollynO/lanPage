@@ -16,13 +16,13 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('games') }}" :active="request()->routeIs('games')">
-                        {{ __('Gamaes') }}
+                        {{ __('Games') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('tournament')">
                         {{ __('Tournament') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('pictures')">
-                        {{ __('Fotos') }}
+                    <x-jet-nav-link href="{{ route('parties') }}" :active="request()->routeIs('parties')">
+                        {{ __('Parties') }}
                     </x-jet-nav-link>
                 </div>
             </div>
