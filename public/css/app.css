@@ -19306,6 +19306,9 @@ select {
 .h-\[2\.6rem\] {
   height: 2.6rem;
 }
+.h-64 {
+  height: 16rem;
+}
 .max-h-64 {
   max-height: 16rem;
 }
@@ -19386,6 +19389,9 @@ select {
 }
 .w-7 {
   width: 1.75rem;
+}
+.w-64 {
+  width: 16rem;
 }
 .min-w-0 {
   min-width: 0px;
