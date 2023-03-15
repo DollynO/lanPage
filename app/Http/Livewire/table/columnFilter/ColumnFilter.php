@@ -78,4 +78,6 @@ abstract class ColumnFilter
      * @return mixed
      */
     public abstract function render(Table $table);
+
+    abstract public static function defaultCallback();
 }

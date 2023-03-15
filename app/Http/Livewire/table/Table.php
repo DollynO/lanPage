@@ -16,8 +16,12 @@ abstract class Table extends Component
     public $sortBy = '';
     public $search = '';
     public $showDetail = false;
-    public int $objectId;
     public $object;
+
+    public $perPage = 10;
+    public $currentPage = 1;
+    public $pageCount = 1;
+    public $totalRecords = 0;
 
     public abstract function query(): Builder;
 
@@ -37,7 +41,7 @@ abstract class Table extends Component
 
     public function data()
     {
-        return $this
+        $data = $this
             ->query()
             ->when($this->search !== '', function ($query){
                 $query->where($this->searchField(), 'LIKE', "%{$this->search}%");
@@ -51,27 +55,26 @@ abstract class Table extends Component
                         {
                             $query = ($filter->filterCallback)(
                                 $query,
+                                $filter->key,
                                 $this->{$this->getTableName()}['filters'][$filter->key]
                             );
                         }
                     }
                     return $query;
                 })
-            ->get()
-            ->when($this->sortBy !== '', function ($query){
-                if ($this->sortDirection === 'asc'){
-
-                    return $query->sortBy($this->sortBy);
-                }
-                else
-                {
-                    return $query->sortByDesc($this->sortBy);
-                }
-            });
+            ->when($this->sortBy !== '', function($query){
+                ($this->search_array($this->columns(), 'key', $this->sortBy)
+                        ->getSortCallback())($query, $this->sortBy, $this->sortDirection === 'asc');
+            })
+            ->paginate($this->perPage,['*'],'page',$this->currentPage );
+        $this->pageCount = $data->lastPage();
+        $this->totalRecords = $data->total();
+        return $data;
     }
 
     public function sort($key)
     {
+        $this->currentPage = 1;
         if ($this->sortBy === $key)
         {
             $this->sortDirection = $this->sortDirection === 'asc'
@@ -101,8 +104,17 @@ abstract class Table extends Component
 
     }
 
-    public function getFilters() : collection
+    public function resetFilter()
     {
-        return collection($this->filters());
+        $this->{$this->getTableName()}['filters'] = [];
+        $this->search = '';
+    }
+
+    private function search_array($array, $key, $value){
+        foreach ($array as $subarray){
+            if($subarray->$key == $value)
+                return $subarray;
+        }
+        return false;
     }
 }

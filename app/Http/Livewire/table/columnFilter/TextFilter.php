@@ -13,12 +13,10 @@ class TextFilter extends ColumnFilter
             'livewire.table.columnFilter.text-filter', ['tableComponent' => $table, 'filter' => $this]);
     }
 
-    public function filter(Builder $query, $filterVal) : Builder
+    public static function defaultCallback()
     {
-        return $query->when(
-            !empty($this->value),
-            function ($q) use($filterVal){
-                return $q->where($this->key,$filterVal);
-            });
+        return function ($query, $key, $value){
+            return $query->where($key,'like', '%'.$value.'%');
+        };
     }
 }

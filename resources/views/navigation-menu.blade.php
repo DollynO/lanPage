@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('games') }}" :active="request()->routeIs('games')">
-                        {{ __('Gamaes') }}
+                        {{ __('Games') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('tournament')">
                         {{ __('Tournament') }}
