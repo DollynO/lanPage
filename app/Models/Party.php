@@ -45,7 +45,8 @@ class Party extends Model
 
     public function participants() : BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)
+            ->withPivot(['start_day','end_day']);
     }
 
     public function delete()
