@@ -8,15 +8,17 @@ use Livewire\Component;
 class Dashboard extends Component
 {
     protected $listeners = [
-        'refreshComponent',
+        'refresh' => '$refresh',
     ];
 
-    public array $selectedParty;
-    public array $availableParty;
+    public $selectedPartyId;
+    public $availableParty;
 
-    public function mount(){
-        $this->selectedParty = Party::query()->with(['participants'])->where('is_active', true)->first()->toArray();
-        $this->availableParty = Party::all()->toArray();
+
+    public function mount()
+    {
+        $this->selectedPartyId = Party::query()->where('is_active', true)->first()->id;
+        $this->availableParty = Party::all();
     }
 
     public function render()
@@ -24,8 +26,8 @@ class Dashboard extends Component
         return view('livewire.dashboard');
     }
 
-    public function refreshComponent()
+    public function selectedParty()
     {
-        $this->selectedParty = Party::query()->with(['participants'])->where('id', $this->selectedParty['id'])->first()->toArray();
+        return Party::find($this->selectedPartyId)->with(['participants', 'meals'])->first();
     }
 }

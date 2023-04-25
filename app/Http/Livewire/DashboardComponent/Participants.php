@@ -12,10 +12,10 @@ class Participants extends Component
     public $takesPart;
 
     public function render()
-    {
-        if (array_key_exists('participants', $this->party)) {
-            foreach ($this->party['participants'] as $val) {
-                if ($val['id'] === Auth::id()) {
+    {;
+        if ($this->party->participants) {
+            foreach ($this->party->participants as $val) {
+                if ($val->id === Auth::id()) {
                     $this->takesPart = true;
                 }
             }
@@ -26,11 +26,11 @@ class Participants extends Component
 
     public function takePart($assign)
     {
-        $party = Party::find($this->party['id']);
+        $party = $this->party;
         $assign
-            ? $party->participants()->attach(Auth::id(), ['start_day' => $party['start_date'], 'end_day' => $party['end_date']])
+            ? $party->participants()->attach(Auth::id(), ['start_day' => $party->start_date, 'end_day' => $party->end_date])
             : $party->participants()->detach(Auth::id());
         $party->save();
-        $this->emit('refreshComponent');
+        $this->emit('refresh');
     }
 }

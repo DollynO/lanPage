@@ -18,8 +18,6 @@ class CreateMealUserTable extends Migration
             $table->timestamps();
             $table->bigInteger('meal_id');
             $table->bigInteger('user_id');
-            $table->boolean('isParticipant');
-            $table->boolean('isCook');
         });
     }
 
