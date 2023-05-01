@@ -29,30 +29,30 @@
                     <x-button red label="{{__('Cancel')}}"
                               x-on:click="showOverlay = false;this.$wire.resetEditFields()"/>
                     <x-button dark label="{{__('Save')}}"
-                              wire:click="AddMeal"/>
+                              wire:click="addMeal"/>
                 </div>
             </x-customCard>
         </div>
     </div>
     <div class="flex justify-between">
         <div>
-            @if($this->SelectedRowHasValidMeal())
-                @if(!$this->IsUserAlreadyAssigned())
+            @if($this->selectedRowHasValidMeal())
+                @if(!$this->isUserAlreadyAssigned())
                     <x-button class="mb-4 w-48" dark label="{{__('Assign as Chef')}}"
-                              wire:click="AssignUserToMeal"/>
+                              wire:click="assignUserToMeal"/>
                 @else
-                    <x-button class="mb-4 w-48" dark label="{{__('Remove as Chef')}}" wire:click="RemoveUserFromMeal"/>
+                    <x-button class="mb-4 w-48" dark label="{{__('Remove as Chef')}}" wire:click="removeUserFromMeal"/>
                 @endif
             @endif
         </div>
         <div class="justify-end w-full flex mb-4 gap-4">
-            @if($this->SelectedRowHasValidMeal())
+            @if($this->selectedRowHasValidMeal())
                 <div>
                     <x-button dark label="Edit" wire:click="editMeal"/>
                     <x-button dark label="Remove" wire:click="removeMeal"/>
                 </div>
             @else
-                <x-button x-bind:disabled="selectedId < 0" dark label="Add" x-on:click="showOverlay = true"/>
+                <x-button x-bind:disabled="selectedId < 0" dark label="Add" x-on:click="showOverlay = true; $wire.resetEditFields()"/>
             @endif
         </div>
     </div>
@@ -90,7 +90,7 @@
                                 {{$meal['meal']?->recipe->name ?? ''}}
                             </x-td>
                             <x-td>
-                                {{$meal['meal']?->chefs->pluck('name') ?? ''}}
+                                {{implode(',', $meal['meal']?->chefs->pluck('name')->toArray() ?? [])}}
                             </x-td>
                             <x-td>
                                 @if($meal['meal'] != null)

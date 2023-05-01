@@ -19207,6 +19207,9 @@ select {
 .-ml-8 {
   margin-left: -2rem;
 }
+.mt-60 {
+  margin-top: 15rem;
+}
 .-mt-px {
   margin-top: -1px;
 }
@@ -19218,12 +19221,6 @@ select {
 }
 .mb-0 {
   margin-bottom: 0px;
-}
-.mt-20 {
-  margin-top: 5rem;
-}
-.mt-60 {
-  margin-top: 15rem;
 }
 .block {
   display: block;
@@ -19387,6 +19384,14 @@ select {
 .w-7 {
   width: 1.75rem;
 }
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.w-\[200\] {
+  width: 200;
+}
 .w-80 {
   width: 20rem;
 }
@@ -19398,14 +19403,6 @@ select {
 }
 .w-64 {
   width: 16rem;
-}
-.w-\[200\] {
-  width: 200;
-}
-.w-fit {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
 }
 .min-w-0 {
   min-width: 0px;
@@ -19439,9 +19436,6 @@ select {
 }
 .flex-1 {
   flex: 1 1 0%;
-}
-.flex-auto {
-  flex: 1 1 auto;
 }
 .shrink-0 {
   flex-shrink: 0;
@@ -19859,9 +19853,6 @@ select {
 }
 .bg-white\/30 {
   background-color: rgb(255 255 255 / 0.3);
-}
-.bg-gray-200\/10 {
-  background-color: rgb(229 231 235 / 0.1);
 }
 .bg-gray-200\/50 {
   background-color: rgb(229 231 235 / 0.5);
@@ -20342,14 +20333,6 @@ select {
 .ring-opacity-5 {
   --tw-ring-opacity: 0.05;
 }
-.blur {
-  --tw-blur: blur(8px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-.blur-none {
-  --tw-blur: blur(0);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -20782,16 +20765,16 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
+.dark .dark\:bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
 .dark .dark\:bg-gray-800\/30 {
   background-color: rgb(31 41 55 / 0.3);
 }
 .dark .dark\:bg-gray-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-}
-.dark .dark\:bg-gray-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 .dark .dark\:bg-opacity-60 {
   --tw-bg-opacity: 0.6;

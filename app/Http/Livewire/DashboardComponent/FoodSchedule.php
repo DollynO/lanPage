@@ -82,7 +82,7 @@ class FoodSchedule extends Component
     }
 
 
-    public function AssignUserToMeal()
+    public function assignUserToMeal()
     {
         $meal = $this->foodSchedule[$this->selectedId];
         if (!array_key_exists('meal', $meal)) {
@@ -99,7 +99,7 @@ class FoodSchedule extends Component
     }
 
 
-    public function RemoveUserFromMeal()
+    public function removeUserFromMeal()
     {
         $meal = $this->foodSchedule[$this->selectedId];
 
@@ -112,7 +112,7 @@ class FoodSchedule extends Component
         $selectedMeal->save();
     }
 
-    public function AddMeal()
+    public function addMeal()
     {
 
         $this->validate([
@@ -165,12 +165,18 @@ class FoodSchedule extends Component
         $selectedMeal->delete();
     }
 
+    /**
+     * Resets the edit field for food.
+     * @return void
+     */
     public function resetEditFields()
     {
-        $this->editDish = '';
+        $this->editRecipe = null;
+        $this->editDishDescription = '';
+        $this->editDishName = '';
     }
 
-    public function IsUserAlreadyAssigned(): bool
+    public function isUserAlreadyAssigned(): bool
     {
         if ($this->selectedId < 0) {
             return false;
@@ -185,7 +191,7 @@ class FoodSchedule extends Component
         return false;
     }
 
-    public function SelectedRowHasValidMeal(): bool
+    public function selectedRowHasValidMeal(): bool
     {
         if ($this->selectedId < 0 || !array_key_exists('meal', $this->foodSchedule[$this->selectedId]) || !$this->foodSchedule[$this->selectedId]['meal']) {
             return false;
