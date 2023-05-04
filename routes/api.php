@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Game;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::get('/recipe', function (Request $request) {
     return json_encode(Recipe::all());
 })->name('api.recipes');
+
+Route::get('/games', function (Request $request) {
+    return json_encode(Game::all());
+})->name('api.games');
