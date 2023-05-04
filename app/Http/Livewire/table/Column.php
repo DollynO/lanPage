@@ -9,25 +9,59 @@ class Column
     public string $component = 'columns.column';
     public array $livewireParams;
 
+
+    /**
+     * The key|column name of the column.
+     * @string
+     */
     public string $key;
 
+    /**
+     * The header label.
+     * @var string
+     */
     public string $label;
+
+    /**
+     * A value indicating whether the column has a livewire component or not.
+     * @var bool
+     */
     public bool $isLivewire = false;
+
+    /**
+     * An alternative callback to sort after this column.
+     * @var null
+     */
     public $sortCallback = null;
 
+    /**
+     * Constructor to create a new column.
+     * @param $key
+     * @param $label
+     */
     public function __construct($key, $label)
     {
         $this->key = $key;
         $this->label = $label;
     }
 
-
-    public static function make($key, $label)
+    /**
+     * Static function to create a new instance.
+     * @param $key
+     * @param $label
+     * @return static
+     */
+    public static function make($key, $label): static
     {
         return new static($key, $label);
     }
 
-    public function component($component)
+    /**
+     * The component used to render the content of the column.
+     * @param $component
+     * @return $this
+     */
+    public function component($component): Column
     {
         $this->component = $component;
 

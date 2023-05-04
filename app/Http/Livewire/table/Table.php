@@ -12,6 +12,9 @@ abstract class Table extends Component
         'updateFilterData',
     ];
 
+    public $customButtons =[];
+    public $selectedRowId = -1;
+
     public $sortDirection = 'asc';
     public $sortBy = '';
     public $search = '';
@@ -26,24 +29,40 @@ abstract class Table extends Component
     public abstract function query(): Builder;
 
     public abstract function columns() : array;
+    public abstract function customButtons() : array;
     public abstract function filters() : array;
 
     public abstract function searchField() : string;
 
     abstract public function getTableName() : string;
 
+    public function disablePagination(): bool
+    {
+        return false;
+    }
+    public function disableHeaderBar(): bool
+    {
+        return false;
+    }
+
+    public function disableFooterBar(): bool
+    {
+        return false;
+    }
+
     public abstract function new();
     public abstract function detailComponent();
     public function detail($object){
-        $this->showDetail = true;
+        $this->showDetail = $this->detailComponent();
         $this->object = $object;
+        $this->selectedRowId = $object['id'];
     }
 
     public function data()
     {
         $data = $this
             ->query()
-            ->when($this->search !== '', function ($query){
+            ->when($this->search !== '' && $this->searchField() !== '', function ($query){
                 $query->where($this->searchField(), 'LIKE', "%{$this->search}%");
             })->when(
                 count($this->filters()) > 0,
@@ -116,5 +135,9 @@ abstract class Table extends Component
                 return $subarray;
         }
         return false;
+    }
+
+    public function hasSelectedRow(){
+        return $this->selectedRowId > 0;
     }
 }

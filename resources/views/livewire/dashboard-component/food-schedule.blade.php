@@ -22,8 +22,8 @@
                     />
                 </div>
                 <div>
-                    <x-input label="{{__('Name')}}" wire:model="editDishName"/>
-                    <x-textarea label="{{__('Description')}}" wire:model="editDishDescription"/>
+                    <x-input label="{{__('Name')}}" wire:model="edit.name"/>
+                    <x-textarea label="{{__('Description')}}" wire:model="edit.description"/>
                 </div>
                 <div class="bottom-0 relative flex justify-between mt-5">
                     <x-button red label="{{__('Cancel')}}"

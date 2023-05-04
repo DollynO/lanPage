@@ -13,9 +13,21 @@
                 <x-slot name="title">
                     {{__('Food Schedule')}}
                 </x-slot>
-                <livewire:dashboard-component.food-schedule class="flex" key="{{ now() }}" :party="$this->selectedParty()"/>
+                <livewire:dashboard-component.food-schedule class="flex" key="{{ now() }}"
+                                                            :party="$this->selectedParty()"/>
             </x-customCard>
         </div>
+        <x-customCard>
+            <x-slot name="title">
+                {{__('Food Schedule')}}
+            </x-slot>
+            <livewire:dashboard-component.food-schedule class="flex" key="{{ now() }}"
+                                                        :party="$this->selectedParty()"/>
+        </x-customCard>
+        <x-customCard>
+            <livewire:dashboard-component.game-suggestions class="flex" key="{{now()}}"
+                                                           :party="$this->selectedParty()"/>
+        </x-customCard>
         <div class="flex flex-row gap-2">
             <x-customCard>
                 <x-slot name="title">

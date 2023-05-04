@@ -18,8 +18,7 @@ class FoodSchedule extends Component
 
     public $showOverlay = false;
 
-    public string $editDishName;
-    public string $editDishDescription;
+    public $edit;
     public $editRecipe;
     public string $selectedDateTime;
 
@@ -99,6 +98,10 @@ class FoodSchedule extends Component
     }
 
 
+    /**
+     * removes the current user from the meal.
+     * @return void
+     */
     public function removeUserFromMeal()
     {
         $meal = $this->foodSchedule[$this->selectedId];
@@ -112,22 +115,32 @@ class FoodSchedule extends Component
         $selectedMeal->save();
     }
 
+    /**
+     * Adds a meal to the selected row.
+     * @return void
+     */
     public function addMeal()
     {
 
         $this->validate([
-        'editDishName'  => [
-            'required',
-            Rule::unique(Recipe::class, 'name')->ignore($this->editRecipe,'id'),
-        ]]);
+            'edit.name' => [
+                'required',
+                'string',
+                'max:200',
+                Rule::unique(Recipe::class, 'name')->ignore($this->editRecipe, 'id'),
+            ],
+            'editRecipe' => [
+                'nullable',
+                'integer',
+                Rule::exists(Recipe::class, 'id'),
+                Rule::unique(Meal::class, 'recipe_id')
+                    ->where('party_id', $this->party['id']),
+            ],
+        ]);
 
-        if ($this->editRecipe) {
-            $recipe = Recipe::query()->whereKey($this->editRecipe)->first();
-        } else {
-            $recipe = new Recipe();
-        }
-        $recipe->name = $this->editDishName;
-        $recipe->description = $this->editDishDescription;
+        $recipe = Recipe::query()->whereKey($this->editRecipe)->firstOrNew();
+        $recipe->name = $this->edit['name'];
+        $recipe->description = $this->edit['description'] ?? '';
         $recipe->save();
 
         $selectedMealId = $this->foodSchedule[$this->selectedId]['meal']['id'] ?? null;
@@ -142,15 +155,24 @@ class FoodSchedule extends Component
         $this->showOverlay = false;
     }
 
+    /**
+     * Fills the edit field from the selected recipe.
+     * @return void
+     */
     public function fillFromSelection()
     {
         if ($this->editRecipe) {
             $selectedRecipe = Recipe::query()->whereKey($this->editRecipe)->first();
-            $this->editDishName = $selectedRecipe->name ?? '';
-            $this->editDishDescription = $selectedRecipe->description ?? '';
+            $this->edit['name'] = $selectedRecipe->name ?? '';
+            $this->edit['description'] = $selectedRecipe->description ?? '';
         }
     }
 
+
+    /**
+     * Opens the edit overlay to edit the current selected meal.
+     * @return void
+     */
     public function editMeal()
     {
         $this->showOverlay = true;
@@ -158,6 +180,11 @@ class FoodSchedule extends Component
         $this->fillFromSelection();
     }
 
+    /**
+     * Removes the meal of the selected row.
+     * Does not delete the recipe.
+     * @return void
+     */
     public function removeMeal()
     {
         $selectedMeal = Meal::query()->whereKey($this->foodSchedule[$this->selectedId]['meal']['id'])->first();
@@ -172,10 +199,13 @@ class FoodSchedule extends Component
     public function resetEditFields()
     {
         $this->editRecipe = null;
-        $this->editDishDescription = '';
-        $this->editDishName = '';
+        $this->edit = [];
     }
 
+    /**
+     * Validates if a user is already assigned as a chef to the selected meal.
+     * @return bool
+     */
     public function isUserAlreadyAssigned(): bool
     {
         if ($this->selectedId < 0) {
@@ -191,6 +221,10 @@ class FoodSchedule extends Component
         return false;
     }
 
+    /**
+     * Checks if the selected row has a meal.
+     * @return bool
+     */
     public function selectedRowHasValidMeal(): bool
     {
         if ($this->selectedId < 0 || !array_key_exists('meal', $this->foodSchedule[$this->selectedId]) || !$this->foodSchedule[$this->selectedId]['meal']) {
