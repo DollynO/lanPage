@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Party::class);
     }
+
+    public function meals() : BelongsToMany
+    {
+        return $this->belongsToMany(Meal::class);
+    }
 }

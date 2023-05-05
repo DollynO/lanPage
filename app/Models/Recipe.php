@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use App\Traits\Rateable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Game extends Model
+class Recipe extends Model
 {
     use HasFactory, Rateable;
 
@@ -17,15 +15,10 @@ class Game extends Model
         'rating'
     ];
 
-    protected $fillable =[
-        'id',
-        'name',
-        'note',
-        'source',
-        'player_count',
-        'price',
-        'already_played'
-    ];
+    public function recipe(): BelongsToMany
+    {
+        return $this->belongsToMany(Meal::class);
+    }
 
     public function delete()
     {

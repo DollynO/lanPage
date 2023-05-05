@@ -31,5 +31,6 @@ class StarRating extends Component
         }
 
         $this->object->refresh();
+        $this->emit('refresh');
     }
 }

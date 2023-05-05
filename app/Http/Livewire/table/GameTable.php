@@ -81,12 +81,12 @@ class GameTable extends Table
         return 'gameTable';
     }
 
-    public function new()
+    public function new(): mixed
     {
         return redirect()->route('new_game');
     }
 
-    public function detailComponent()
+    public function detailComponent(): ?string
     {
         return 'table.detail.game-detail';
     }

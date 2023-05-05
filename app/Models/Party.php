@@ -2,17 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Traits\Rateable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Support\Facades\Auth;
 
 class Party extends Model
 {
-    use HasFactory;
+    use HasFactory, Rateable;
 
     protected $appends = [
         'rating'
@@ -26,26 +24,15 @@ class Party extends Model
         'end_date',
     ];
 
-    public function ratings() : MorphMany
-    {
-        return $this->morphMany(Rating::class, 'model');
-    }
-
-    public function userRating(): MorphMany|Builder
-    {
-        return $this->ratings()->whereHas('user', function($query){
-            $query->where('id', Auth::id());
-        });
-    }
-
-    public function getRatingAttribute() : int
-    {
-        return round( $this->ratings()->avg('rating'),0);
-    }
-
     public function participants() : BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)
+            ->withPivot(['start_day','end_day']);
+    }
+
+    public function meals() : HasMany
+    {
+        return $this->hasMany(Meal::class)->with('recipe')->orderBy('date');
     }
 
     public function delete()
