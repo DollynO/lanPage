@@ -116,6 +116,16 @@ abstract class Table extends Component
     public abstract function new(): mixed;
 
 // Optional function
+
+    /**
+     * Gets the title of the table.
+     * @return string
+     */
+    public function tableTitle() : string
+    {
+        return '';
+    }
+
     /**
      * Returns an array with the filters for the table.
      * The filters are displayed above the table.

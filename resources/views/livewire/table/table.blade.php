@@ -4,6 +4,11 @@
     pageCount: @entangle('pageCount'),
     currentPage: @entangle('currentPage'),
     selectedRowId: @entangle('selectedRowId')}">
+    @if ($this->tableTitle())
+    <div class="mb-4 text-xl leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white text-center">
+        {{__($this->tableTitle())}}
+    </div>
+    @endif
     @if(count($this->customButtons()))
         <div class="w-full flex flex-row justify-end gap-4">
             @foreach($this->customButtons() as $button)

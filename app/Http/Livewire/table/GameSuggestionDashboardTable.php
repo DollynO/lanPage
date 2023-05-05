@@ -68,6 +68,11 @@ class GameSuggestionDashboardTable extends Table
         return 'gameSuggestionDashboardTable';
     }
 
+    public function tableTitle(): string
+    {
+        return 'Game suggestions';
+    }
+
     public function disablePagination(): bool
     {
         return true;

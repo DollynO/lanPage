@@ -21,7 +21,8 @@ class PartyTable extends Table
             Column::make('rating','Rating')
                 ->component('components.star-rating')
                 ->livewire(),
-            Column::make('participants', 'Participants'),
+            Column::make('participants', 'Participants')
+            ->component('columns.list'),
         ];
     }
 
