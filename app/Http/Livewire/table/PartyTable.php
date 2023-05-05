@@ -30,19 +30,14 @@ class PartyTable extends Table
         return '';
     }
 
-    public function new()
+    public function new(): mixed
     {
         return redirect()->route('new_party');
     }
 
-    public function detailComponent()
+    public function detailComponent(): ?string
     {
         return 'table.detail.party-detail';
-    }
-
-    public function filters(): array
-    {
-        return [];
     }
 
     public function getTableName(): string

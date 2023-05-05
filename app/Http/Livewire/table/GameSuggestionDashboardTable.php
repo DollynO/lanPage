@@ -2,13 +2,8 @@
 
 namespace App\Http\Livewire\table;
 
-use App\Http\Livewire\table\columnFilter\NumberFilter;
-use App\Http\Livewire\table\columnFilter\TextFilter;
-use App\Models\Game;
 use App\Models\GameSuggestion;
-use App\Models\Rating;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 
 class GameSuggestionDashboardTable extends Table
 {
@@ -88,12 +83,12 @@ class GameSuggestionDashboardTable extends Table
         return true;
     }
 
-    public function new()
+    public function new(): mixed
     {
         return null;
     }
 
-    public function detailComponent()
+    public function detailComponent(): ?string
     {
         return null;
     }

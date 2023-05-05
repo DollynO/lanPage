@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\table;
 
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 class Column
@@ -68,7 +69,12 @@ class Column
         return $this;
     }
 
-    public function livewire($params = [])
+    /**
+     * Marks the column as livewire column.
+     * @param array $params
+     * @return $this
+     */
+    public function livewire(array $params = []) : Column
     {
         $this->isLivewire = true;
         $this->livewireParams = $params;
@@ -76,19 +82,34 @@ class Column
         return $this;
     }
 
-    public function sortable($callback = null) {
+    /**
+     * If an alternative sort function is needed.
+     * @param $callback
+     * @return $this
+     */
+    public function sortable($callback = null) : Column
+    {
         $this->sortCallback = $callback;
         return $this;
     }
 
-    public static function defaultSortCallback()
+    /**
+     * The default sort callback for a string column.
+     * @return Closure
+     */
+    public static function defaultSortCallback(): Closure
     {
         return function(Builder $query,string $key, bool $directionAsc){
             return $directionAsc ? $query->orderBy($key) : $query->orderByDesc($key);
         };
     }
 
-    public function getSortcallback(){
+    /**
+     * Gets the sort callback. Either uses the custom callback or the default callback.
+     * @return Closure
+     */
+    public function getSortCallback(): Closure
+    {
         return $this->sortCallback ?? Column::defaultSortCallback();
     }
 }
