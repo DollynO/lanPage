@@ -27,6 +27,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Parties
     Route::get('/parties', function (){ return view('parties');})->name('parties');
     Route::get('/parties/create', function(){ return view('entries/new-party');})->name('new_party');
+    Route::group(['middleware' => ['admin']], function(){
+        // Users
+        Route::get('/users', function (){ return view('users');})->name('users');
+    });
 });
 
 Auth::routes();
