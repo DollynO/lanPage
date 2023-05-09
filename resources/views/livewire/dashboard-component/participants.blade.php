@@ -1,7 +1,12 @@
 <div x-data="{takesPart: @entangle('takesPart')}">
     <div class="justify-end w-full flex mb-4">
         <x-button x-show="!takesPart" dark label="Attend" wire:click="takePart(true)"/>
-        <x-button x-show="takesPart" dark label="Leave" wire:click="takePart(false)"/>
+        <x-button negative x-show="takesPart" dark label="Leave" x-on:confirm="{
+        title: 'Really leave?',
+        description: 'If you leave all your tournament points, game and meal suggestions are deleted.',
+        icon: 'warning',
+        method: 'takePart',
+        params: false}"/>
     </div>
     <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <div class="relative overflow-x-auto shadow-md rounded-lg">

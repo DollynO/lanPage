@@ -22,7 +22,7 @@ class NewParty extends Component
         return view('livewire.new-party');
     }
 
-    public function submit()
+    public function save()
     {
         $validatedData = $this->validate();
         $party = new Party();

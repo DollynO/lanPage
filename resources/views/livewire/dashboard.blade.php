@@ -1,15 +1,15 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="flex flex-col gap-2 w-full">
         <div class="flex flex-row gap-2 justify-between">
-            <x-customCard>
+            <x-custom-card>
                 <x-slot name="title">
                     {{__('Participants')}}
                 </x-slot>
                 <livewire:dashboard-component.participants class="flex w-1/2" key="{{ now() }}"
                                                            :party="$this->selectedParty()"/>
 
-            </x-customCard>
-            <x-customCard>
+            </x-custom-card>
+            <x-custom-card>
                 <x-slot name="title">
                     {{__('Checklist')}}
                 </x-slot>
@@ -55,18 +55,18 @@
                         </ul>
                     </div>
                 </div>
-            </x-customCard>
+            </x-custom-card>
         </div>
-        <x-customCard>
+        <x-custom-card>
             <x-slot name="title">
                 {{__('Food Schedule')}}
             </x-slot>
             <livewire:dashboard-component.food-schedule class="flex" key="{{ now() }}"
                                                         :party="$this->selectedParty()"/>
-        </x-customCard>
-        <x-customCard>
+        </x-custom-card>
+        <x-custom-card>
             <livewire:dashboard-component.game-suggestions class="flex" key="{{now()}}"
                                                            :party="$this->selectedParty()"/>
-        </x-customCard>
+        </x-custom-card>
     </div>
 </div>

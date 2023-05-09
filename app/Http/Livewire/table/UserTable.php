@@ -4,6 +4,8 @@ namespace App\Http\Livewire\table;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserTable extends Table
 {
@@ -47,6 +49,8 @@ class UserTable extends Table
 
         $user = new User();
         $user->name = "New User";
+        $password = Str::random(10);
+        $user->password = Hash::make($password);
         $user->save();
         return null;
     }

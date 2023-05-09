@@ -26,6 +26,6 @@ class SlideIn extends Component
      */
     public function render()
     {
-        return view('components.SlideIn');
+        return view('components.slide-in');
     }
 }

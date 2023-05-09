@@ -11,7 +11,7 @@
             <div class="mt-10 sm:mt-0">
                 <div class="md:gap-6">
                     <div class="mt-5 md:mt-0">
-                        @livewire('edit-game')
+                        @livewire('new-game')
                     </div>
                 </div>
             </div>

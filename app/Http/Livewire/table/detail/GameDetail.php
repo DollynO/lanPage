@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\table\detail;
 
 use App\Models\Game;
-use Livewire\Component;
 
 class GameDetail extends Detail
 {
@@ -15,7 +14,7 @@ class GameDetail extends Detail
         'game.note' => 'nullable|string',
         'game.source' => 'required|string',
         'game.player_count' => 'required|integer|min:0',
-        'game.price' => 'nullable|numeric|min:0',
+        'game.price' => 'required|numeric|min:0',
         'game.already_played' => 'nullable|boolean',
     ];
 
@@ -30,8 +29,21 @@ class GameDetail extends Detail
 
     public function delete()
     {
+
         $game = Game::query()->whereKey($this->game['id'])->first();
+        if ($game->gameSuggestions()->count()) {
+            $this->notification()->error(
+                'Can not delete!',
+                'The game was suggested.'
+            );
+            return;
+        }
+
         $game->delete();
+
+        $this->notification()->success(
+            'Game deleted.'
+        );
     }
 
     public function save()
@@ -51,5 +63,9 @@ class GameDetail extends Detail
         $game->save();
         $this->game = $game->toArray();
         $this->inEditState = false;
+
+        $this->notification()->success(
+            'Game saved.',
+        );
     }
 }

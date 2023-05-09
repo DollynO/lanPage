@@ -1,14 +1,16 @@
-@component('components.SlideIn')
-    @slot('title')
+<x-slide-in>
+    <x-slot name="title">
         {{$user['name']}}
-    @endslot
+    </x-slot>
 
-    @slot('upperButton')
+    <x-slot name="upperButton">
         <div>
-
         </div>
-    @endslot
+    </x-slot>
+    <x-dialog/>
     <x-input x-bind:disabled="!inEditState" label="{{__('Name')}}" wire:model="user.name"/>
-    <x-button red label="{{__('Change password')}}"
-              x-on:click="changePassword = true"/>
-@endcomponent
+    <x-button negative label="{{__('Reset password')}}" x-on:confirm="{
+    title: 'Sure reset password?',
+    icon: 'warning',
+    method: 'resetPassword'}"/>
+</x-slide-in>

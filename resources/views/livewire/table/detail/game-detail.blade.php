@@ -1,9 +1,9 @@
-@component('components.SlideIn')
-    @slot('title')
+<x-slide-in>
+    <x-slot name="title">
         {{$game['name']}}
-    @endslot
+    </x-slot>
 
-    @slot('upperButton')
+    <x-slot name="upperButton">
         @if(array_key_exists('images',$game))
             <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
                 <div class="carousel-inner relative w-full overflow-hidden">
@@ -39,42 +39,19 @@
                 </button>
             </div>
         @endif
-    @endslot
+    </x-slot>
 
-    <label>{{__('Name')}}</label>
-    <input type="text" id="name" wire:model.defer="game.name" x-bind:disabled="!inEditState"/>
-    @error('game.name') <span class="error text-red-400">{{ $message }}</span> @enderror
-
-    <label class="mt-2">{{__('Source')}}</label>
-    <input type="text" id="source" wire:model.defer="game.source" x-bind:disabled="!inEditState"/>
-    @error('game.source') <span class="error text-red-400">{{ $message }}</span> @enderror
-
+    <x-input label="{{__('Name')}}" wire:model.defer="game.name" x-bind:disabled="!inEditState"/>
+    <x-input label="{{__('Source')}}" wire:model.defer="game.source" x-bind:disabled="!inEditState"/>
     <div class="grid grid-cols-2 gap-2 mt-2">
-        <div class="flex flex-column">
-            <label>{{__('Price')}}</label>
-            <input type="number" id="price" wire:model.defer="game.price" x-bind:disabled="!inEditState"
-                   class="disabled:border-1"/>
-            @error('game.price') <span class="error text-red-400">{{ $message }}</span> @enderror
-        </div>
-        <div class="flex flex-column">
-            <label>{{__('Player count')}}</label>
-            <input type="number" id="player_count" wire:model.defer="game.player_count" x-bind:disabled="!inEditState"
-                   class="disabled:border-1"/>
-            @error('game.player_count') <span class="error text-red-400">{{ $message }}</span> @enderror
-        </div>
+        <x-input label="{{__('Price')}}" class="disabled:border-1" wire:model.defer="game.price"
+                 x-bind:disabled="!inEditState"/>
+        <x-input label="{{__('Player count')}}" class="disabled:border-1" wire:model.defer="game.player_count"
+                 x-bind:disabled="!inEditState"/>
     </div>
+    <x-input type="checkbox" label="{{__('Already played')}}" wire:model.defer="game.already_played"
+             x-bind:disabled="!inEditState"/>
 
-    <div class="flex flex-row mt-4">
-        <label>
-            <input type="checkbox" id="already_played" wire:model.defer="game.already_played"
-                   x-bind:disabled="!inEditState">
-            {{__('Already played')}}
-            @error('game.already_played') <span class="error text-red-400">{{ $message }}</span> @enderror
-        </label>
-    </div>
-
-    <label class="mt-2">{{__('Note')}}</label>
-    <textarea id="note" wire:model.defer="game.note" x-bind:disabled="!inEditState"
-              class="disabled:border-1"/>
-    @error('game.note') <span class="error text-red-400">{{ $message }}</span> @enderror
-@endcomponent
+    <x-textarea label="{{__('Note')}}" lass="disabled:border-1" wire:model.defer="game.note"
+                x-bind:disabled="!inEditState"/>
+</x-slide-in>

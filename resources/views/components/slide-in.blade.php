@@ -70,12 +70,12 @@
                                                   x-bind:disabled="inEditState" label="{{__('Delete')}}"/>
                                     </div>
                                     <div class="grid grid-cols-2 gap-2 mt-2" x-show="confirmDelete">
-                                        <x-button red x-on:click="$wire.delete(); open = false"
+                                        <x-button negative x-on:click="$wire.delete(); open = false"
                                                   x-show="confirmDelete" label="{{__('Delete')}}"/>
                                         <x-button dark x-on:click="confirmDelete = false" x-show="confirmDelete"
                                                   label="{{__('Cancel')}}"/>
                                     </div>
-                                    <div class="mt-2 flex flex-column">
+                                    <div class="mt-2 flex flex-column gap-3">
                                         {{$slot}}
                                     </div>
                                 </div>

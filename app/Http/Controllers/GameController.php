@@ -20,8 +20,10 @@ class GameController extends Controller
      */
     public function create(Array $request): JsonResponse
     {
+
         $validator = Validator::make($request, [
             'player_count' => 'required|numeric',
+            'genre' => 'required|string',
             'price' => 'required|numeric',
             'name' => 'required|string',
             'note' => 'nullable|string',
@@ -35,6 +37,7 @@ class GameController extends Controller
 
         $game = new Game();
         $game->player_count = $request['player_count'];
+        $game->genre = $request['genre'];
         $game->price = $request['price'];
         $game->name = $request['name'];
         $game->note = $request['note'];
@@ -55,6 +58,7 @@ class GameController extends Controller
         $validator = Validator::make($request, [
             'id'=>'required|integer|exists:games,id',
             'player_count' => 'required|numeric',
+            'genre' => 'required|string',
             'price' => 'required|numeric',
             'name' => 'required|string',
             'note' => 'nullable|string',

@@ -22,12 +22,12 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('tournament')">
                         {{ __('Tournament') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('parties') }}" :active="request()->routeIs('parties')">
-                        {{ __('Parties') }}
-                    </x-jet-nav-link>
                     @if (Auth::user()->name == "admin")
+                        <x-jet-nav-link href="{{ route('parties') }}" :active="request()->routeIs('parties')">
+                            <span class="text-red-400">{{ __('Parties') }}</span>
+                        </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
-                            {{ __('Users') }}
+                            <span class="text-red-400">{{ __('Users')}}</span>
                         </x-jet-nav-link>
                     @endif
                 </div>
