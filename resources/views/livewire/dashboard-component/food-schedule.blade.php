@@ -5,7 +5,7 @@
     }">
     <div class="top-0 left-0 z-10 w-full h-full backdrop-blur-lg bg-gray-200/50 fixed" x-show="showOverlay">
         <div class="w-1/2 h-auto mx-auto mt-60" @click.away="showOverlay = false">
-            <x-customCard>
+            <x-custom-card>
                 <x-slot name="title">
                     {{$selectedDateTime}}
                 </x-slot>
@@ -31,7 +31,7 @@
                     <x-button dark label="{{__('Save')}}"
                               wire:click="addMeal"/>
                 </div>
-            </x-customCard>
+            </x-custom-card>
         </div>
     </div>
     <div class="flex justify-between">
@@ -41,7 +41,7 @@
                     <x-button class="mb-4 w-48" dark label="{{__('Assign as Chef')}}"
                               wire:click="assignUserToMeal"/>
                 @else
-                    <x-button class="mb-4 w-48" dark label="{{__('Remove as Chef')}}" wire:click="removeUserFromMeal"/>
+                    <x-button negative class="mb-4 w-48" dark label="{{__('Remove as Chef')}}" wire:click="removeUserFromMeal"/>
                 @endif
             @endif
         </div>
@@ -49,7 +49,7 @@
             @if($this->selectedRowHasValidMeal())
                 <div>
                     <x-button dark label="Edit" wire:click="editMeal"/>
-                    <x-button dark label="Remove" wire:click="removeMeal"/>
+                    <x-button negative label="Remove" wire:click="removeMeal"/>
                 </div>
             @else
                 <x-button x-bind:disabled="selectedId < 0" dark label="Add" x-on:click="showOverlay = true; $wire.resetEditFields()"/>

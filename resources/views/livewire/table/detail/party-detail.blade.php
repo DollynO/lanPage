@@ -1,9 +1,9 @@
-@component('components.SlideIn')
-    @slot('title')
+<x-slide-in>
+    <x-slot name="title">
         {{$party['start_date']}} - {{$party['end_date']}}
-    @endslot
+    </x-slot>
 
-    @slot('upperButton')
+    <x-slot name="upperButton">
         @if(array_key_exists('images',$party))
             <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
                 <div class="carousel-inner relative w-full overflow-hidden">
@@ -39,10 +39,13 @@
                 </button>
             </div>
         @endif
-    @endslot
+    </x-slot>
 
-    <x-datetime-picker  wire:model.defer="party.start_date" x-bind:disabled="!inEditState" label="{{__('Start date')}}" :without-time="true"/>
-    <x-datetime-picker  wire:model.defer="party.end_date" x-bind:disabled="!inEditState" label="{{__('End date')}}" :without-time="true"/>
+    <x-datetime-picker wire:model.defer="party.start_date" x-bind:disabled="!inEditState" label="{{__('Start date')}}"
+                       :without-time="true"/>
+    <x-datetime-picker wire:model.defer="party.end_date" x-bind:disabled="!inEditState" label="{{__('End date')}}"
+                       :without-time="true"/>
     <x-input wire:model.defer="party.location" x-bind:disabled="!inEditState" label="{{__('Location')}}"/>
     <x-checkbox wire:model="party.is_active" x-bind:disabled="!inEditState" left-label="{{__('Active')}}"/>
-@endcomponent
+
+</x-slide-in>

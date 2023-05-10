@@ -28,7 +28,26 @@ class PartyDetail extends Detail
     public function delete()
     {
         $party = Party::query()->whereKey($this->party['id'])->first();
+        if ($party->participants()->count()){
+            $this->notification()->error(
+                'Can not delete!',
+                'The party has participants.'
+            );
+            return;
+        }
+
+        if ($party->meals()->count()){
+            $this->notification()->error(
+                'Can not delete!',
+                'The party has assigned meals.'
+            );
+            return;
+        }
+
         $party->delete();
+        $this->notification()->success(
+            'Party deleted.'
+        );
     }
 
     public function save()
@@ -43,5 +62,9 @@ class PartyDetail extends Detail
         $party->save();
         $this->party = $party->toArray();
         $this->inEditState = false;
+
+        $this->notification()->success(
+            'Party deleted.'
+        );
     }
 }

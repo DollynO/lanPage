@@ -3,11 +3,9 @@
 namespace App\Models;
 
 use App\Traits\Rateable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Game extends Model
 {
@@ -31,5 +29,10 @@ class Game extends Model
     {
         $this->ratings()->delete();
         return parent::delete();
+    }
+
+    public function gameSuggestions(): HasMany
+    {
+        return $this->hasMany(GameSuggestion::class);
     }
 }

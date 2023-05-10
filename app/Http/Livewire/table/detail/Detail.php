@@ -3,9 +3,12 @@
 namespace App\Http\Livewire\table\detail;
 
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 abstract class Detail extends Component
 {
+    use Actions;
+
     public $inEditState;
     public $confirmDelete = false;
 

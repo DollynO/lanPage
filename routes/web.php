@@ -24,12 +24,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // GameController
     Route::get('/games',[GameController::class, 'index'])->name('games');
     Route::get('/games/create',function(){ return view('entries/game');})->name('new_game');
-    // Parties
-    Route::get('/parties', function (){ return view('parties');})->name('parties');
-    Route::get('/parties/create', function(){ return view('entries/new-party');})->name('new_party');
+
     Route::group(['middleware' => ['admin']], function(){
         // Users
         Route::get('/users', function (){ return view('users');})->name('users');
+        // Parties
+        Route::get('/parties', function (){ return view('parties');})->name('parties');
+        Route::get('/parties/create', function(){ return view('entries/party');})->name('new_party');
     });
 });
 
