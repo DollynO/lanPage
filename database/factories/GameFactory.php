@@ -14,6 +14,7 @@ class GameFactory extends Factory
     public function definition()
     {
         return [
+            'genre' => $this->faker->randomElement(['FPS','RPG','RTS']),
             'name'=> $this->faker->name(),
             'note'=> $this->faker->text(),
             'source' => $this->faker->url(),

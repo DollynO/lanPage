@@ -17,7 +17,7 @@ class Dashboard extends Component
 
     public function mount()
     {
-        $this->selectedPartyId = Party::query()->where('is_active', true)->first()->id;
+        $this->selectedPartyId = Party::query()->where('is_active', true)->first()->id ?? null;
         $this->availableParty = Party::all();
     }
 
