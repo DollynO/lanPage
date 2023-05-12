@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Parties
         Route::get('/parties', function (){ return view('parties');})->name('parties');
         Route::get('/parties/create', function(){ return view('entries/party');})->name('new_party');
+        // Tournament
+        Route::get('/tournament', function(){ return view('tournament');})->name('tournament');
     });
 });
 
