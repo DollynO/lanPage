@@ -25,6 +25,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/games',[GameController::class, 'index'])->name('games');
     Route::get('/games/create',function(){ return view('entries/game');})->name('new_game');
 
+    // Foods
+    Route::get('/foods', function(){ return view('foods');})->name('foods');
+
     Route::group(['middleware' => ['admin']], function(){
         // Users
         Route::get('/users', function (){ return view('users');})->name('users');

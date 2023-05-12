@@ -6,6 +6,7 @@ use App\Traits\Rateable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Recipe extends Model
 {
@@ -15,9 +16,9 @@ class Recipe extends Model
         'rating'
     ];
 
-    public function recipe(): BelongsToMany
+    public function meals(): HasMany
     {
-        return $this->belongsToMany(Meal::class);
+        return $this->hasMany(Meal::class);
     }
 
     public function delete()
