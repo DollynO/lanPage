@@ -29,9 +29,11 @@
                                 <li>{{__('Display')}}</li>
                                 <li>{{__('Keyboard')}}</li>
                                 <li>{{__('Mouse')}}</li>
-                                <li>{{__('LAN-Cable')}}</li>
+                                <li>{{__('Mouse pad')}}</li>
                                 <li>{{__('Headset')}}</li>
-                                <li>{{__('Chair')}}</li>
+                                <li>{{__('LAN-Cable')}}</li>
+                                <li>{{__('Power cable')}}</li>
+                                <li>{{__('Power strip')}}</li>
                             </ul>
                         </div>
                         <div class="flex flex-col">
@@ -52,6 +54,7 @@
                                 <li>{{__('Shisha')}}</li>
                                 <li>{{__('Ice cube machine')}}</li>
                                 <li>{{__('Beerpong stuff')}}</li>
+                                <li>{{__('Extension cable')}}</li>
                             </ul>
                         </div>
                         <div class="flex flex-col">
@@ -60,6 +63,8 @@
                                 <li>{{__('Chair')}}</li>
                                 <li>{{__('Game to play (video/board)')}}</li>
                                 <li>{{__('External fans')}}</li>
+                                <li>{{__('Switch')}}</li>
+                                <li>{{__('Controller')}}</li>
                             </ul>
                         </div>
                     </div>
