@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Tournament;
 use Livewire\Component;
 
-class TournamentLeaderboard extends Component
+class LeaderboardTournament extends Component
 {
     public $tournament;
     public $tournaments;
@@ -22,12 +22,12 @@ class TournamentLeaderboard extends Component
         $games = [];
 
         if (!$this->tournament) {
-            return view('livewire.tournament-leaderboard', ['data' => $contestants]);
+            return view('livewire.leaderboard-tournament', ['data' => $contestants]);
         }
 
         $tournament_rounds = $this->tournament->rounds()->get();
         if ($tournament_rounds->isEmpty()) {
-            return view('livewire.tournament-leaderboard', ['data' => $contestants]);
+            return view('livewire.leaderboard-tournament', ['data' => $contestants]);
         }
 
         foreach ($tournament_rounds[0]->results()->get() as $round_results) {
@@ -73,7 +73,7 @@ class TournamentLeaderboard extends Component
             )
         );
 
-        return view('livewire.tournament-leaderboard', [
+        return view('livewire.leaderboard-tournament', [
             'contestants' => $contestants,
             'games' => $games
         ]);

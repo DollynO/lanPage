@@ -7,7 +7,7 @@
 
     <div class="container mx-auto">
         <div class="my-8">
-            <livewire:game-suggestions key="{{now()}}" />
+            <livewire:game-suggestions-tournament key="{{now()}}" />
         </div>
     </div>
 
@@ -15,7 +15,7 @@
         <div class="flex-1">
             <div class="container mx-auto">
                 <div class="my-8">
-                    @livewire('tournament-leaderboard')
+                    @livewire('leaderboard-tournament')
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
 
     <div class="container mx-auto">
         <div class="my-8">
-            @livewire('tournaments')
+            @livewire('manage-tournaments')
         </div>
     </div>
 

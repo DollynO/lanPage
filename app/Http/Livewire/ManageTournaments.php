@@ -6,7 +6,7 @@ use App\Models\Party;
 use Livewire\Component;
 use App\Models\Tournament;
 
-class Tournaments extends Component
+class ManageTournaments extends Component
 {
     public $tournaments;
     public $selectedTournament;
@@ -49,6 +49,6 @@ class Tournaments extends Component
 
     public function render()
     {
-        return view('livewire.tournaments');
+        return view('livewire.manage-tournaments');
     }
 }
