@@ -13,13 +13,15 @@
                     <x-select
                         label="Select a food"
                         wire:model.defer="editRecipe"
-                        placeholder="Select some user"
-                        :async-data="route('api.recipes')"
-                        :searchable="false"
+                        placeholder="Select a recipe"
                         option-label="name"
                         option-value="id"
                         x-on:selected="$wire.fillFromSelection()"
-                    />
+                    >
+                        @foreach($availableRecipes as $availableRecipe)
+                            <x-select.option label="{{$availableRecipe['name']}}" value="{{$availableRecipe['id']}}" description="{{$availableRecipe['description']}}" />
+                        @endforeach
+                    </x-select>
                 </div>
                 <div>
                     <x-input label="{{__('Name')}}" wire:model.defer="edit.name"/>
