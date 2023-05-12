@@ -7,7 +7,6 @@
         <div>
         </div>
     </x-slot>
-    <x-dialog/>
     <x-input x-bind:disabled="!inEditState" label="{{__('Name')}}" wire:model="user.name"/>
     <x-button negative label="{{__('Reset password')}}" x-on:confirm="{
     title: 'Sure reset password?',

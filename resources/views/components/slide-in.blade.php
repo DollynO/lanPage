@@ -30,8 +30,8 @@
                     x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
                     x-transition:leave-start="translate-x-0"
                     x-transition:leave-end="translate-x-full"
-                    class="pointer-events-auto w-screen max-w-md"
-                    @click.away="open = false">
+                    class="pointer-events-auto w-screen max-w-md">
+                    <!--@click.away="open = false"-->
                     <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                         <div>
                             <header class="px-4 sm:px-6">
