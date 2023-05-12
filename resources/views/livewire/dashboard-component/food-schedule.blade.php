@@ -3,7 +3,7 @@
     showOverlay:@entangle('showOverlay'),
     selectedId:@entangle('selectedId'),
     }">
-    <div class="top-0 left-0 z-10 w-full h-full backdrop-blur-lg bg-gray-200/50 fixed" x-show="showOverlay">
+    <div class="top-0 left-0 z-10 w-full h-full backdrop-blur-lg bg-gray-200/50 fixed" x-show="showOverlay" x-cloak>
         <div class="w-1/2 h-auto mx-auto mt-60" @click.away="showOverlay = false">
             <x-custom-card>
                 <x-slot name="title">

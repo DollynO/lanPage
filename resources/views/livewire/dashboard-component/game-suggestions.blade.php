@@ -1,6 +1,6 @@
 <div x-data="{suggestionOverlay:@entangle('suggestionOverlay')}">
-    <div class="top-0 left-0 z-10 w-full h-full backdrop-blur-lg bg-gray-200/50 fixed" x-show="suggestionOverlay">
-        <div class="w-1/2 h-auto mx-auto mt-60" @click.away="suggestionOverlay = false">
+    <div class="top-0 left-0 z-10 w-full h-full backdrop-blur-lg bg-gray-200/50 fixed" x-show="suggestionOverlay" x-cloak>
+        <div class="w-1/2 h-auto mx-auto mt-24" @click.away="suggestionOverlay = false">
             <x-custom-card>
                 <div>
                     <div class="flex flex-col gap-2">
