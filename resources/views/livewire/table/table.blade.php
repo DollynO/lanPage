@@ -12,7 +12,7 @@
     @if(count($this->customButtons()))
         <div class="w-full flex flex-row justify-end gap-4">
             @foreach($this->customButtons() as $button)
-                <x-button x-bind:disabled="{{$button->enableCondition}}" dark class="mb-4 h-[2.6rem]" x-on:click="$wire.{{$button->function}}" label="{{__($button->name)}}"/>
+                <x-button x-bind:disabled="{{$button->enableCondition ?? 'false'}}" dark class="mb-4 h-[2.6rem]" x-on:click="$wire.{{$button->function}}" label="{{__($button->name)}}"/>
             @endforeach
         </div>
     @endif

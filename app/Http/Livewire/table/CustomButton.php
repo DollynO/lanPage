@@ -22,7 +22,7 @@ class CustomButton
      * The enable condition as alpine condition string.
      * @var
      */
-    public $enableCondition;
+    public $enableCondition = null;
 
     /**
      * Constructor of this class.
