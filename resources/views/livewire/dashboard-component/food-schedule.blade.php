@@ -13,7 +13,7 @@
                     <x-select
                         label="Select a food"
                         wire:model.defer="editRecipe"
-                        placeholder="Select some user"
+                        placeholder="Select some recipe"
                         :async-data="route('api.recipes')"
                         :searchable="false"
                         option-label="name"

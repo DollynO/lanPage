@@ -67,11 +67,18 @@
             </div>
             <x-custom-card>
                 <x-slot name="title">
+                    {{__('Tournament')}}
+                </x-slot>
+                <livewire:dashboard-component.overview-tournament class="flex" key="{{now()}}"/>
+            </x-custom-card>
+            <x-custom-card>
+                <x-slot name="title">
                     {{__('Food Schedule')}}
                 </x-slot>
                 <livewire:dashboard-component.food-schedule class="flex" key="{{ now() }}"
                                                             :party="$this->selectedParty()"/>
             </x-custom-card>
+
             <x-custom-card>
                 <livewire:dashboard-component.game-suggestions class="flex" key="{{now()}}"
                                                                :party="$this->selectedParty()"/>
