@@ -55,25 +55,30 @@
     </div>
     <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <div class="relative overflow-x-auto shadow-md rounded-lg">
-            <div class="ml-4">
-                @if ($selectedTournament)
+            @if ($selectedTournament)
+                <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3">
+                    <h2 class="text-sx font-bold">{{ $selectedTournament->name }}</h2>
+                </div>
+                <div class="px-4">
+                    <div class="flex mb-4">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                wire:click="toggleSuggestionsClosed">
+                            {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
+                        </button>
+                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                                wire:click="toggleCompleted">
+                            {{ $selectedTournament->is_completed ? 'Mark as Incomplete' : 'Mark as Complete' }}
+                        </button>
+                    </div>
+                    <form wire:submit.prevent="updateTournament">
                         <div class="mb-4">
-                            <h2 class="text-lg font-bold">{{ $selectedTournament->name }}</h2>
-                            <p class="text-gray-700">{{ $selectedTournament->location }} - {{ $selectedTournament->date }}</p>
+                            <label class="mr-4" for="name">Name:</label>
+                            <input class="border rounded w-full py-2 px-3" type="text" wire:model="selectedTournament.name">
                         </div>
-                        <div class="flex mb-4">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" wire:click="toggleSuggestionsClosed">{{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}</button>
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" wire:click="toggleCompleted">{{ $selectedTournament->is_completed ? 'Mark as Incomplete' : 'Mark as Complete' }}</button>
-                        </div>
-                        <form wire:submit.prevent="updateTournament">
-                            <div class="mb-4">
-                                <label class="mr-4" for="name">Name:</label>
-                                <input class="border rounded w-full py-2 px-3" type="text" wire:model="selectedTournament.name">
-                            </div>
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Save</button>
-                        </form>
-                @endif
-            </div>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Save</button>
+                    </form>
+                </div>
+            @endif
         </div>
     </div>
 </div>
