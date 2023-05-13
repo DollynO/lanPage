@@ -14,14 +14,12 @@
             <x-table>
                 <x-thead>
                     <tr class="text-left">
-                        @if(count($contestants) > 0)
-                            <x-th>Rank</x-th>
-                            <x-th>Name</x-th>
-                            <x-th>Points</x-th>
-                            @foreach($games as $game)
-                                <x-th>{{ $game->name }}</x-th>
-                            @endforeach
-                        @endif
+                        <x-th>Rank</x-th>
+                        <x-th>Name</x-th>
+                        <x-th>Points</x-th>
+                        @foreach($rounds as $round)
+                            <x-th>{{ $round->is_decoy ? 'Round ' . ($round->round_number + 1) : $round->game()->first()->name }}</x-th>
+                        @endforeach
                     </tr>
                 </x-thead>
                 <tbody class="text-gray-600 text-sm font-normal">
@@ -43,7 +41,7 @@
                     @endif
                 @empty
                     <tr>
-                        <x-td colspan="{{ count($games) + 3 }}" class="px-3 py-2 text-center">No data available</x-td>
+                        <x-td colspan="{{ count($rounds) + 3 }}" class="px-3 py-2 text-center">No data available</x-td>
                     </tr>
                 @endforelse
                 </tbody>

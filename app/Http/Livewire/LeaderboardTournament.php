@@ -47,7 +47,6 @@ class LeaderboardTournament extends Component
                 $contestants[$contestant_result->user_id]['rounds'][] = $contestant_result;
                 $contestants[$contestant_result->user_id]['total_points'] += $contestant_result->points;
             }
-            $games[] = $tournament_round->game;
         }
 
         $points = array_column($contestants, 'total_points');
@@ -75,7 +74,7 @@ class LeaderboardTournament extends Component
 
         return view('livewire.leaderboard-tournament', [
             'contestants' => $contestants,
-            'games' => $games
+            'rounds' => $tournament_rounds,
         ]);
     }
 
