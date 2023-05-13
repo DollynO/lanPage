@@ -9,7 +9,6 @@
         </div>
     </div>
 
-
     <ul class="flex border-b">
         <li wire:click="$set('activeTab', 0)"
             class="cursor-pointer py-2 px-4 {{ $activeTab === 0 ? 'bg-gray-500' : 'bg-gray-200' }}">

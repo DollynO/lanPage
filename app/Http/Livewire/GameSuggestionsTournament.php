@@ -34,6 +34,11 @@ class GameSuggestionsTournament extends Component
         return view('livewire.game-suggestions-tournament');
     }
 
+    public function signalLeaveViewToParent()
+    {
+        $this->emitUp('leaveSuggestionsView');
+    }
+
     public function retrieveSuggestions()
     {
         return Suggestion::with('game')->get()->unique('game_id');
