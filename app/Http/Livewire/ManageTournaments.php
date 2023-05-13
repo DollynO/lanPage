@@ -8,9 +8,12 @@ use App\Models\Suggestion;
 use App\Models\TournamentRound;
 use Livewire\Component;
 use App\Models\Tournament;
+use WireUi\Traits\Actions;
 
 class ManageTournaments extends Component
 {
+    use Actions;
+
     public $tournaments;
     public $selectedTournament;
     public $totalSuggestions;
@@ -89,7 +92,39 @@ class ManageTournaments extends Component
 
     public function selectTournamentRound($tournamentRoundId)
     {
+        $this->selectedTournamentRound = TournamentRound::find($tournamentRoundId);
 
+    }
+
+    public function rollGameForRound($tournamentRoundId)
+    {
+        if ($this->totalSuggestions < $this->selectedTournament->amount_rounds){
+            $this->notification()->error('Not enough suggestions!',
+                'There have to be at least ' . $this->selectedTournament->amount_rounds . ' unique suggestions to roll for a game.');
+            return;
+        }
+
+        $rolledGameIds = TournamentRound::query()->where('is_decoy', false)->get()?->pluck('game_id');
+        $suggestions = Suggestion::query()->whereNotIn('game_id', $rolledGameIds)->get();
+
+        if ($suggestions->count() == 0){
+            $this->notification()->error('Not enough suggestions!',
+                'There have to be at least ' . $this->selectedTournament->amount_rounds . ' unique suggestions to roll for a game.');
+            return;
+        }
+
+        $rolledSuggestion = $suggestions[array_rand($suggestions->toArray())];
+        if ($rolledSuggestion) {
+            $tournamentRound = TournamentRound::find($tournamentRoundId);
+
+            $tournamentRound->game_id = $rolledSuggestion->game_id;
+//            $tournamentRound->rules = $rolledSuggestion->rules;
+            $tournamentRound->is_decoy = false;
+            $tournamentRound->save();
+        }
+
+        $this->selectTournament($this->selectedTournament->id);
+//        $this->tournamentRounds = $this->selectedTournament->rounds;
     }
 
     public function render()

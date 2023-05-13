@@ -100,10 +100,16 @@
                             @foreach($tournamentRounds as $round)
                                 <tr wire:click="selectTournamentRound({{ $round->id }})"
                                     class="bg-white border-b hover:bg-gray-50"
-                                    @class(['bg-gray-200' => $selectedTournament === $tournament->id])>
+                                    @class(['bg-gray-200' => $selectedTournamentRound === $round->id])
+                                >
                                     <x-td>{{ $round->round_number }}</x-td>
                                     <x-td>{{ $round->is_decoy ? '-' : $round->game()->first()->name }}</x-td>
-                                    <x-td></x-td>
+                                    <x-td>
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                        wire:click="rollGameForRound({{ $round->id }})">
+                                            {{__('Roll Game')}}
+                                        </button>
+                                    </x-td>
                                 </tr>
                             @endforeach
                         @endif
