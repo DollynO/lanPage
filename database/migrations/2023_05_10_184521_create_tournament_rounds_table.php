@@ -16,9 +16,11 @@ class CreateTournamentRoundsTable extends Migration
         Schema::create('tournament_rounds', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->bigInteger('tournament_id');
             $table->bigInteger('game_id');
             $table->integer('round_number');
             $table->text('rules');
+            $table->boolean('is_decoy')->default(false);
         });
     }
 

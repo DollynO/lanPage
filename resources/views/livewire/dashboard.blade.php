@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div class="px-4 mx-auto sm:px-6 lg:px-8" style="max-width: 100rem;">
     <div class="flex flex-col gap-2 w-full">
         @if(!$selectedPartyId)
             <x-custom-card>
@@ -70,13 +70,21 @@
                     </div>
                 </x-custom-card>
             </div>
-            <x-custom-card>
-                <x-slot name="title">
-                    {{__('Food Schedule')}}
-                </x-slot>
-                <livewire:dashboard-component.food-schedule class="flex" key="{{ now() }}"
-                                                            :party="$this->selectedParty()"/>
-            </x-custom-card>
+            <div class="flex flex-row gap-2 justify-between">
+                <x-custom-card>
+                    <x-slot name="title">
+                        {{__('Tournament')}}
+                    </x-slot>
+                    <livewire:dashboard-component.overview-tournament class="flex" key="{{now()}}"/>
+                </x-custom-card>
+                <x-custom-card>
+                    <x-slot name="title">
+                        {{__('Food Schedule')}}
+                    </x-slot>
+                    <livewire:dashboard-component.food-schedule class="flex" key="{{ now() }}"
+                                                                :party="$this->selectedParty()"/>
+                </x-custom-card>
+            </div>
             <x-custom-card>
                 <livewire:dashboard-component.game-suggestions class="flex" key="{{now()}}"
                                                                :party="$this->selectedParty()"/>

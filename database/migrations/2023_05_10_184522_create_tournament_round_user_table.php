@@ -13,13 +13,13 @@ class CreateTournamentRoundUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('tournament_round_user', function (Blueprint $table) {
+        Schema::create('tournament_round_users', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->bigInteger('tournament_round_id');
             $table->bigInteger('user_id');
             $table->integer('points');
-            $table->boolean('hasWon');
+            $table->boolean('has_won');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateTournamentRoundUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tournament_round_user');
+        Schema::dropIfExists('tournament_round_users');
     }
 }
