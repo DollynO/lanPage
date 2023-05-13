@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Game;
 use App\Models\Party;
+use App\Models\Suggestion;
 use App\Models\TournamentRound;
 use Livewire\Component;
 use App\Models\Tournament;
@@ -12,12 +13,15 @@ class ManageTournaments extends Component
 {
     public $tournaments;
     public $selectedTournament;
+    public $totalSuggestions;
     public $name;
+    public $tournamentRounds;
+    public $selectedTournamentRound;
 
     public function mount()
     {
         $this->tournaments = Tournament::all();
-        $this->selectedTournament = $this->tournaments->last();
+        $this->selectTournament($this->tournaments->last()->id);
     }
 
     public function selectTournament($tournamentId)
@@ -27,6 +31,9 @@ class ManageTournaments extends Component
             $this->name = $this->selectedTournament->name;
             $this->date = $this->selectedTournament->date;
             $this->location = $this->selectedTournament->location;
+
+            $this->tournamentRounds = $this->selectedTournament->rounds;
+            $this->totalSuggestions = Suggestion::all()->count();
         }
     }
 
@@ -78,6 +85,11 @@ class ManageTournaments extends Component
         $this->selectedTournament->is_completed = !$this->selectedTournament->is_completed;
         $this->selectedTournament->save();
         $this->tournaments = Tournament::all();
+    }
+
+    public function selectTournamentRound($tournamentRoundId)
+    {
+
     }
 
     public function render()

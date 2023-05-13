@@ -1,17 +1,20 @@
-<div class="flex flex-row justify-between">
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-        <div class="relative overflow-x-auto shadow-md rounded-lg">
-            <x-table class="mr-4">
-                <x-thead>
-                    <tr>
-                        <x-th>Name</x-th>
-                        <x-th>Date</x-th>
-                        <x-th>Voting Closed</x-th>
-                        <x-th>Finished</x-th>
-                        <x-th>Actions</x-th>
-                    </tr>
-                </x-thead>
-                <tbody>
+<div>
+    <div class="flex flex-row justify-between">
+
+        <!-- List of tournaments, including a delete button and option to create a new tournament. -->
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="relative overflow-x-auto shadow-md rounded-lg">
+                <x-table class="mr-4">
+                    <x-thead>
+                        <tr>
+                            <x-th>Name</x-th>
+                            <x-th>Date</x-th>
+                            <x-th>Voting Closed</x-th>
+                            <x-th>Finished</x-th>
+                            <x-th>Actions</x-th>
+                        </tr>
+                    </x-thead>
+                    <tbody>
                     @foreach ($tournaments as $tournament)
                         <tr
                             wire:click="selectTournament({{ $tournament->id }})"
@@ -44,34 +47,77 @@
                             </x-td>
                         </tr>
                     @endforeach
-                </tbody>
-            </x-table>
-            <form class="ml-4 my-4 w-2/3" wire:submit.prevent="createTournament">
-                <div class="flex items-center mb-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Create new Tournament</button>
-                </div>
-            </form>
+                    </tbody>
+                </x-table>
+                <form class="ml-4 my-4 w-2/3" wire:submit.prevent="createTournament">
+                    <div class="flex items-center mb-4">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Create new Tournament</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- The selected tournament, including the options to close voting and the tournament itself. -->
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="relative overflow-x-auto shadow-md rounded-lg">
+                @if ($selectedTournament)
+                    <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3">
+                        <h2 class="text-sx font-bold">{{ $selectedTournament->name }}</h2>
+                    </div>
+                    <div class="px-4">
+                        <div class="flex mb-4">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                    wire:click="toggleSuggestionsClosed">
+                                {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
+                                {{ ' (' . $this->totalSuggestions . ')' }}
+                            </button>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+                                    wire:click="toggleCompleted">
+                                {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
+                            </button>
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-        <div class="relative overflow-x-auto shadow-md rounded-lg">
-            @if ($selectedTournament)
-                <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3">
-                    <h2 class="text-sx font-bold">{{ $selectedTournament->name }}</h2>
-                </div>
-                <div class="px-4">
-                    <div class="flex mb-4">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                                wire:click="toggleSuggestionsClosed">
-                            {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
-                        </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
-                                wire:click="toggleCompleted">
-                            {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
-                        </button>
-                    </div>
-                </div>
-            @endif
+
+    <div class="flex flex-row justify-between mt-4">
+
+        <!-- A list of results, including a button to add a new one. Also button to roll a game from suggestions. -->
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="relative overflow-x-auto shadow-md rounded-lg">
+                <x-table class="mr-4">
+                    <x-thead>
+                        <tr>
+                            <x-th>Round</x-th>
+                            <x-th>Game</x-th>
+                            <x-th>Actions</x-th>
+                        </tr>
+                    </x-thead>
+                    <tbody>
+                        @if(isset($tournamentRounds))
+                            @foreach($tournamentRounds as $round)
+                                <tr wire:click="selectTournamentRound({{ $round->id }})"
+                                    class="bg-white border-b hover:bg-gray-50"
+                                    @class(['bg-gray-200' => $selectedTournament === $tournament->id])>
+                                    <x-td>{{ $round->round_number }}</x-td>
+                                    <x-td>{{ $round->is_decoy ? '-' : $round->game()->first()->name }}</x-td>
+                                    <x-td></x-td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </x-table>
+            </div>
+        </div>
+
+        <!-- A detailed view of the selected result, to edit them. -->
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="relative overflow-x-auto shadow-md rounded-lg">
+
+            </div>
         </div>
     </div>
 </div>
+
