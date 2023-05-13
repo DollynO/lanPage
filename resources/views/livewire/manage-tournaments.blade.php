@@ -70,13 +70,6 @@
                             {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
                         </button>
                     </div>
-                    <form wire:submit.prevent="updateTournament">
-                        <div class="mb-4">
-                            <label class="mr-4" for="name">Name:</label>
-                            <input class="border rounded w-full py-2 px-3" type="text" wire:model="selectedTournament.name">
-                        </div>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Save</button>
-                    </form>
                 </div>
             @endif
         </div>

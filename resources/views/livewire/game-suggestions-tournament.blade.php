@@ -1,10 +1,11 @@
 <div>
+    @if(isset($tournament))
     <!-- A searchbar that lets the user select games to add to suggestions in a dropdown. -->
-    <div class="px-2 my-2">
-        <div class="flex items-center justify-between space-x-8 mb-4">
-            <span class="whitespace-nowrap">Vote for a game ({{$suggestionsLeft}}/3 left):</span>
-            <div class="relative flex-1">
-                <input type="text"
+        <div class="px-2 my-2">
+            <div class="flex items-center justify-between space-x-8 mb-4">
+                <span class="whitespace-nowrap">Vote for a game ({{$suggestionsLeft}}/3 left):</span>
+                <div class="relative flex-1">
+                    <input type="text"
                        class="placeholder-secondary-400 border border-secondary-300 focus:ring-primary-500 focus:border-primary-500 form-input block w-full sm:text-sm rounded-md transition ease-in-out duration-100 pr-8 bg-slate-100"
                        placeholder="Search Games..."
                        wire:model="query"
@@ -14,41 +15,41 @@
                        wire:keydown.arrow-down="incrementHighlight"
                        wire:keydown.enter="selectHighlightedGame"
                        x-bind:disable="$wire.suggestionsLeft == 0"
-                />
-                @if(!empty($query))
-                    <div class="absolute z-10 my-2 left-0 right-0">
-                        <div class="bg-white border max-h-64 sm:max-h-60 overflow-y-auto overscroll-contain soft-scrollbar select-none">
-                            <ul>
-                                @if(!empty($games))
-                                    @foreach($games as $i => $game)
-                                        <li>
-                                            <div wire:click="selectGame({{$game['id']}})"
-                                                 class="py-2 px-3 focus:outline-none all-colors ease-in-out duration-150 relative group text-secondary-600 dark:text-secondary-400 flex items-center justify-between cursor-pointer focus:bg-primary-100 focus:text-primary-800 hover:text-white dark:focus:bg-secondary-700 hover:bg-primary-500 dark:hover:bg-secondary-700">
-                                                <div>
-                                                    {{ $game['name'] }}
+                    />
+                    @if(!empty($query))
+                        <div class="absolute z-10 my-2 left-0 right-0">
+                            <div class="bg-white border max-h-64 sm:max-h-60 overflow-y-auto overscroll-contain soft-scrollbar select-none">
+                                <ul>
+                                    @if(!empty($games))
+                                        @foreach($games as $i => $game)
+                                            <li>
+                                                <div wire:click="selectGame({{$game['id']}})"
+                                                     class="py-2 px-3 focus:outline-none all-colors ease-in-out duration-150 relative group text-secondary-600 dark:text-secondary-400 flex items-center justify-between cursor-pointer focus:bg-primary-100 focus:text-primary-800 hover:text-white dark:focus:bg-secondary-700 hover:bg-primary-500 dark:hover:bg-secondary-700">
+                                                    <div>
+                                                        {{ $game['name'] }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                @else
-                                    <div class="list-item block py-2 px-4 text-red-500 hover:bg-gray-100">Game not found</div>
-                                @endif
-                            </ul>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <div class="list-item block py-2 px-4 text-red-500 hover:bg-gray-100">Game not found</div>
+                                    @endif
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
+                <x-button dark
+                          wire:click="signalLeaveViewToParent"
+                          class="whitespace-nowrap">
+                    View Leaderboard
+                </x-button>
             </div>
-            <x-button dark
-                      wire:click="signalLeaveViewToParent"
-                      class="whitespace-nowrap">
-                View Leaderboard
-            </x-button>
         </div>
-    </div>
 
-    <!-- The table with all suggestions for the current tournament. -->
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-        <div class="relative overflow-x-auto shadow-md rounded-lg">
+        <!-- The table with all suggestions for the current tournament. -->
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="relative overflow-x-auto shadow-md rounded-lg">
                 <x-table>
                     <x-thead>
                         <tr>
@@ -89,7 +90,9 @@
                         @endforelse
                     </tbody>
                 </x-table>
+            </div>
         </div>
-    </div>
-
+    @else
+        <h2>No Tournament in Progress.</h2>
+    @endif
 </div>

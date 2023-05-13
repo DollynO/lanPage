@@ -16,6 +16,8 @@ class Tournament extends Model
         'party_id',
         'are_suggestions_closed',
         'is_completed',
+        'amount_rounds',
+        'amount_game_votes',
     ];
 
     public function rounds() : HasMany {

@@ -20,6 +20,7 @@ class CreateTournamentRoundsTable extends Migration
             $table->bigInteger('game_id');
             $table->integer('round_number');
             $table->text('rules');
+            $table->boolean('is_decoy')->default(false);
         });
     }
 

@@ -16,7 +16,8 @@ class TournamentRound extends Model
         'tournament_id',
         'game_id',
         'round_number',
-        'rules'
+        'rules',
+        'is_decoy',
     ];
 
     public function results() : hasMany

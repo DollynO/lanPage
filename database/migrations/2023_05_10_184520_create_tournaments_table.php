@@ -20,6 +20,8 @@ class CreateTournamentsTable extends Migration
             $table->bigInteger('party_id');
             $table->boolean('are_suggestions_closed');
             $table->boolean('is_completed');
+            $table->integer('amount_rounds')->default(4);
+            $table->integer('amount_game_votes')->default(3);
         });
     }
 

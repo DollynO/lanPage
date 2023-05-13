@@ -10,6 +10,7 @@
         </div>
     </div>
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            @if (isset($tournament))
             <x-table>
                 <x-thead>
                     <tr class="text-left">
@@ -47,5 +48,8 @@
                 @endforelse
                 </tbody>
             </x-table>
+            @else
+                <h2>No Tournament in Progress.</h2>
+            @endif
         </div>
     </div>

@@ -19,7 +19,10 @@ class OverviewTournament extends Component
     public function mount()
     {
         $this->tournament = Tournament::latest('created_at')->first();
-        $this->activeTab = $this->tournament->are_suggestions_closed ? 1 : 0;
+        if (isset($this->tournament))
+        {
+            $this->activeTab = $this->tournament->are_suggestions_closed ? 1 : 0;
+        }
     }
 
     public function render()

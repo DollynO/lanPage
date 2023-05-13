@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Game;
 use App\Models\Party;
+use App\Models\TournamentRound;
 use Livewire\Component;
 use App\Models\Tournament;
 
@@ -43,7 +45,21 @@ class ManageTournaments extends Component
         $tournament->party_id = Party::all()->last()->id;
         $tournament->are_suggestions_closed = false;
         $tournament->is_completed = false;
+        // The following two should be set by the default, but arent, so for now i hardcode them here.
+        $tournament->amount_rounds = 4;
+        $tournament->amount_game_votes = 3;
         $tournament->save();
+
+        // Decoy rounds
+        for ($i = 0; $i < $tournament->amount_rounds; $i++){
+            $tournamentRound = new TournamentRound;
+            $tournamentRound->tournament_id = $tournament->id;
+            $tournamentRound->game_id = Game::all()->first()->id;
+            $tournamentRound->round_number = $i;
+            $tournamentRound->rules = "There is only one rule: There are no rules.";
+            $tournamentRound->is_decoy = true;
+            $tournamentRound->save();
+        }
 
         $this->tournaments = Tournament::all();
         $this->selectedTournament = $tournament;
