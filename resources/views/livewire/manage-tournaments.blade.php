@@ -105,8 +105,10 @@
                                     <x-td>{{ $round->round_number }}</x-td>
                                     <x-td>{{ $round->is_decoy ? '-' : $round->game()->first()->name }}</x-td>
                                     <x-td>
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                                        wire:click="rollGameForRound({{ $round->id }})">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2
+                                            {{ $round->results->count() > 0 ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}"
+                                            wire:click="rollGameForRound({{ $round->id }})"
+                                        >
                                             {{__('Roll Game')}}
                                         </button>
                                     </x-td>
@@ -122,8 +124,10 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 @if(isset($selectedTournamentRound))
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
-                        wire:click="createUserResults">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4
+                        {{ $tournamentRoundUsers->count() > 0 ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}"
+                        wire:click="createUserResults"
+                    >
                         {{__('Create Results')}}
                     </button>
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
