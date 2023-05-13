@@ -3,7 +3,7 @@
     showOverlay:@entangle('showOverlay'),
     selectedId:@entangle('selectedId'),
     }">
-    <div class="top-0 left-0 z-10 w-full h-full backdrop-blur-lg bg-gray-200/50 fixed" x-show="showOverlay">
+    <div class="top-0 left-0 z-10 w-full h-full backdrop-blur-lg bg-gray-200/50 fixed" x-show="showOverlay" x-cloak>
         <div class="w-1/2 h-auto mx-auto mt-60" @click.away="showOverlay = false">
             <x-custom-card>
                 <x-slot name="title">
@@ -13,13 +13,15 @@
                     <x-select
                         label="Select a food"
                         wire:model.defer="editRecipe"
-                        placeholder="Select some recipe"
-                        :async-data="route('api.recipes')"
-                        :searchable="false"
+                        placeholder="Select a recipe"
                         option-label="name"
                         option-value="id"
                         x-on:selected="$wire.fillFromSelection()"
-                    />
+                    >
+                        @foreach($availableRecipes as $availableRecipe)
+                            <x-select.option label="{{$availableRecipe['name']}}" value="{{$availableRecipe['id']}}" description="{{$availableRecipe['description']}}" />
+                        @endforeach
+                    </x-select>
                 </div>
                 <div>
                     <x-input label="{{__('Name')}}" wire:model.defer="edit.name"/>

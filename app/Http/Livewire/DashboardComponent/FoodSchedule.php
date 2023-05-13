@@ -11,6 +11,7 @@ use Livewire\Component;
 
 class FoodSchedule extends Component
 {
+    public $availableRecipes;
     public $party;
     public $partyId;
     public $foodSchedule = [];
@@ -28,6 +29,7 @@ class FoodSchedule extends Component
     public function mount($party)
     {
         $this->partyId = $party->id;
+        $this->availableRecipes = Recipe::all()->toArray();
     }
 
     public function collectData()
@@ -121,7 +123,6 @@ class FoodSchedule extends Component
      */
     public function addMeal()
     {
-
         $this->validate([
             'edit.name' => [
                 'required',
@@ -133,8 +134,6 @@ class FoodSchedule extends Component
                 'nullable',
                 'integer',
                 Rule::exists(Recipe::class, 'id'),
-                Rule::unique(Meal::class, 'recipe_id')
-                    ->where('party_id', $this->party['id']),
             ],
         ]);
 
