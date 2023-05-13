@@ -32,8 +32,8 @@
                             @foreach($contestant['rounds'] as $round)
                                 <x-td>{{ $round->points }}</x-td>
                             @endforeach
-                            @if(count($contestant['rounds']) < count($games))
-                                @for($i = count($contestant['rounds']); $i < count($games); $i++)
+                            @if(count($contestant['rounds']) < count($rounds))
+                                @for($i = count($contestant['rounds']); $i < count($rounds); $i++)
                                     <x-td></x-td>
                                 @endfor
                             @endif
