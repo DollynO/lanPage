@@ -65,9 +65,9 @@
                                 wire:click="toggleSuggestionsClosed">
                             {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
                         </button>
-                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
                                 wire:click="toggleCompleted">
-                            {{ $selectedTournament->is_completed ? 'Mark as Incomplete' : 'Mark as Complete' }}
+                            {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
                         </button>
                     </div>
                     <form wire:submit.prevent="updateTournament">

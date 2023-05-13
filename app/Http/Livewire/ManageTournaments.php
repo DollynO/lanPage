@@ -50,6 +50,20 @@ class ManageTournaments extends Component
         $this->name = null;
     }
 
+    public function toggleSuggestionsClosed()
+    {
+        $this->selectedTournament->are_suggestions_closed = !$this->selectedTournament->are_suggestions_closed;
+        $this->selectedTournament->save();
+        $this->tournaments = Tournament::all();
+    }
+
+    public function toggleCompleted()
+    {
+        $this->selectedTournament->is_completed = !$this->selectedTournament->is_completed;
+        $this->selectedTournament->save();
+        $this->tournaments = Tournament::all();
+    }
+
     public function render()
     {
         return view('livewire.manage-tournaments');
