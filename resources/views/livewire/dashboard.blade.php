@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div class="px-4 mx-auto sm:px-6 lg:px-8" style="max-width: 100rem;">
     <div class="flex flex-col gap-2 w-full">
         @if(!$selectedPartyId)
             <x-custom-card>

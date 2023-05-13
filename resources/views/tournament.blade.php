@@ -5,29 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="container mx-auto">
-        <div class="my-8">
-            <livewire:game-suggestions-tournament key="{{now()}}" />
-        </div>
+    <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @livewire('manage-tournaments')
     </div>
-
-    <div class="flex flex-row">
-        <div class="flex-1">
-            <div class="container mx-auto">
-                <div class="my-8">
-                    @livewire('leaderboard-tournament')
-                </div>
-            </div>
-        </div>
-        <div class="flex-1 ml-4">
-
-        </div>
-    </div>
-
-    <div class="container mx-auto">
-        <div class="my-8">
-            @livewire('manage-tournaments')
-        </div>
-    </div>
-
 </x-app-layout>

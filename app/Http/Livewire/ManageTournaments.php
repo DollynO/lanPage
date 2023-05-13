@@ -15,14 +15,17 @@ class ManageTournaments extends Component
     public function mount()
     {
         $this->tournaments = Tournament::all();
+        $this->selectedTournament = $this->tournaments->last();
     }
 
     public function selectTournament($tournamentId)
     {
         $this->selectedTournament = Tournament::find($tournamentId);
-        $this->name = $this->selectedTournament->name;
-        $this->date = $this->selectedTournament->date;
-        $this->location = $this->selectedTournament->location;
+        if ($this->selectedTournament){
+            $this->name = $this->selectedTournament->name;
+            $this->date = $this->selectedTournament->date;
+            $this->location = $this->selectedTournament->location;
+        }
     }
 
     public function deleteTournament($tournamentId)
@@ -36,7 +39,7 @@ class ManageTournaments extends Component
     public function createTournament()
     {
         $tournament = new Tournament;
-        $tournament->name = "Tournament " . date(today());
+        $tournament->name = "Tournament " . today()->format('m.Y');
         $tournament->party_id = Party::all()->last()->id;
         $tournament->are_suggestions_closed = false;
         $tournament->is_completed = false;
