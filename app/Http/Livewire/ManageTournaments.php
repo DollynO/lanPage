@@ -23,6 +23,10 @@ class ManageTournaments extends Component
     public $selectedTournamentRound;
     public $tournamentRoundUsers;
 
+    protected $rules = [
+        'tournamentRoundUsers.*.points' => 'required|numeric',
+    ];
+
     public function mount()
     {
         $this->tournaments = Tournament::all();
@@ -144,6 +148,15 @@ class ManageTournaments extends Component
         }
 
         $this->tournamentRoundUsers = TournamentRoundUser::query()->where('tournament_round_id', $this->selectedTournamentRound->id)->get();
+    }
+
+    public function saveUserResults()
+    {
+        foreach ($this->tournamentRoundUsers as $userResult) {
+            $userResult->save();
+        }
+
+        $this->notification()->info('Results saved');
     }
 
     public function render()

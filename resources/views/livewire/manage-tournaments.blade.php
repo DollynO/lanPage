@@ -126,6 +126,10 @@
                         wire:click="createUserResults">
                         {{__('Create Results')}}
                     </button>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
+                            wire:click="saveUserResults">
+                        {{__('Save Results')}}
+                    </button>
                     <x-table class="mr-4">
                         <x-thead>
                             <tr>
@@ -136,10 +140,13 @@
                         </x-thead>
                         <tbody>
                             @if(isset($tournamentRoundUsers))
-                                @foreach ($tournamentRoundUsers as $userResult)
+                                @foreach ($tournamentRoundUsers as $index => $userResult)
                                     <tr class="bg-white border-b hover:bg-gray-50">
                                         <x-td>{{ $userResult->user->name }}</x-td>
-                                        <x-td>{{ $userResult->points }}</x-td>
+                                        <x-td>
+                                            <input type="text" class="border border-gray-300 px-2 py-1"
+                                                   wire:model="tournamentRoundUsers.{{ $index }}.points"/>
+                                        </x-td>
                                         <x-td>{{ $userResult->has_won }}</x-td>
                                     </tr>
                                 @endforeach
