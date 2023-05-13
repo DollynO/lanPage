@@ -78,4 +78,9 @@ class LeaderboardTournament extends Component
             'games' => $games
         ]);
     }
+
+    public function signalLeaveViewToParent()
+    {
+        $this->emitUp('leaveLeaderboardView');
+    }
 }

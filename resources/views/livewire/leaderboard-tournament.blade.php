@@ -1,5 +1,14 @@
-<div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div>
+    <!-- A leaderboard that shows the current progression of a tournament. -->
+    <div class="px-2 my-2">
+        <div class="flex justify-end space-x-8 mb-4">
+            <x-button dark
+                      wire:click="signalLeaveViewToParent"
+                      class="whitespace-nowrap">
+                View Game-Votes
+            </x-button>
+        </div>
+    </div>
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <x-table>
                 <x-thead>
@@ -17,27 +26,26 @@
                 <tbody class="text-gray-600 text-sm font-normal">
                 @forelse ($contestants as $index => $contestant)
                     @if ($index > 0)
-                        <tr class="border-b border-gray-200 hover:bg-gray-100">
-                            <td class="px-3 py-2">{{ $contestant['rank'] }}</td>
-                            <td class="px-3 py-2">{{ $contestant['user']->name }}</td>
-                            <td class="px-3 py-2">{{ $contestant['total_points'] }}</td>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <x-td>{{ $contestant['rank'] }}</x-td>
+                            <x-td>{{ $contestant['user']->name }}</x-td>
+                            <x-td>{{ $contestant['total_points'] }}</x-td>
                             @foreach($contestant['rounds'] as $round)
-                                <td class="px-3 py-2">{{ $round->points }}</td>
+                                <x-td>{{ $round->points }}</x-td>
                             @endforeach
                             @if(count($contestant['rounds']) < count($games))
                                 @for($i = count($contestant['rounds']); $i < count($games); $i++)
-                                    <td class="px-3 py-2"></td>
+                                    <x-td></x-td>
                                 @endfor
                             @endif
                         </tr>
                     @endif
                 @empty
                     <tr>
-                        <td colspan="{{ count($games) + 3 }}" class="px-3 py-2 text-center">No data available</td>
+                        <x-td colspan="{{ count($games) + 3 }}" class="px-3 py-2 text-center">No data available</x-td>
                     </tr>
                 @endforelse
                 </tbody>
             </x-table>
         </div>
     </div>
-</div>

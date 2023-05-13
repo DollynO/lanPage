@@ -1,7 +1,7 @@
 <div>
     <!-- A searchbar that lets the user select games to add to suggestions in a dropdown. -->
     <div class="px-2 my-2">
-        <div class="flex items-center justify-between space-x-8">
+        <div class="flex items-center justify-between space-x-8 mb-4">
             <span class="whitespace-nowrap">Vote for a game ({{$suggestionsLeft}}/3 left):</span>
             <div class="relative flex-1">
                 <input type="text"
@@ -31,7 +31,7 @@
                                         </li>
                                     @endforeach
                                 @else
-                                    <div class="list-item block py-2 px-4 text-blue-500 hover:bg-gray-100">Create new Game</div>
+                                    <div class="list-item block py-2 px-4 text-red-500 hover:bg-gray-100">Game not found</div>
                                 @endif
                             </ul>
                         </div>
@@ -58,14 +58,14 @@
                             <x-th>Actions</x-th>
                         </tr>
                     </x-thead>
-                    <tbody class="text-gray-600 text-sm font-normal">
+                    <tbody class="bg-white border-b hover:bg-gray-50">
                         @forelse ($suggestions as $index => $suggestion)
                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                 <x-td>{{ $suggestion['game']->name }}</x-td>
                                 <x-td>{{ $suggestion->votes() }}</x-td>
                                 <x-td>
                                     <button wire:click="increaseVotes( {{ $suggestion->id }} )"
-                                            class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm px-4 py-2     ring-negative-500 text-white bg-blue-500 hover:bg-blue-600 hover:ring-blue-600"
+                                            class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm px-4 py-2     ring-blue-500 text-white bg-blue-500 hover:bg-blue-600 hover:ring-blue-600"
                                             @if ($suggestion->userVote(Auth::id()) || $suggestionsLeft == 0) style="display: none" @endif>
                                         +1
                                     </button>
@@ -83,7 +83,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-3 py-2 text-center">No game suggestions available</td>
+                                <td colspan="3" class="px-3 py-2 text-center">No game votes available</td>
                             </tr>
                         @endforelse
                     </tbody>
