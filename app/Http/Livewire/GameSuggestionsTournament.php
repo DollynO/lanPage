@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Tournament;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Suggestion;
@@ -12,6 +13,7 @@ class GameSuggestionsTournament extends Component
 {
     use Actions;
 
+    public $tournament;
     public $suggestions;
     public $suggestionsLeft;
 
@@ -23,6 +25,7 @@ class GameSuggestionsTournament extends Component
 
     public function mount()
     {
+        $this->tournament = Tournament::latest('created_at')->first();
         $this->resetSearchbar();
     }
 
@@ -61,6 +64,12 @@ class GameSuggestionsTournament extends Component
 
     public function increaseVotes($suggestionId)
     {
+        if ($this->tournament->are_suggestions_closed)
+        {
+            $this->notification()->error('Voting is closed.');
+            return;
+        }
+
         if ($this->suggestionsLeft < 1){
             $this->notification()->error('No suggestions left.', 'You only have 3 votes for the tournament.');
             $this->resetSearchbar();
@@ -76,6 +85,12 @@ class GameSuggestionsTournament extends Component
 
     public function decreaseVotes($suggestion)
     {
+        if ($this->tournament->are_suggestions_closed)
+        {
+            $this->notification()->error('Voting is closed.');
+            return;
+        }
+
         $userSuggestion = Suggestion::where('game_id', $suggestion['game_id'])
             ->where('user_id', Auth::id())
             ->first();
@@ -88,6 +103,12 @@ class GameSuggestionsTournament extends Component
 
     public function removeSuggestion($suggestionId)
     {
+        if ($this->tournament->are_suggestions_closed)
+        {
+            $this->notification()->error('Voting is closed.');
+            return;
+        }
+
         $suggestion = Suggestion::find($suggestionId);
         if ($suggestion) {
             $suggestion->delete();
@@ -127,6 +148,12 @@ class GameSuggestionsTournament extends Component
 
     public function selectHighlightedGame()
     {
+        if ($this->tournament->are_suggestions_closed)
+        {
+            $this->notification()->error('Voting is closed.');
+            return;
+        }
+
         $game = $this->games[$this->highlightIndex] ?? null;
         if ($game)
         {
@@ -136,6 +163,12 @@ class GameSuggestionsTournament extends Component
 
     public function selectGame($gameId)
     {
+        if ($this->tournament->are_suggestions_closed)
+        {
+            $this->notification()->error('Voting is closed.');
+            return;
+        }
+
         if ($this->suggestionsLeft < 1){
             $this->notification()->error('No suggestions left.', 'You only have 3 votes for the tournament.');
             $this->resetSearchbar();
