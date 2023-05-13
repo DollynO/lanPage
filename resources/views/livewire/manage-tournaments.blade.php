@@ -121,7 +121,32 @@
         <!-- A detailed view of the selected result, to edit them. -->
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
-
+                @if(isset($selectedTournamentRound))
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
+                        wire:click="createUserResults">
+                        {{__('Create Results')}}
+                    </button>
+                    <x-table class="mr-4">
+                        <x-thead>
+                            <tr>
+                                <x-th>Player</x-th>
+                                <x-th>Points</x-th>
+                                <x-th>Winner?</x-th>
+                            </tr>
+                        </x-thead>
+                        <tbody>
+                            @if(isset($tournamentRoundUsers))
+                                @foreach ($tournamentRoundUsers as $userResult)
+                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                        <x-td>{{ $userResult->user->name }}</x-td>
+                                        <x-td>{{ $userResult->points }}</x-td>
+                                        <x-td>{{ $userResult->has_won }}</x-td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </x-table>
+                @endif
             </div>
         </div>
     </div>

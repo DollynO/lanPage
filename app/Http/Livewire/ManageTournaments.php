@@ -6,6 +6,7 @@ use App\Models\Game;
 use App\Models\Party;
 use App\Models\Suggestion;
 use App\Models\TournamentRound;
+use App\Models\TournamentRoundUser;
 use Livewire\Component;
 use App\Models\Tournament;
 use WireUi\Traits\Actions;
@@ -20,6 +21,7 @@ class ManageTournaments extends Component
     public $name;
     public $tournamentRounds;
     public $selectedTournamentRound;
+    public $tournamentRoundUsers;
 
     public function mount()
     {
@@ -93,6 +95,8 @@ class ManageTournaments extends Component
     public function selectTournamentRound($tournamentRoundId)
     {
         $this->selectedTournamentRound = TournamentRound::find($tournamentRoundId);
+        $this->tournamentRoundUsers = TournamentRoundUser::query()
+            ->where('tournament_round_id', $tournamentRoundId)->get();
 
     }
 
@@ -125,6 +129,21 @@ class ManageTournaments extends Component
 
         $this->selectTournament($this->selectedTournament->id);
 //        $this->tournamentRounds = $this->selectedTournament->rounds;
+    }
+
+    public function createUserResults()
+    {
+        foreach (Party::query()->where('is_active', true)->first()?->participants as $user) {
+            $userResult = new TournamentRoundUser;
+            $userResult->tournament_round_id = $this->selectedTournamentRound->id;
+            $userResult->user_id = $user->id;
+            $userResult->points = 0;
+            $userResult->has_won = false;
+
+            $userResult->save();
+        }
+
+        $this->tournamentRoundUsers = TournamentRoundUser::query()->where('tournament_round_id', $this->selectedTournamentRound->id)->get();
     }
 
     public function render()
