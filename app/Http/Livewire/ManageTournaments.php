@@ -30,7 +30,9 @@ class ManageTournaments extends Component
     public function mount()
     {
         $this->tournaments = Tournament::all();
-        $this->selectTournament($this->tournaments->last()->id);
+        if ($this->tournaments->count() > 0){
+            $this->selectTournament($this->tournaments->last()->id);
+        }
     }
 
     public function selectTournament($tournamentId)
