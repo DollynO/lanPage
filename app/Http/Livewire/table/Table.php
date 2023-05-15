@@ -296,6 +296,22 @@ abstract class Table extends Component
         $this->search = '';
     }
 
+    public function nextPage(){
+        if ($this->disablePagination()){
+            return;
+        }
+
+        $this->currentPage = min($this->currentPage + 1, $this->pageCount);
+    }
+
+    public function previousPage(){
+        if ($this->disablePagination()){
+            return;
+        }
+
+        $this->currentPage = max($this->currentPage - 1, 0);
+    }
+
     /**
      * Helper to search in an array.
      * @param $array
