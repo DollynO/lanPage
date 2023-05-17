@@ -32,6 +32,7 @@ class GameTable extends Table
         return[
             Column::make('name','Name')
             ->defaultSortColumn(),
+            Column::make('genre', 'Genre'),
             Column::make('player_count', 'Player'),
             Column::make('price', 'Price')
             ->component('columns.numeric'),
@@ -57,6 +58,9 @@ class GameTable extends Table
         return [
             TextFilter::make('name','Name')
             ->setConfig(['placeholder' => 'Name', 'label' => 'Name'])
+            ->setFilterCallback(TextFilter::defaultCallback()),
+            TextFilter::make('genre', 'Genre')
+            ->setConfig(['placeholder' => 'Genre', 'label' => 'Genre'])
             ->setFilterCallback(TextFilter::defaultCallback()),
             NumberFilter::make('player_count','Player')
             ->setConfig(['minValue' => 1, 'maxValue' => 99])
