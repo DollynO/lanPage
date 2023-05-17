@@ -27,7 +27,8 @@ class FoodTable extends Table
     public function columns(): array
     {
         return[
-            Column::make('name','Name'),
+            Column::make('name','Name')
+            ->defaultSortColumn(),
             Column::make('description','Description'),
             Column::make('rating', 'Rating')
                 ->component('components.star-rating')

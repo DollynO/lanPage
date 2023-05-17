@@ -186,6 +186,17 @@ abstract class Table extends Component
         return false;
     }
 
+    public function getDefaultSortColumn(): ?Column
+    {
+        foreach ($this->columns() as $column){
+            if ($column->isDefaultSortColumn){
+                return $column;
+            }
+        }
+
+        return null;
+    }
+
 // Base function. Should not be changed.
     /**
      * Used to set the selected row.
@@ -229,6 +240,11 @@ abstract class Table extends Component
             ->when($this->sortBy !== '', function($query){
                 ($this->search_array($this->columns(), 'key', $this->sortBy)
                         ->getSortCallback())($query, $this->sortBy, $this->sortDirection === 'asc');
+            }, function($query){
+                $column = $this->getDefaultSortColumn();
+                if ($column != null){
+                    $column->getSortCallback()($query, $column->key, $column->defaultSortDirection);
+                }
             });
 
         if (!$this->disablePagination()){
@@ -296,6 +312,10 @@ abstract class Table extends Component
         $this->search = '';
     }
 
+    /**
+     * goes to the next page of the pagination.
+     * @return void
+     */
     public function nextPage(){
         if ($this->disablePagination()){
             return;
@@ -304,6 +324,10 @@ abstract class Table extends Component
         $this->currentPage = min($this->currentPage + 1, $this->pageCount);
     }
 
+    /**
+     * Goes to the previous page of the pagination.
+     * @return void
+     */
     public function previousPage(){
         if ($this->disablePagination()){
             return;

@@ -29,7 +29,7 @@ class FoodSchedule extends Component
     public function mount($party)
     {
         $this->partyId = $party->id;
-        $this->availableRecipes = Recipe::all()->toArray();
+        $this->availableRecipes = Recipe::OrderBy('name')->get()->toArray();
     }
 
     public function collectData()
