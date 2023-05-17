@@ -8,7 +8,7 @@
             <x-input label="{{__('Player count')}}" wire:model.defer="player_count"/>
         </div>
         <x-textarea label="{{__('Note')}}" wire:model.defer="note"/>
-        <x-checkbox label="{{__('Note')}}" wire:model.defer="already_played"/>
+        <x-checkbox label="{{__('Already played')}}" wire:model.defer="already_played"/>
     </div>
     <x-slot name="buttons">
         <x-button dark label="{{__('Save')}}" wire:click="save"/>

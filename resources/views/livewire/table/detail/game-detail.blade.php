@@ -49,7 +49,7 @@
         <x-input label="{{__('Player count')}}" class="disabled:border-1" wire:model.defer="game.player_count"
                  x-bind:disabled="!inEditState"/>
     </div>
-    <x-input type="checkbox" label="{{__('Already played')}}" wire:model.defer="game.already_played"
+    <x-checkbox label="{{__('Already played')}}" wire:model.defer="game.already_played"
              x-bind:disabled="!inEditState"/>
 
     <x-textarea label="{{__('Note')}}" lass="disabled:border-1" wire:model.defer="game.note"
