@@ -1,23 +1,21 @@
-name: Deploy
-
 on:
   push:
     branches:
       - dev
-
+  workflow_dispatch:
+  
 jobs:
-  deploy:
+  run_pull:
+    name: run pull
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        ssh-key: ${{ secrets.DEPLOY_KEY }}
-
-    - name: Install Composer dependencies
-      run: composer install --prefer-dist --no-progress --no-interaction
-
-    - name: Deploy to server
+    - name: install ssh keys
       run: |
-        ssh -i ${{ secrets.DEPLOY_KEY }} ${{ secrets.SERVER_USERNAME}}@${{ secrets.SERVER_HOST}} "cd /var/www/lanPage && git pull && composer install --prefer-dist --no-dev --no-progress --no-interaction && php artisan migrate"
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.SERVER_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SERVER_HOST }} > ~/.ssh/known_hosts
+    - name: connect and pull
+      run: ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd /var/www/lanPage && git checkout dev && git pull && exit"
+    - name: cleanup
+      run: rm -rf ~/.ssh
