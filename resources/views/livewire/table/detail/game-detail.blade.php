@@ -42,6 +42,7 @@
     </x-slot>
 
     <x-input label="{{__('Name')}}" wire:model.defer="game.name" x-bind:disabled="!inEditState"/>
+    <x-input label="{{__('Genre')}}" wire:model.defer="game.genre" x-bind:disabled="!inEditState"/>
     <x-input label="{{__('Source')}}" wire:model.defer="game.source" x-bind:disabled="!inEditState"/>
     <div class="grid grid-cols-2 gap-2 mt-2">
         <x-input label="{{__('Price')}}" class="disabled:border-1" wire:model.defer="game.price"
