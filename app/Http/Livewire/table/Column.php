@@ -36,6 +36,18 @@ class Column
     public $sortCallback = null;
 
     /**
+     * A value indicating whether this column is the default sort column.
+     * @var bool
+     */
+    public $isDefaultSortColumn = false;
+
+    /**
+     * A value indicating whether to sort default asc(true) or desc(false).
+     * @var bool
+     */
+    public $defaultSortDirection = true;
+
+    /**
      * Constructor to create a new column.
      * @param $key
      * @param $label
@@ -111,6 +123,17 @@ class Column
     public function getSortCallback(): Closure
     {
         return $this->sortCallback ?? Column::defaultSortCallback();
+    }
+
+    /**
+     * Marks the column as default sort column.
+     * @return $this
+     */
+    public function defaultSortColumn(bool $asc = true) : Column
+    {
+        $this->isDefaultSortColumn = true;
+        $this->defaultSortDirection = $asc;
+        return $this;
     }
 }
 

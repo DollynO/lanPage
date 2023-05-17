@@ -15,7 +15,8 @@ class PartyTable extends Table
     public function columns(): array
     {
         return[
-            Column::make('start_date','Start date'),
+            Column::make('start_date','Start date')
+            ->defaultSortColumn(false),
             Column::make('end_date', 'End date'),
             Column::make('location', 'Location'),
             Column::make('rating','Rating')

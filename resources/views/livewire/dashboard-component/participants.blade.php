@@ -25,7 +25,11 @@
                     </tr>
                 </x-thead>
                 <tbody>
-                @foreach($party['participants'] as $participants)
+                @php
+                    $sortedArray = $this->party['participants']->toArray();
+                    usort($sortedArray, fn($a, $b) => strtolower($a['name']) <=> strtolower($b['name']));
+                @endphp
+                @foreach($sortedArray as $participants)
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <x-td>
                             {{$participants['name']}}

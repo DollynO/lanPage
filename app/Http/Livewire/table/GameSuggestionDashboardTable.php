@@ -17,7 +17,8 @@ class GameSuggestionDashboardTable extends Table
     public function query(): Builder
     {
         return GameSuggestion::query()->where('party_id', $this->party->id)
-            ->with(['game', 'party', 'user']);
+            ->with(['party', 'user'])
+            ->join('games', 'games.id', '=' , 'game_suggestions.id');
     }
 
     /**
@@ -27,12 +28,13 @@ class GameSuggestionDashboardTable extends Table
     public function columns(): array
     {
         return [
-            Column::make('game.name', 'Name'),
-            Column::make('game.genre', 'Genre'),
-            Column::make('game.player_count', 'Player'),
-            Column::make('game.price', 'Price')
+            Column::make('name', 'Name')
+            ->defaultSortColumn(),
+            Column::make('genre', 'Genre'),
+            Column::make('player_count', 'Player'),
+            Column::make('price', 'Price')
                 ->component('columns.numeric'),
-            Column::make('game.source', 'Source'),
+            Column::make('source', 'Source'),
             Column::make('user.name', 'Suggester'),
         ];
     }

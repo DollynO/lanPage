@@ -27,7 +27,8 @@ class UserTable extends Table
     public function columns(): array
     {
         return[
-            Column::make('name','Name'),
+            Column::make('name','Name')
+            ->defaultSortColumn(),
         ];
     }
 

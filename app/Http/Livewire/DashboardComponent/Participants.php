@@ -16,7 +16,6 @@ class Participants extends Component
 
     public function render()
     {
-        ;
         if ($this->party->participants) {
             foreach ($this->party->participants as $val) {
                 if ($val->id === Auth::id()) {

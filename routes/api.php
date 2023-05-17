@@ -21,10 +21,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 });
 
-Route::get('/recipe', function (Request $request) {
-    return json_encode(Recipe::all());
-})->name('api.recipes');
-
 Route::get('/games', function (Request $request) {
-    return json_encode(Game::all());
+    return json_encode(Game::OrderBy('name')->get());
 })->name('api.games');
