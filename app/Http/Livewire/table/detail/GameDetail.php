@@ -10,9 +10,10 @@ class GameDetail extends Detail
 
     protected $rules =[
         'game.id' => 'sometimes|required|exists:games,id',
-        'game.name' => 'required|string',
-        'game.note' => 'nullable|string',
-        'game.source' => 'required|string',
+        'game.name' => 'required|string|max:255',
+        'game.genre' => 'required|string|max:200',
+        'game.note' => 'nullable|string|max:255',
+        'game.source' => 'required|string|max:255',
         'game.player_count' => 'required|integer|min:0',
         'game.price' => 'required|numeric|min:0',
         'game.already_played' => 'nullable|boolean',
@@ -55,6 +56,7 @@ class GameDetail extends Detail
 
         $game = Game::query()->whereKey($this->game['id'])->first();
         $game->name = $validatedData['game']['name'];
+        $game->genre = $validatedData['game']['genre'];
         $game->note = $validatedData['game']['note'];
         $game->source = $validatedData['game']['source'];
         $game->player_count = $validatedData['game']['player_count'];

@@ -23,11 +23,11 @@ class GameController extends Controller
 
         $validator = Validator::make($request, [
             'player_count' => 'required|numeric',
-            'genre' => 'required|string',
+            'genre' => 'required|string|max:200',
             'price' => 'required|numeric',
-            'name' => 'required|string',
-            'note' => 'nullable|string',
-            'source' => 'required|string',
+            'name' => 'required|string|max:255',
+            'note' => 'nullable|string|max:255',
+            'source' => 'required|string|max:255',
             'already_played' => 'nullable|boolean'
         ]);
 
