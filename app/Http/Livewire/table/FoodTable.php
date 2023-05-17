@@ -4,6 +4,7 @@ namespace App\Http\Livewire\table;
 
 use App\Models\Recipe;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class FoodTable extends Table
 {
@@ -15,7 +16,8 @@ class FoodTable extends Table
      */
     public function query(): Builder
     {
-        return Recipe::query();
+        return Recipe::with(['ratings', 'userRating'])
+            ->withAvg('ratings', 'rating');
     }
 
     /**
@@ -27,6 +29,14 @@ class FoodTable extends Table
         return[
             Column::make('name','Name'),
             Column::make('description','Description'),
+            Column::make('rating', 'Rating')
+                ->component('components.star-rating')
+                ->livewire()
+                ->sortable(function(Builder $query, string $key, bool $directionAsc)
+                {
+                    // order by the avg field we create in the query withAVG()
+                    return $query->orderByRaw(DB::raw('ratings_avg_rating '. ($directionAsc ? 'ASC' : 'DESC')));
+                }),
         ];
     }
 
