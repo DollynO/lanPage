@@ -28,6 +28,6 @@ class Dashboard extends Component
 
     public function selectedParty()
     {
-        return Party::find($this->selectedPartyId)->with(['participants', 'meals'])->first();
+        return Party::whereKey($this->selectedPartyId)->with(['participants', 'meals'])->first();
     }
 }
