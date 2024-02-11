@@ -3,12 +3,12 @@ on:
     branches:
       - dev
   workflow_dispatch:
-  
+
 jobs:
   run_pull:
     name: run pull
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: install ssh keys
       run: |
@@ -16,6 +16,6 @@ jobs:
         echo "${{ secrets.SERVER_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SERVER_HOST }} > ~/.ssh/known_hosts
     - name: connect and pull
-      run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "cd /var/www/lanPage && git checkout dev && git pull && exit"
+      run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "cd /var/www/lanPage && git checkout dev && git pull && php artisan migrate --force && exit"
     - name: cleanup
       run: rm -rf ~/.ssh
