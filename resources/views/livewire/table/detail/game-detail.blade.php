@@ -55,4 +55,16 @@
 
     <x-textarea label="{{__('Note')}}" lass="disabled:border-1" wire:model.defer="game.note"
                 x-bind:disabled="!inEditState"/>
+
+    @if ($game['comments'])
+        <div class="border-1 border-gray-300">
+            @foreach($game['comments'] as $comment)
+                @php($key = 'comment_id_'.$comment['id'])
+                @livewire('comment', ['object'=>$comment, key($key)])
+                @if ($comment != end($game['comments']))
+                    <hr class="h-px bg-gray-400 border-0 dark:bg-gray-700">
+                @endif
+            @endforeach
+        </div>
+    @endif
 </x-slide-in>
