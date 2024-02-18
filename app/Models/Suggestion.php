@@ -12,7 +12,7 @@ class Suggestion extends Model
     protected $fillable = ['user_id', 'game_id'];
 
     public function votes() {
-        return count(Suggestion::query()->where('game_id', $this->game_id)->get());
+        return Suggestion::query()->where('game_id', $this->game_id)->get();
     }
 
     public function userVote($userId)
