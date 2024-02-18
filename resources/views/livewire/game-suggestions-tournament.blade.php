@@ -54,7 +54,7 @@
                     <x-thead>
                         <tr>
                             <x-th>{{__('Game')}}</x-th>
-                            <x-th>{{__('Total Votes')}}</x-th>
+                            <x-th>{{__('Votes')}}</x-th>
                             <x-th>{{__('Vote')}}</x-th>
                         </tr>
                     </x-thead>
@@ -62,7 +62,32 @@
                         @forelse ($suggestions as $index => $suggestion)
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <x-td>{{ $suggestion['game']->name }}</x-td>
-                                <x-td>{{ $suggestion->votes() }}</x-td>
+                                <x-td>{{ $suggestion->votes()->count() }}
+                                    @foreach ($suggestion->votes() as $vote)
+                                        <div style="position: relative; display: inline-block; cursor: pointer;"
+                                             onmouseenter="showUserInfo(this)" onmouseleave="hideUserInfo(this)">
+                                            <!-- User icon with initials, border adjusted for subtlety -->
+                                            <div class="user-icon" style="border: 0 solid #ddd; color: black; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 14px; margin-left: 5px; background-color: #2196F3;" data-user-id="{{ $vote->user_id }}">
+                                                {{ substr($vote->user->name, 0, 1) }}{{ substr($vote->user->name, strpos($vote->user->name, " ") + 1, 1) }}
+                                            </div>
+                                            <div class="user-info" data-user-id="{{ $vote->user_id }}" style="position: absolute; z-index: 1; bottom: 100%; left: 50%; transform: translateX(-50%); width: 200px; background-color: #f9f9f9; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); padding: 12px; border-radius: 4px; display: none; margin-bottom: 10px;">
+                                                <!-- Pop-up content, hidden by default -->
+                                                Name: {{ $vote->user->name }}<br>
+                                                Email: {{ $vote->user->email }}
+                                                <!-- Add more user details as needed -->
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <script>
+                                        function showUserInfo(element) {
+                                            element.querySelector('.user-info').style.display = 'block';
+                                        }
+
+                                        function hideUserInfo(element) {
+                                            element.querySelector('.user-info').style.display = 'none';
+                                        }
+                                    </script>
+                                </x-td>
                                 <x-td>
                                     <div class="button-container" style="margin: -8px;">
                                     <button wire:click="increaseVotes({{ $suggestion->id }})"
@@ -72,12 +97,12 @@
                                     </button>
                                     <button wire:click="decreaseVotes({{ $suggestion }})"
                                             class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm w-10 py-2 ring-red-500 text-white bg-red-500 hover:bg-red-600 hover:ring-red-600"
-                                            @if (!$suggestion->userVote(Auth::id()) || $suggestion->votes() === 1) style="display: none" @endif>
+                                            @if (!$suggestion->userVote(Auth::id()) || $suggestion->votes()->count() === 1) style="display: none" @endif>
                                         -1
                                     </button>
                                     <button wire:click="removeSuggestion({{ $suggestion->id }})"
                                             class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm w-10 py-2 ring-red-500 text-white bg-red-500 hover:bg-red-600 hover:ring-red-600"
-                                            @if (!$suggestion->userVote(Auth::id()) || $suggestion->votes() > 1) style="display: none" @endif>
+                                            @if (!$suggestion->userVote(Auth::id()) || $suggestion->votes()->count() > 1) style="display: none" @endif>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>
                                         </button>
                                     </div>
