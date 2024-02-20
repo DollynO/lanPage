@@ -56,6 +56,9 @@
     <x-textarea label="{{__('Note')}}" lass="disabled:border-1" wire:model.defer="game.note"
                 x-bind:disabled="!inEditState"/>
 
+    @php($key = rand(11111,99999))
+    @livewire('comment-reply', ['id' => $game['id'], 'objectName' => \App\Models\Game::class, key($key)])
+
     @if ($game['comments'])
         <div class="border-1 border-gray-300">
             @foreach($game['comments'] as $comment)
