@@ -19,6 +19,11 @@ class GameDetail extends Detail
         'game.already_played' => 'nullable|boolean',
     ];
 
+    // Add listener to refresh the comments. Used from comment-reply component.
+    protected $listeners = [
+      'refreshComments'
+    ];
+
     public function mount($object){
         $this->game = $object;
     }
@@ -69,5 +74,11 @@ class GameDetail extends Detail
         $this->notification()->success(
             'Game saved.',
         );
+    }
+
+    public function refreshComments(){
+        $this->game = Game::whereKey($this->game['id'])
+            ->first()
+            ->toArray();
     }
 }
