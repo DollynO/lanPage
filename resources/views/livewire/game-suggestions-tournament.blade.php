@@ -58,35 +58,50 @@
                             <x-th>{{__('Vote')}}</x-th>
                         </tr>
                     </x-thead>
+
+                    <style>
+                        .data-initials {
+                            background: #099bdd;
+                            color: white;
+                            opacity: 1;
+                            content: attr(data-initials);
+                            display: inline-block;
+                            font-weight: bold;
+                            border-radius: 50%;
+                            vertical-align: middle;
+                            margin-left: 0.5em;
+                            width: 35px;
+                            height: 35px;
+                            line-height: 35px;
+                            text-align: center;
+                        }
+                    </style>
+                    <script>
+                        function showUserInfo(element) {
+                            element.querySelector('.user-info').style.display = 'block';
+                        }
+
+                        function hideUserInfo(element) {
+                            element.querySelector('.user-info').style.display = 'none';
+                        }
+                    </script>
                     <tbody>
                         @forelse ($suggestions as $index => $suggestion)
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <x-td>{{ $suggestion['game']->name }}</x-td>
                                 <x-td>{{ $suggestion->votes()->count() }}
                                     @foreach ($suggestion->votes() as $vote)
-                                        <div style="position: relative; display: inline-block; cursor: pointer;"
-                                             onmouseenter="showUserInfo(this)" onmouseleave="hideUserInfo(this)">
-                                            <!-- User icon with initials, border adjusted for subtlety -->
-                                            <div class="user-icon" style="border: 0 solid #ddd; color: black; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 14px; margin-left: 5px; background-color: #2196F3;" data-user-id="{{ $vote->user_id }}">
-                                                {{ substr($vote->user->name, 0, 1) }}{{ substr($vote->user->name, strpos($vote->user->name, " ") + 1, 1) }}
+                                        <div style="position: relative; display: inline-block; cursor: pointer;" onmouseenter="showUserInfo(this)" onmouseleave="hideUserInfo(this)">
+                                            <div class="data-initials" data-user-id="{{ $vote->user_id }}">
+                                                {{ strtoupper(substr($vote->user->name, 0, 1)) }}{{ substr($vote->user->name, strpos($vote->user->name, " ") + 1, 1) }}
                                             </div>
                                             <div class="user-info" data-user-id="{{ $vote->user_id }}" style="position: absolute; z-index: 1; bottom: 100%; left: 50%; transform: translateX(-50%); width: 200px; background-color: #f9f9f9; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); padding: 12px; border-radius: 4px; display: none; margin-bottom: 10px;">
                                                 <!-- Pop-up content, hidden by default -->
-                                                Name: {{ $vote->user->name }}<br>
-                                                Email: {{ $vote->user->email }}
-                                                <!-- Add more user details as needed -->
+                                                {{ $vote->user->name }}
                                             </div>
                                         </div>
                                     @endforeach
-                                    <script>
-                                        function showUserInfo(element) {
-                                            element.querySelector('.user-info').style.display = 'block';
-                                        }
 
-                                        function hideUserInfo(element) {
-                                            element.querySelector('.user-info').style.display = 'none';
-                                        }
-                                    </script>
                                 </x-td>
                                 <x-td>
                                     <div class="button-container" style="margin: -8px;">

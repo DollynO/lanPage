@@ -4,10 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Tournament;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Suggestion;
 use App\Models\Game;
 use WireUi\Traits\Actions;
+
 
 class GameSuggestionsTournament extends Component
 {
@@ -44,7 +46,16 @@ class GameSuggestionsTournament extends Component
 
     public function retrieveSuggestions()
     {
-        return Suggestion::with('game')->get()->unique('game_id');
+        $gameIdCounts = Suggestion::query()
+            ->select('game_id', DB::raw('count(*) as count'))
+            ->groupBy('game_id')
+            ->pluck('count', 'game_id');
+
+        $suggestions = Suggestion::with('game')->get()->unique('game_id');
+
+        return $suggestions->sortByDesc(function ($suggestion) use ($gameIdCounts) {
+            return $gameIdCounts[$suggestion->game_id] ?? 0;
+        });
     }
 
     public function updateAmountSuggestionsLeft()
