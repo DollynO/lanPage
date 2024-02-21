@@ -129,14 +129,12 @@
                             element.querySelector('.user-info').style.display = 'none';
                         }
 
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const colors = ['#D28100', '#D1423F', '#DC1677', '#C233A0', '#6163E1',
-                                '#246DB6', '#008290', '#7BA100', '#9355D2', '#627A89'];
-                            document.querySelectorAll('.user-icon').forEach(function(icon) {
-                                const userId = parseInt(icon.getAttribute('data-user-id'));
-                                const colorIndex = userId % colors.length; // modulo by the number of colors
-                                icon.style.backgroundColor = colors[colorIndex];
-                            });
+                        const colors = ['#D28100', '#D1423F', '#DC1677', '#C233A0', '#6163E1',
+                            '#246DB6', '#008290', '#7BA100', '#9355D2', '#627A89'];
+                        document.querySelectorAll('.user-icon').forEach(function(icon) {
+                            const userId = parseInt(icon.getAttribute('data-user-id'));
+                            const colorIndex = userId % colors.length; // modulo by the number of colors
+                            icon.style.backgroundColor = colors[colorIndex];
                         });
                     </script>
                 </x-table>
