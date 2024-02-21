@@ -30,7 +30,16 @@
                             <x-td>{{ $contestant['user']->name }}</x-td>
                             <x-td>{{ $contestant['total_points'] }}</x-td>
                             @foreach($contestant['rounds'] as $round)
-                                <x-td>{{ $round->points }}</x-td>
+                                @if($round->has_won > 0)
+                                    <x-td>
+                                        <div style="display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid gold; border-radius: 50%; width: 34px; height: 34px; margin-left: -10px;"
+                                             class="flex items-center cursor-pointer">
+                                            <b>{{ $round->points }}</b>
+                                        </div>
+                                    </x-td>
+                                @else
+                                    <x-td>{{ $round->points }}</x-td>
+                                @endif
                             @endforeach
                             @if(count($contestant['rounds']) < count($rounds))
                                 @for($i = count($contestant['rounds']); $i < count($rounds); $i++)
