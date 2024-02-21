@@ -76,23 +76,14 @@
                             text-align: center;
                         }
                     </style>
-                    <script>
-                        function showUserInfo(element) {
-                            element.querySelector('.user-info').style.display = 'block';
-                        }
-
-                        function hideUserInfo(element) {
-                            element.querySelector('.user-info').style.display = 'none';
-                        }
-                    </script>
                     <tbody>
                         @forelse ($suggestions as $index => $suggestion)
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <x-td>{{ $suggestion['game']->name }}</x-td>
-                                <x-td>{{ $suggestion->votes()->count() }}
+                                <x-td>
                                     @foreach ($suggestion->votes() as $vote)
                                         <div style="position: relative; display: inline-block; cursor: pointer;" onmouseenter="showUserInfo(this)" onmouseleave="hideUserInfo(this)">
-                                            <div class="data-initials" data-user-id="{{ $vote->user_id }}">
+                                            <div class="data-initials user-icon" data-user-id="{{ $vote->user_id }}">
                                                 {{ strtoupper(substr($vote->user->name, 0, 1)) }}{{ substr($vote->user->name, strpos($vote->user->name, " ") + 1, 1) }}
                                             </div>
                                             <div class="user-info" data-user-id="{{ $vote->user_id }}" style="position: absolute; z-index: 1; bottom: 100%; left: 50%; transform: translateX(-50%); width: 200px; background-color: #f9f9f9; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); padding: 12px; border-radius: 4px; display: none; margin-bottom: 10px;">
@@ -129,6 +120,25 @@
                             </tr>
                         @endforelse
                     </tbody>
+                    <script>
+                        function showUserInfo(element) {
+                            element.querySelector('.user-info').style.display = 'block';
+                        }
+
+                        function hideUserInfo(element) {
+                            element.querySelector('.user-info').style.display = 'none';
+                        }
+
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const colors = ['#D28100', '#D1423F', '#DC1677', '#C233A0', '#6163E1',
+                                '#246DB6', '#008290', '#7BA100', '#9355D2', '#627A89'];
+                            document.querySelectorAll('.user-icon').forEach(function(icon) {
+                                const userId = parseInt(icon.getAttribute('data-user-id'));
+                                const colorIndex = userId % colors.length; // modulo by the number of colors
+                                icon.style.backgroundColor = colors[colorIndex];
+                            });
+                        });
+                    </script>
                 </x-table>
             </div>
         </div>
