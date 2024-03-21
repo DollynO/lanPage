@@ -18,7 +18,7 @@ class GameSuggestionDashboardTable extends Table
     {
         return GameSuggestion::query()->where('party_id', $this->party->id)
             ->with(['party', 'user'])
-            ->join('games', 'games.id', '=' , 'game_suggestions.id');
+            ->join('games', 'games.id', '=' , 'game_suggestions.game_id');
     }
 
     /**
