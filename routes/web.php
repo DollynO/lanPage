@@ -3,6 +3,8 @@
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('storage/{path}', function ($path) {
+    $full = storage_path('app/public/'.$path);
+    abort_unless(File::exists($full), 404);
+    return Response::file($full);
+})->where('path', '.*');
 
 Route::get('/', function () {
     return view('auth.login');
