@@ -13,7 +13,8 @@ class Photo extends Model
     protected $fillable = [
         'party_id',
         'user_id',
-        'path'
+        'path',
+        'hash',
     ];
 
     public function party(): BelongsTo

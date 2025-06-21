@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Party;
 use App\Models\Photo;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -24,21 +25,30 @@ class PhotoController extends Controller
         return view('gallery.party', compact('party', 'photos'));
     }
 
-    public function store(Request $request, Party $party)
+    public function store(Request $request, Party $party): RedirectResponse
     {
         $request->validate([
             'photos.*' => 'required|image|max:5120'
         ]);
 
+        $uploaded = 0;
+
         foreach ($request->file('photos') as $file) {
+            $hash = sha1_file($file->getRealPath());
+            if (Photo::query()->where('hash', $hash)->exists()) {
+                continue;
+            }
+
             $path = $file->store('party_photos', 'public');
             $photo = new Photo([
                 'party_id' => $party->id,
                 'user_id' => $request->user()->id,
                 'path' => $path,
+                'hash' => $hash,
             ]);
 
             $photo->save();
+            $uploaded++;
         }
 
         return back();
