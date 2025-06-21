@@ -24,6 +24,11 @@ class Party extends Model
         'end_date',
     ];
 
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
     public function participants() : BelongsToMany
     {
         return $this->belongsToMany(User::class)
@@ -35,7 +40,17 @@ class Party extends Model
         return $this->hasMany(Meal::class)->with('recipe')->orderBy('date');
     }
 
-    public function delete()
+    public function getNameAttribute(): string
+    {
+        return 'LAN ' . $this->start_date->format('Y');
+    }
+
+    public function photos(): HasMany
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+    public function delete(): ?bool
     {
         $this->ratings()->delete();
         return parent::delete();

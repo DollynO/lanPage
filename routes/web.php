@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             return view('tournament');
         })->name('tournament');
     });
+
+    Route::get('/gallery',         [PhotoController::class,'index'])->name('gallery.index');
+    Route::get('/gallery/{party}', [PhotoController::class,'partyGallery'])->name('gallery.party');
+    Route::post('/gallery/{party}',[PhotoController::class,'store'])->name('gallery.store');
 });
 
 Auth::routes();
