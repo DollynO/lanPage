@@ -22,6 +22,9 @@
                     <x-jet-nav-link href="{{ route('foods') }}" :active="request()->routeIs('foods')">
                         {{ __('Foods') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('gallery.index') }}" :active="request()->routeIs('gallery.index')">
+                        {{ __('Photos') }}
+                    </x-jet-nav-link>
                     @if (Auth::user()->name == "admin")
                         <x-jet-nav-link href="{{ route('tournament') }}" :active="request()->routeIs('tournament')">
                             <span class="text-red-400">{{ __('Tournament') }}</span>
