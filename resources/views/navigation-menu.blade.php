@@ -95,6 +95,10 @@
                     </div>
                 @endif
 
+                <div class="ml-3 relative">
+                    <x-dark-mode-switch />
+                </div>
+
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
