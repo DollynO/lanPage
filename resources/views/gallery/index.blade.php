@@ -5,9 +5,9 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
             @foreach($parties as $party)
-                <a href="{{ route('gallery.party',$party) }}" class="block bg-white shadow-sm rounded-lg overflow-hidden">
+                <a href="{{ route('gallery.party',$party) }}" class="block bg-white shadow-sm rounded-lg overflow-hidden dark:bg-gray-700 dark:text-white">
                     <img
                         src="{{ asset('storage/'.$party->photos->first()?->path ?? 'placeholder.png') }}"
                         class="w-full h-48 object-cover"

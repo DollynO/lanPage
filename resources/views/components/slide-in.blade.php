@@ -32,7 +32,7 @@
                     x-transition:leave-end="translate-x-full"
                     class="pointer-events-auto w-screen max-w-md">
                     <!--@click.away="open = false"-->
-                    <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                    <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl dark:bg-gray-800 dark:text-white">
                         <div>
                             <header class="px-4 sm:px-6">
                                 <div class="flex items-start justify-between">
@@ -42,7 +42,7 @@
                                     <div class="ml-3 flex h-7 items-center">
                                         <button
                                             type="button"
-                                            class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                            class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-gray-700 dark:border dark:border-gray-300 dark:text-white"
                                             @click="open = false">
                                             <span class="sr-only">Close panel</span>
                                             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"

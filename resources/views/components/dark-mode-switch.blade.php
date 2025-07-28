@@ -1,11 +1,4 @@
 <div x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }"
-     x-init="
-        if(darkMode) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-     "
      @click="
         darkMode = !darkMode;
         if(darkMode) {

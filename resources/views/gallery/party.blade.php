@@ -7,12 +7,12 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-sm rounded-lg p-6 mb-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
+            <div class="bg-white shadow-sm rounded-lg p-6 mb-6 dark:bg-gray-700">
                 <form method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="photos[]" multiple required class="block mb-4">
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Upload</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded dark:bg-blue-600 ">Upload</button>
                 </form>
             </div>
 
