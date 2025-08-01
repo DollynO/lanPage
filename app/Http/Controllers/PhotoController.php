@@ -12,9 +12,14 @@ class PhotoController extends Controller
 {
     public function index(): View
     {
-        $parties = Party::with([
-            'photos' => fn($q) => $q->latest()->take(8)
-        ])->get();
+        $parties = Party::with('photos')
+            ->withCount('photos')
+            ->orderByRaw('YEAR(start_date) DESC, start_date DESC')
+            ->get();
+
+        $parties->each(function ($party) {
+            $party->previewPhotos = $party->photos->take(7);
+        });
 
         return view('gallery.index', compact('parties'));
     }

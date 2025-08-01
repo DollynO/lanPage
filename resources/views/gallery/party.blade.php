@@ -19,7 +19,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 @foreach($photos as $photo)
                     <div class="bg-white shadow-sm rounded-lg overflow-hidden">
-                        <img src="{{ asset('storage/' . $photo->path) }}"
+                        <img loading="lazy" src="{{ asset('storage/' . $photo->path) }}"
                              class="w-full h-48 object-cover"
                              alt="Photo by {{ $photo->user->name }}">
                         <div class="p-4 text-sm text-gray-600">
