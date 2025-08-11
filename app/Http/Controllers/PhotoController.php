@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Party;
 use App\Models\Photo;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -32,6 +31,9 @@ class PhotoController extends Controller
 
     public function store(Request $req, Party $party)
     {
+        $user = $req->user();
+        abort_unless($user && $user->can_upload, 403);
+
         $files = $req->file('photos', []);
         $added = [];
         $skipped = [];

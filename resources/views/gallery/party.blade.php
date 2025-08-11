@@ -5,10 +5,14 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ $party->name }} Gallery
             </h2>
-            <button id="addPhotosBtn"
-                    class="px-4 py-2 bg-indigo-600 text-white rounded">
-                + Add Photos
-            </button>
+            @auth
+                @if(auth()->user()->can_upload)
+                    <button id="addPhotosBtn"
+                            class="px-4 py-2 bg-indigo-600 text-white rounded">
+                        + Add Photos
+                    </button>
+                @endif
+            @endauth
         </div>
     </x-slot>
 
