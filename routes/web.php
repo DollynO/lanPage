@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/tournament', function() {
             return view('tournament');
         })->name('tournament');
+        Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])
+            ->name('photos.destroy');
     });
 
     Route::get('/gallery',         [PhotoController::class,'index'])->name('gallery.index');

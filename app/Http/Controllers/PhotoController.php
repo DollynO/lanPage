@@ -30,32 +30,70 @@ class PhotoController extends Controller
         return view('gallery.party', compact('party', 'photos'));
     }
 
-    public function store(Request $request, Party $party): RedirectResponse
+    public function store(Request $req, Party $party)
     {
-        $request->validate([
-            'photos.*' => 'required|image|max:5120'
-        ]);
+        $files = $req->file('photos', []);
+        $added = [];
+        $skipped = [];
+        $errors = []; // keyed by original name
 
-        $uploaded = 0;
+        foreach ($files as $file) {
+            $name = $file->getClientOriginalName();
 
-        foreach ($request->file('photos') as $file) {
-            $hash = sha1_file($file->getRealPath());
-            if (Photo::query()->where('hash', $hash)->exists()) {
+            // basic validation per file
+            if (!$file->isValid()) {
+                $errors[$name] = 'Upload error (corrupted or interrupted).';
                 continue;
             }
 
-            $path = $file->store('party_photos', 'public');
-            $photo = new Photo([
-                'party_id' => $party->id,
-                'user_id' => $request->user()->id,
-                'path' => $path,
-                'hash' => $hash,
-            ]);
+            if (!str_starts_with($file->getMimeType(), 'image/')) {
+                $errors[$name] = 'Not an image.';
+                continue;
+            }
 
-            $photo->save();
-            $uploaded++;
+            if ($file->getSize() > 5 * 1024 * 1024) {
+                $errors[$name] = 'Too large (max 5MB).';
+                continue;
+            }
+
+            $hash = @sha1_file($file->getRealPath());
+            if ($hash === false) {
+                $errors[$name] = 'Could not hash file.';
+                continue;
+            }
+
+            if (Photo::where('hash', $hash)->exists()) {
+                $skipped[] = $name;
+                continue;
+            }
+
+            // attempt store
+            try {
+                $path = $file->store('party_photos', 'public');
+                Photo::create([
+                    'party_id' => $party->id,
+                    'user_id'  => $req->user()->id,
+                    'path'     => $path,
+                    'hash'     => $hash,
+                ]);
+                $added[] = $name;
+            } catch (\Throwable $e) {
+                $errors[$name] = 'Filesystem error: ' . $e->getMessage();
+            }
         }
 
-        return back();
+        if ($req->wantsJson() || $req->isXmlHttpRequest()) {
+            return response()->json([
+                'added'   => $added,
+                'skipped' => $skipped,
+                'errors'  => $errors,
+            ], 200);
+        }
+
+        $msg = [];
+        if ($added) $msg[] = count($added)." added";
+        if ($skipped) $msg[] = count($skipped)." duplicates skipped";
+        if ($errors) $msg[] = count($errors)." errors";
+        return back()->with('status', implode('; ', $msg));
     }
 }
