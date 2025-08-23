@@ -2,7 +2,7 @@
     <div class="flex flex-row justify-between">
 
         <!-- List of tournaments, including a delete button and option to create a new tournament. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 <x-table class="mr-4">
                     <x-thead>
@@ -42,7 +42,7 @@
                                 @endif
                             </x-td>
                             <x-td>
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded dark:bg-red-500 dark:hover:bg-red-700 "
                                         wire:click="deleteTournament({{ $tournament->id }})">Delete</button>
                             </x-td>
                         </tr>
@@ -51,14 +51,14 @@
                 </x-table>
                 <form class="ml-4 my-4 w-2/3" wire:submit.prevent="createTournament">
                     <div class="flex items-center mb-4">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Create new Tournament</button>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-blue-500 dark:hover:bg-blue-700" type="submit">Create new Tournament</button>
                     </div>
                 </form>
             </div>
         </div>
 
         <!-- The selected tournament, including the options to close voting and the tournament itself. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 @if ($selectedTournament)
                     <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3">
@@ -66,12 +66,12 @@
                     </div>
                     <div class="px-4">
                         <div class="flex mb-4">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 dark:bg-blue-500 dark:hover:bg-blue-700"
                                     wire:click="toggleSuggestionsClosed">
                                 {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
                                 {{ ' (' . $this->totalSuggestions . ')' }}
                             </button>
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 dark:bg-blue-500 dark:hover:bg-blue-700"
                                     wire:click="toggleCompleted">
                                 {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
                             </button>
@@ -99,13 +99,13 @@
                         @if(isset($tournamentRounds))
                             @foreach($tournamentRounds as $round)
                                 <tr wire:click="selectTournamentRound({{ $round->id }})"
-                                    class="bg-white border-b hover:bg-gray-50"
+                                    class="bg-white border-b hover:bg-gray-50 "
                                     @class(['bg-gray-200' => $selectedTournamentRound === $round->id])
                                 >
                                     <x-td>{{ $round->round_number }}</x-td>
                                     <x-td>{{ $round->is_decoy ? '-' : $round->game()->first()->name }}</x-td>
                                     <x-td>
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 dark:bg-blue-500 dark:hover:bg-blue-700
                                             {{ $round->results->count() > 0 ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}"
                                             wire:click="rollGameForRound({{ $round->id }})"
                                         >
@@ -121,16 +121,16 @@
         </div>
 
         <!-- A detailed view of the selected result, to edit them. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 @if(isset($selectedTournamentRound))
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 dark:bg-blue-500 dark:hover:bg-blue-700
                         {{ $tournamentRoundUsers->count() > 0 ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}"
                         wire:click="createUserResults"
                     >
                         {{__('Create Results')}}
                     </button>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 dark:bg-blue-500 dark:hover:bg-blue-700"
                             wire:click="saveUserResults">
                         {{__('Save Results')}}
                     </button>

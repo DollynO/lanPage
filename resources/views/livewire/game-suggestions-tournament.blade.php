@@ -18,14 +18,14 @@
                     />
                     @if(!empty($query))
                         <div class="absolute z-10 my-2 left-0 right-0">
-                            <div class="bg-white border max-h-64 sm:max-h-60 overflow-y-auto overscroll-contain soft-scrollbar select-none">
+                            <div class="bg-white border max-h-64 sm:max-h-60 overflow-y-auto overscroll-contain soft-scrollbar select-none dark:bg-gray-600 dark:text-white">
                                 <ul>
                                     @if(!empty($games))
                                         @foreach($games as $i => $game)
                                             <li>
                                                 <div wire:click="selectGame({{$game['id']}})"
                                                      class="py-2 px-3 focus:outline-none all-colors ease-in-out duration-150 relative group text-secondary-600 dark:text-secondary-400 flex items-center justify-between cursor-pointer focus:bg-primary-100 focus:text-primary-800 hover:text-white dark:focus:bg-secondary-700 hover:bg-primary-500 dark:hover:bg-secondary-700">
-                                                    <div>
+                                                    <div class="dark:text-white">
                                                         {{ $game['name'] }}
                                                     </div>
                                                 </div>

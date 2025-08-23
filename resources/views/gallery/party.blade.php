@@ -2,14 +2,14 @@
 <x-app-layout>
     <style>[x-cloak]{display:none!important}</style>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between dark:bg-gray-700">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ $party->name }} Gallery
             </h2>
             @auth
                 @if(auth()->user()->can_upload)
                     <button id="addPhotosBtn"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded">
+                            class="px-4 py-2 bg-indigo-600 text-white rounded dark:bg-blue-600">
                         + Add Photos
                     </button>
                 @endif
@@ -48,43 +48,58 @@
 
         <div>{{ $photos->links() }}</div>
 
-        {{-- Modal --}}
-        <div
-            x-show="showModal"
-            x-cloak
-            x-transition
-            @keydown.window.escape="showModal=false"
-            class="fixed inset-0 bg-black bg-opacity-75 z-[9999] flex items-center justify-center px-4"
-            @click.self="close()"
-        >
-            <div class="relative max-w-4xl w-full" @click.self="showModal=false">
-                <button @click="showModal=false"
-                        class="absolute top-3 right-3 text-white bg-black/50 hover:bg-black/70 rounded-full p-3 shadow-lg"
-                        aria-label="Close">&times;</button>
+        <template x-teleport="body">
+            <div
+                x-show="showModal"
+                x-cloak
+                x-transition
+                @keydown.window.escape="showModal=false"
+                class="fixed inset-0 flex items-center justify-center px-4 z-[2147483647]"
+            >
+                <!-- Backdrop -->
+                <div
+                    class="absolute inset-0"
+                    style="background: rgba(0,0,0,0.75);"
+                    @click="showModal=false"
+                ></div>
 
-                <button
-                    @click="prev()"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 rounded-full p-4 shadow-lg"
-                    aria-label="Previous"
-                >&lsaquo;</button>
+                <div class="relative z-10 w-full" style="max-width:1200px; height:80vh;" @click.stop>
+                    <!-- Close -->
+                    <button
+                        @click="showModal=false"
+                        style="position:absolute; right:16px; transform:translateY(-50%); z-index:20;"
+                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg"
+                        aria-label="Close"
+                    >&times;</button>
 
-                <div class="flex justify-center">
-                    <img
-                        :src="`/storage/${photos[activeIdx].path}`"
-                        class="object-contain"
-                        alt="full"
-                        @click.stop
-                        style="max-height: calc(100vh - 80px); max-width: calc(100vw - 180px);"
-                    />
+                    <!-- Prev -->
+                    <button
+                        @click="activeIdx = (activeIdx - 1 + photos.length) % photos.length"
+                        style="position:absolute; left:16px; top:50%; transform:translateY(-50%); z-index:20;"
+                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg"
+                        aria-label="Previous"
+                    >&lsaquo;</button>
+
+                    <!-- Next -->
+                    <button
+                        @click="activeIdx = (activeIdx + 1) % photos.length"
+                        style="position:absolute; right:16px; top:50%; transform:translateY(-50%); z-index:20;"
+                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg"
+                        aria-label="Next"
+                    >&rsaquo;</button>
+
+                    <!-- Image area -->
+                    <div class="w-full h-full flex items-center justify-center select-none" style="padding:2rem 6rem;">
+                        <img
+                            :src="`/storage/${photos[activeIdx].path}`"
+                            class="object-contain"
+                            alt="full"
+                            style="max-height:100%; max-width:100%;"
+                        />
+                    </div>
                 </div>
-
-                <button
-                    @click="next()"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 rounded-full p-4 shadow-lg"
-                    aria-label="Next"
-                >&rsaquo;</button>
             </div>
-        </div>
+        </template>
     </div>
 
     {{-- Alpine component definition (can live at bottom of page or bundled) --}}

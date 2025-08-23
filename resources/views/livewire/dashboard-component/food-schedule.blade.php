@@ -80,7 +80,7 @@
                 <tbody>
                 @foreach($foodSchedule as $key => $meal)
                     @if($meal['id'] == $selectedId)
-                        <tr class='bg-gray-500 border-b border-gray-300 text-gray-50'
+                        <tr class='bg-gray-500 border-b border-gray-300 text-gray-50 dark:bg-violet-700'
                             wire:click="select({{$meal['id']}})">
                     @else
                         <tr class="bg-white border-b hover:bg-gray-50" wire:click="select({{$meal['id']}})">

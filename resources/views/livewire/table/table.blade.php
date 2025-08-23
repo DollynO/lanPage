@@ -87,7 +87,7 @@
             <tbody>
             @foreach($data as $row)
                 @if($row->id == $this->selectedRowId)
-                    <tr class='bg-gray-500 border-b border-gray-300 text-gray-50'>
+                    <tr class='bg-gray-500 border-b border-gray-300 text-gray-50 dark:bg-violet-700'>
                 @else
                     <tr class="bg-white border-b hover:bg-gray-50">
                 @endif
@@ -110,7 +110,7 @@
             </tbody>
         </x-table>
         @if(!$this->disableFooterBar())
-            <div>
+            <div class="dark:bg-gray-800 dark:border-1 dark:border-gray-700">
                 <div class="flex items-center justify-between px-4 py-3 sm:px-6">
                     <div class="flex flex-1 justify-between sm:hidden">
                         <a href="#"

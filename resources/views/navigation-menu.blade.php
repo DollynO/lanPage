@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-blue-900 dark:text-white">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -7,7 +7,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto"/>
+                        <x-jet-application-mark class="block h-9 w-auto dark:fill-white"/>
                     </a>
                 </div>
 
@@ -27,13 +27,13 @@
                     </x-jet-nav-link>
                     @if (Auth::user()->name == "admin")
                         <x-jet-nav-link href="{{ route('tournament') }}" :active="request()->routeIs('tournament')">
-                            <span class="text-red-400">{{ __('Tournament') }}</span>
+                            <span class="text-red-400 dark:text-red-400">{{ __('Tournament') }}</span>
                         </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('parties') }}" :active="request()->routeIs('parties')">
-                            <span class="text-red-400">{{ __('Parties') }}</span>
+                            <span class="text-red-400 dark:text-red-400">{{ __('Parties') }}</span>
                         </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
-                            <span class="text-red-400">{{ __('Users')}}</span>
+                            <span class="text-red-400 dark:text-red-400">{{ __('Users')}}</span>
                         </x-jet-nav-link>
                     @endif
                 </div>
@@ -94,6 +94,10 @@
                         </x-jet-dropdown>
                     </div>
                 @endif
+
+                <div class="ml-3 relative">
+                    <x-dark-mode-switch />
+                </div>
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">

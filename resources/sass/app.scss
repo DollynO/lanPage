@@ -4,6 +4,8 @@
 // Variables
 @import 'variables';
 
+$enable-important-utilities: false;
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-icons/font/bootstrap-icons';
