@@ -51,6 +51,10 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    protected $casts = [
+        'can_upload' => 'boolean',
+    ];
+
     public function parties() : BelongsToMany
     {
         return $this->belongsToMany(Party::class);

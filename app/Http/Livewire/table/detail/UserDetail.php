@@ -14,6 +14,7 @@ class UserDetail extends Detail
     protected $rules = [
         'user.id' => 'sometimes|required|exists:users,id',
         'user.name' => 'required|string',
+        'user.can_upload' => 'required|boolean',
     ];
 
     public function mount($object)
@@ -68,6 +69,7 @@ class UserDetail extends Detail
 
         $user = User::query()->whereKey($this->user['id'])->first();
         $user->name = $validatedData['user']['name'];
+        $user->can_upload = $validatedData['user']['can_upload'];
         $user->save();
         $this->user = $user->toArray();
         $this->inEditState = false;
