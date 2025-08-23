@@ -1,5 +1,6 @@
 <!-- resources/views/gallery/party.blade.php -->
 <x-app-layout>
+    <style>[x-cloak]{display:none!important}</style>
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -16,23 +17,89 @@
         </div>
     </x-slot>
 
-    <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div
+        x-data="galleryViewer({
+        photos: @js(
+            $photos->map(fn($p) => [
+                'path' => $p->path,
+                'user' => $p->user->name,
+                'created_at' => $p->created_at->diffForHumans(),
+            ])->values()
+        )
+    })"
+        class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8"
+    >
         <!-- Gallery Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @foreach($photos as $photo)
                 <div class="bg-white shadow-sm rounded-lg overflow-hidden">
-                    <img loading="lazy"
-                         src="{{ asset('storage/'.$photo->path) }}"
-                         class="w-full h-48 object-cover"
-                         alt="Photo by {{ $photo->user->name }}">
+                    <button class="block w-full" @click="open({{ $loop->index }})">
+                        <img loading="lazy"
+                             src="{{ asset('storage/'.$photo->path) }}"
+                             class="w-full h-48 object-cover"
+                             alt="Photo by {{ $photo->user->name }}">
+                    </button>
                     <div class="p-4 text-sm text-gray-600">
                         By {{ $photo->user->name }} · {{ $photo->created_at->diffForHumans() }}
                     </div>
                 </div>
             @endforeach
         </div>
+
         <div>{{ $photos->links() }}</div>
+
+        {{-- Modal --}}
+        <div
+            x-show="showModal"
+            x-cloak
+            x-transition
+            @keydown.window.escape="showModal=false"
+            class="fixed inset-0 bg-black bg-opacity-75 z-[9999] flex items-center justify-center px-4"
+            @click.self="close()"
+        >
+            <div class="relative max-w-4xl w-full" @click.self="showModal=false">
+                <button @click="showModal=false"
+                        class="absolute top-3 right-3 text-white bg-black/50 hover:bg-black/70 rounded-full p-3 shadow-lg"
+                        aria-label="Close">&times;</button>
+
+                <button
+                    @click="prev()"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 rounded-full p-4 shadow-lg"
+                    aria-label="Previous"
+                >&lsaquo;</button>
+
+                <div class="flex justify-center">
+                    <img
+                        :src="`/storage/${photos[activeIdx].path}`"
+                        class="object-contain"
+                        alt="full"
+                        @click.stop
+                        style="max-height: calc(100vh - 80px); max-width: calc(100vw - 180px);"
+                    />
+                </div>
+
+                <button
+                    @click="next()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 rounded-full p-4 shadow-lg"
+                    aria-label="Next"
+                >&rsaquo;</button>
+            </div>
+        </div>
     </div>
+
+    {{-- Alpine component definition (can live at bottom of page or bundled) --}}
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('galleryViewer', (initial) => ({
+                showModal: false,
+                activeIdx: 0,
+                photos: initial.photos ?? [],
+                open(i) { this.activeIdx = i; this.showModal = true; },
+                prev() { this.activeIdx = (this.activeIdx - 1 + this.photos.length) % this.photos.length; },
+                next() { this.activeIdx = (this.activeIdx + 1) % this.photos.length; },
+            }))
+        })
+    </script>
 
     <div id="uploadModal"
          class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 overflow-auto px-4 py-8">

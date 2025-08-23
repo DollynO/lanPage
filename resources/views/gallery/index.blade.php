@@ -52,7 +52,7 @@
                     x-cloak
                     x-transition
                     @keydown.window.escape="showModal=false"
-                    class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 px-4"
+                    class="fixed inset-0 bg-black/75 flex items-center justify-center z-50 px-4"
                 >
                     <div class="relative max-w-4xl w-full" @click.self="showModal=false">
                         <button @click="showModal=false"
