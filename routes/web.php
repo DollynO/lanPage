@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPhotoController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/tournament', function() {
             return view('tournament');
         })->name('tournament');
+        Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])
+            ->name('photos.destroy');
+        Route::get('/admin/photos',
+            [AdminPhotoController::class,'index'])->name('admin.photos.index');
+        Route::patch('/admin/photos/{photo}',
+            [AdminPhotoController::class,'update'])->name('admin.photos.update');
+        Route::delete('/admin/photos/{photo}',
+            [AdminPhotoController::class,'destroy'])->name('admin.photos.destroy');
+        Route::post('/admin/photos/bulk-delete',
+            [AdminPhotoController::class,'bulkDestroy'])
+            ->name('admin.photos.bulk');
     });
 
     Route::get('/gallery',         [PhotoController::class,'index'])->name('gallery.index');

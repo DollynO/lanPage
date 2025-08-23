@@ -12,4 +12,10 @@
     title: 'Sure reset password?',
     icon: 'warning',
     method: 'resetPassword'}"/>
+    <div class="flex items-center gap-2">
+        <input id="can_upload" type="checkbox"
+               wire:model.defer="user.can_upload"
+               class="h-4 w-4">
+        <label for="can_upload" class="text-sm">Upload photo permissions</label>
+    </div>
 </x-slide-in>
