@@ -59,7 +59,7 @@ class ManageTournaments extends Component
     public function createTournament()
     {
         $tournament = new Tournament;
-        $tournament->name = "Tournament " . today()->format('m.Y');
+        $tournament->name = "Tournament " . today()->format('d.m.Y');
         $tournament->party_id = Party::all()->last()->id;
         $tournament->are_suggestions_closed = false;
         $tournament->is_completed = false;
