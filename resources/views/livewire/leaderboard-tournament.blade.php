@@ -9,7 +9,7 @@
             </x-button>
         </div>
     </div>
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg cyber-background-transparent">
             @if (isset($tournament))
             <x-table>
                 <x-thead>

@@ -34,12 +34,12 @@
         <x-dialog />
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100  dark:bg-gray-900 ">
+        <div class="min-h-screen bg-gray-100  dark:bg-gray-900  cybr-background ">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow dark:bg-gray-800 dark:border-gray-200 dark:text-white">
+                <header class="bg-white shadow dark:bg-gray-800 dark:border-gray-200 dark:text-white cybr-header">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -47,7 +47,7 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="dark:pt-20">
                 {{ $slot }}
             </main>
         </div>

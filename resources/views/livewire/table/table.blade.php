@@ -56,7 +56,7 @@
             </div>
         </div>
     @endif
-    <div class="relative overflow-x-auto shadow-md rounded-lg">
+    <div class="relative overflow-x-auto shadow-md rounded-lg table-wrapper">
         <x-table>
             <x-thead>
                 <tr>
@@ -87,7 +87,7 @@
             <tbody>
             @foreach($data as $row)
                 @if($row->id == $this->selectedRowId)
-                    <tr class='bg-gray-500 border-b border-gray-300 text-gray-50 dark:bg-violet-700'>
+                    <tr class='bg-gray-500 border-b border-gray-300 text-gray-50 dark:bg-violet-700 tr-select'>
                 @else
                     <tr class="bg-white border-b hover:bg-gray-50">
                 @endif

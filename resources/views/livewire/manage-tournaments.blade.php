@@ -16,11 +16,23 @@
                     </x-thead>
                     <tbody>
                     @foreach ($tournaments as $tournament)
-                        <tr
-                            wire:click="selectTournament({{ $tournament->id }})"
-                            class="bg-white border-b hover:bg-gray-50"
-                            @class(['bg-gray-200' => $selectedTournament === $tournament->id])
-                        >
+
+
+                        @if($selectedTournament && $selectedTournament->id === $tournament->id)
+                            <tr
+                                wire:click="selectTournament({{ $tournament->id }})"
+                                class="bg-white border-b hover:bg-gray-50 tr-select"
+                                @class(['bg-gray-200' => $selectedTournament === $tournament->id])
+                            >
+                        @else
+                            <tr
+                                wire:click="selectTournament({{ $tournament->id }})"
+                                class="bg-white border-b hover:bg-gray-50"
+                                @class(['bg-gray-200' => $selectedTournament === $tournament->id])
+                            >
+                        @endif
+
+
                             <x-td>{{ $tournament->name }}</x-td>
                             <x-td>{{ $tournament->created_at->format('d.m.Y') }}</x-td>
                             <x-td>
@@ -61,8 +73,8 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 @if ($selectedTournament)
-                    <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3">
-                        <h2 class="text-sx font-bold">{{ $selectedTournament->name }}</h2>
+                    <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3 ">
+                        <h3 class="text-sx font-bold">{{ $selectedTournament->name }}</h3>
                     </div>
                     <div class="px-4">
                         <div class="flex mb-4">
@@ -85,7 +97,7 @@
     <div class="flex flex-row justify-between mt-4">
 
         <!-- A list of results, including a button to add a new one. Also button to roll a game from suggestions. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg cyber-background-transparent">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 <x-table class="mr-4">
                     <x-thead>
@@ -98,10 +110,20 @@
                     <tbody>
                         @if(isset($tournamentRounds))
                             @foreach($tournamentRounds as $round)
-                                <tr wire:click="selectTournamentRound({{ $round->id }})"
-                                    class="bg-white border-b hover:bg-gray-50 "
-                                    @class(['bg-gray-200' => $selectedTournamentRound === $round->id])
-                                >
+
+                             @if( $selectedTournamentRound && $selectedTournamentRound->id === $round->id)
+                                    <tr wire:click="selectTournamentRound({{ $round->id }})"
+                                        class="bg-white border-b hover:bg-gray-50 tr-select "
+                                        @class(['bg-gray-200' => $selectedTournamentRound === $round->id])
+                                    >
+                                @else
+                                    <tr wire:click="selectTournamentRound({{ $round->id }})"
+                                        class="bg-white border-b hover:bg-gray-50 "
+                                        @class(['bg-gray-200' => $selectedTournamentRound === $round->id])
+                                    >
+                                @endif
+
+
                                     <x-td>{{ $round->round_number }}</x-td>
                                     <x-td>{{ $round->is_decoy ? '-' : $round->game()->first()->name }}</x-td>
                                     <x-td>

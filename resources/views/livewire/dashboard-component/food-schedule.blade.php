@@ -58,7 +58,7 @@
             @endif
         </div>
     </div>
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg cyber-background-transparent">
         <div class="relative overflow-x-auto shadow-md rounded-lg">
             <x-table>
                 <x-thead>
@@ -80,11 +80,11 @@
                 <tbody>
                 @foreach($foodSchedule as $key => $meal)
                     @if($meal['id'] == $selectedId)
-                        <tr class='bg-gray-500 border-b border-gray-300 text-gray-50 dark:bg-violet-700'
+                        <tr class='bg-gray-500 border-b border-gray-300 text-gray-50 dark:bg-violet-700 tr-select'
                             wire:click="select({{$meal['id']}})">
                     @else
                         <tr class="bg-white border-b hover:bg-gray-50" wire:click="select({{$meal['id']}})">
-                            @endif
+                    @endif
                             <x-td>
                                 {{$meal['date'] . ' / ' . ($meal['isLunch'] ? __('Lunch'): __('Dinner'))}}
                             </x-td>

@@ -1,5 +1,5 @@
 <div
-    {{$attributes}} class="w-full block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 custom-card-bg">
+    {{$attributes}} class="w-full block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 custom-card-bg cybr-card-background">
     <div
         {{$title->attributes ?? ''}} class="mb-4 text-xl leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white text-center">
 

@@ -48,7 +48,7 @@
         </div>
 
         <!-- The table with all suggestions for the current tournament. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg cyber-background-transparent">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 <x-table>
                     <x-thead>
