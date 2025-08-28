@@ -70,7 +70,7 @@
                                                   x-bind:disabled="inEditState" label="{{__('Delete')}}"/>
                                     </div>
                                     <div class="grid grid-cols-2 gap-2 mt-2" x-show="confirmDelete">
-                                        <x-button negative x-on:click="$wire.delete(); open = false"
+                                        <x-button negative x-on:click="$wire.delete(); open = false" class="negative"
                                                   x-show="confirmDelete" label="{{__('Delete')}}"/>
                                         <x-button dark x-on:click="confirmDelete = false" x-show="confirmDelete"
                                                   label="{{__('Cancel')}}"/>

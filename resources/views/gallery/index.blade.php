@@ -26,7 +26,7 @@
                             <div class="flex-shrink-0 relative" style="width:150px; height:100px;">
                                 <button
                                     @click="open({{ $loop->index }})"
-                                    class="border border-dashed border-gray-300 w-full h-full rounded overflow-hidden shadow-sm hover:shadow-lg transition"
+                                    class="border border-dashed border-gray-300 w-full h-full rounded overflow-hidden shadow-sm hover:shadow-lg transition no-clip"
                                     style="background:#f5f5f7;"
                                 >
                                     <img loading="lazy"
@@ -68,8 +68,8 @@
                             <!-- Close -->
                             <button
                                 @click="showModal=false"
-                                style="position:absolute; right:16px; transform:translateY(-50%); z-index:20;"
-                                class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg"
+                                style="position:absolute; right:16px; transform:translateY(-50%); z-index:20; "
+                                class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg no-clip"
                                 aria-label="Close"
                             >&times;</button>
 
@@ -77,7 +77,7 @@
                             <button
                                 @click="activeIdx = (activeIdx - 1 + photos.length) % photos.length"
                                 style="position:absolute; left:16px; top:50%; transform:translateY(-50%); z-index:20;"
-                                class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg"
+                                class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg no-clip"
                                 aria-label="Previous"
                             >&lsaquo;</button>
 
@@ -85,7 +85,7 @@
                             <button
                                 @click="activeIdx = (activeIdx + 1) % photos.length"
                                 style="position:absolute; right:16px; top:50%; transform:translateY(-50%); z-index:20;"
-                                class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg"
+                                class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg no-clip"
                                 aria-label="Next"
                             >&rsaquo;</button>
 

@@ -43,7 +43,7 @@
                     <x-button class="mb-4 w-48" dark label="{{__('Assign as Chef')}}"
                               wire:click="assignUserToMeal"/>
                 @else
-                    <x-button negative class="mb-4 w-48" dark label="{{__('Remove as Chef')}}" wire:click="removeUserFromMeal"/>
+                    <x-button negative class="mb-4 w-48 negative" dark label="{{__('Remove as Chef')}}" wire:click="removeUserFromMeal"/>
                 @endif
             @endif
         </div>
@@ -51,14 +51,14 @@
             @if($this->selectedRowHasValidMeal())
                 <div>
                     <x-button dark label="Edit" wire:click="editMeal"/>
-                    <x-button negative label="Remove" wire:click="removeMeal"/>
+                    <x-button negative  class="negative" label="Remove" wire:click="removeMeal"/>
                 </div>
             @else
                 <x-button x-bind:disabled="selectedId < 0" dark label="Add" x-on:click="showOverlay = true; $wire.resetEditFields()"/>
             @endif
         </div>
     </div>
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg cyber-background-transparent">
+    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg custom-background-transparent">
         <div class="relative overflow-x-auto shadow-md rounded-lg">
             <x-table>
                 <x-thead>
