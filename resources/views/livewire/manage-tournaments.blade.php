@@ -1,5 +1,28 @@
 <div>
-    <div class="flex flex-row justify-between">
+    <div class="justify-between">
+        <!-- The selected tournament, including the options to close voting and the tournament itself. -->
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
+            <div class="relative overflow-x-auto shadow-md rounded-lg">
+                @if ($selectedTournament)
+                    <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3 ">
+                        <h3 class="text-sx font-bold">{{ $selectedTournament->name }}</h3>
+                    </div>
+                    <div class="px-4">
+                        <div class="flex mb-4">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 dark:bg-blue-500 dark:hover:bg-blue-700"
+                                    wire:click="toggleSuggestionsClosed">
+                                {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
+                                {{ ' (' . $this->totalSuggestions . ')' }}
+                            </button>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 dark:bg-blue-500 dark:hover:bg-blue-700"
+                                    wire:click="toggleCompleted">
+                                {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
+                            </button>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
 
         <!-- List of tournaments, including a delete button and option to create a new tournament. -->
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
@@ -69,35 +92,12 @@
             </div>
         </div>
 
-        <!-- The selected tournament, including the options to close voting and the tournament itself. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
-            <div class="relative overflow-x-auto shadow-md rounded-lg">
-                @if ($selectedTournament)
-                    <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3 ">
-                        <h3 class="text-sx font-bold">{{ $selectedTournament->name }}</h3>
-                    </div>
-                    <div class="px-4">
-                        <div class="flex mb-4">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 dark:bg-blue-500 dark:hover:bg-blue-700"
-                                    wire:click="toggleSuggestionsClosed">
-                                {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
-                                {{ ' (' . $this->totalSuggestions . ')' }}
-                            </button>
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 dark:bg-blue-500 dark:hover:bg-blue-700"
-                                    wire:click="toggleCompleted">
-                                {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
-                            </button>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </div>
     </div>
 
-    <div class="flex flex-row justify-between mt-4">
+    <div class="flex flex-row justify-between mt-4 gap-5">
 
         <!-- A list of results, including a button to add a new one. Also button to roll a game from suggestions. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg cyber-background-transparent">
+        <div class="flex-1 bg-white overflow-hidden shadow-xl sm:rounded-lg custom-background-transparent">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 <x-table class="mr-4">
                     <x-thead>
@@ -143,7 +143,7 @@
         </div>
 
         <!-- A detailed view of the selected result, to edit them. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
+        <div class="flex-1 bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border dark:border-gray-700">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 @if(isset($selectedTournamentRound))
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 dark:bg-blue-500 dark:hover:bg-blue-700
