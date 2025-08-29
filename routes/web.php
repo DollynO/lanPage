@@ -28,6 +28,8 @@ Route::get('storage/{path}', function ($path) {
 Route::get('/', function () {
     return view('auth.login');
 });
+
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Dashboard
     Route::get('/dashboard',function (){ return view('dashboard');})->name('dashboard');
@@ -67,5 +69,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 Auth::routes();
+
+Route::get('/password/reset', function () {
+    return view('auth.password-reset');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -19697,6 +19697,12 @@ select {
 .left-0\.5 {
   left: 0.125rem;
 }
+.left-10 {
+  left: 2.5rem;
+}
+.left-80 {
+  left: 20rem;
+}
 .isolate {
   isolation: isolate;
 }
@@ -21199,6 +21205,9 @@ select {
 .pr-1 {
   padding-right: 0.25rem;
 }
+.pb-48 {
+  padding-bottom: 12rem;
+}
 .pl-4 {
   padding-left: 1rem;
 }
@@ -21229,8 +21238,14 @@ select {
 .pr-0 {
   padding-right: 0px;
 }
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
 .pr-10 {
   padding-right: 2.5rem;
+}
+.pb-12 {
+  padding-bottom: 3rem;
 }
 .text-left {
   text-align: left;
@@ -23164,13 +23179,13 @@ h3 {
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
-.dark .dark\:bg-secondary-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(71 85 105 / var(--tw-bg-opacity));
-}
 .dark .dark\:bg-gray-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+.dark .dark\:bg-secondary-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(71 85 105 / var(--tw-bg-opacity));
 }
 .dark .dark\:bg-transparent {
   background-color: transparent;

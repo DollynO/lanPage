@@ -48,7 +48,7 @@
 
             <!-- Page Content -->
             <main class="dark:pt-20">
-                {{ $slot }}
+                {{ $slot ?? '' }}
             </main>
         </div>
 
