@@ -7,7 +7,12 @@
                 </x-slot>
             </x-custom-card>
         @else
-
+            <div class="flex flex-col gap-4 md:flex-row md:gap-2 md:justify-between">
+                <x-custom-card>
+                    <livewire:dashboard-component.spotify class="flex" key="{{now()}}"
+                                                                   :party="$this->selectedParty()"/>
+                </x-custom-card>
+            </div>
             <div class="flex flex-col gap-4 md:flex-row md:gap-2 md:justify-between">
                 <x-custom-card>
                     <x-slot name="title">

@@ -210,7 +210,7 @@
         background: transparent !important;         /* kein Hintergrund */
         color: var(--primary) !important;           /* Textfarbe */
         border: 2px solid var(--primary) !important; /* Rahmenfarbe */
-        padding: 12px 24px !important;
+        padding: 10px 20px !important;
         font-size: 1rem !important;
         font-family: 'Orbitron', sans-serif !important;
         text-transform: uppercase !important;
@@ -355,67 +355,76 @@
         }
     }
 
-    /* Tables */
+    /* === Schlichter Dark Table mit subtil abgehobenem Header === */
     table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        font-size: 15px !important;
         border: none !important;
-        border-radius: 25px;
-        font-size: 16px;
-        background: black !important;
-        border-left: 1px solid var(--text-light);
-        border-right: 1px solid var(--text-light);
-        box-shadow: 0 0 10px var(--shadow);
+        border-radius: 16px !important;
+        background: #0b0b0b !important; /* dunkles Schwarz/Grau */
+        box-shadow: 0 0 12px rgba(0,0,0,0.5) !important;
+        overflow: hidden !important;
     }
 
-    thead {
-        border: none;
-        clip-path: polygon(
-            0 0,
-            20% 0,
-            25% 8%,
-            70% 8%,
-            75% 0,
-            95% 0,
-            100% 12%,
-            100% 100%,
-            0 100%
-        );
-    }
-
+    /* Table Head */
     thead > tr {
-        background: oklch(0.92 0.004 286.32);
-        color: var(--text-dark);
+        background: linear-gradient(180deg, #1a1a1a, #161616) !important; /* leichter Gradient */
+        color: #e0e0e0 !important;          /* etwas hellere Schrift */
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        font-size: 13px !important;
+        box-shadow: inset 0 -2px 2px rgba(0,0,0,0.4) !important; /* feiner innerer Schatten */
     }
 
-    tbody {
-        background: transparent !important;
+    thead th {
+        padding: 14px 18px !important;
+        border-bottom: 1px solid rgba(255,255,255,0.12) !important; /* dezente Trennung */
     }
 
-
+    /* Body Rows */
     tbody > tr {
-        background: linear-gradient(
-            to bottom,
-            #4d4d4d 0%,   /* oben etwas heller als #333 */
-            #333333 100%  /* unten Basisfarbe #333 */
-        );
-        border: 1px solid rgba(255, 255, 255, 0.25) !important;
-        color: var(--text-light);
+        background: #0c0c0c !important;
+        color: #e6eef6 !important;
+        transition: background 0.25s ease, transform 0.15s ease !important;
+        box-shadow: inset 0 -1px 0 rgba(255,255,255,0.03) !important; /* zarter innerer Schatten */
     }
 
     .tr-select {
-        background: #111827 !important; /* Dunkles Blau-Grau, neutral */
-        box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.08); /* sehr dezenter Glow */
-        color: var(--primary) !important; /* Textfarbe bleibt Neon */
-        transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        /*background: rgba(204,255,51,0.05) !important; !* dezenter Lime-Hover *!*/
+        /*color: var(--primary) !important; !* Neon Textfarbe bleibt *!*/
+        border: solid 2px #4d4d00 !important;
     }
 
-    /* Hover-Effekt */
     tbody > tr:hover {
-        background: #1e293b !important; /* etwas helleres Dunkelblau für Hover */
+        background: rgba(204,255,51,0.05) !important; /* dezenter Lime-Hover */
         color: var(--primary) !important; /* Neon Textfarbe bleibt */
-        box-shadow: 0 0 6px var(--primary); /* leichter Neon-Glow auf Hover */
-        transform: none !important;
-        animation: none !important;
     }
+
+    tbody > tr:nth-child(even) {
+        background: #101010 !important; /* leicht abwechselnde Zeilenfarbe */
+    }
+
+    /* Cells */
+    tbody td {
+        padding: 6px 8px !important;
+        border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+    }
+
+    /* erste Spalte mit dezentem Akzent */
+    tbody > tr td:first-child {
+        border-left: 3px solid rgba(204,255,51,0.6) !important; /* dezente Lime-Bar */
+        /*color: #ccc !important; !* Text neutral *!*/
+        font-weight: 500 !important;
+    }
+
+    /* letzte Spalte rechtsbündig */
+    tbody td:last-child {
+        text-align: right !important;
+        /*color: #ccc !important;*/
+    }
+
 
 
     .rank-cell,

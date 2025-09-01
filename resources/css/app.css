@@ -72,19 +72,19 @@ h3 {
 .custom-podium-bar.other { background: linear-gradient(to top, #666, #444); }
 
 .leaderboard {
-    width: 100%;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
+    width: 100% !important;
+    max-width: 900px !important; /* optional: begrenzt die Breite */
+    margin: 20px !important;
 
-    background: linear-gradient(
-        to bottom,
-        #4d4d4d 0%,   /* oben etwas heller als #333 */
-        #333333 100%  /* unten Basisfarbe #333 */
-    );
-    border-radius: 8px;       /* optional: abgerundete Ecken */
-    padding: 10px;             /* etwas Abstand innen */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* optional: leichter Schatten */
+    padding: 10px !important; /* großzügiger Innenabstand */
+    /*background: linear-gradient(135deg, #0b0b0b 0%, #121212 100%) !important; !* subtiler Gradient *!*/
+    color: #e6eef6 !important;
+
+    /*border-radius: 16px !important; !* abgerundete Ecken *!*/
+    /*box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6) !important; !* leichter Schatten *!*/
+    /*border: 1px solid rgba(255, 255, 255, 0.05) !important; !* d/ezente Border *!*/
 }
+
 
 .entry {
     display: flex;
@@ -96,7 +96,6 @@ h3 {
     /*border: 1px solid #ddd;*/
 }
 
-.rank-cell,
 .name-cell,
 .total-cell,
 .bar-container {
@@ -106,54 +105,33 @@ h3 {
 }
 
 
+.rank-cell{
+    padding: 3px;
+    margin:2px;
+}
 
-.rank-cell {
+
+.rank-cell-wrapper {
     width: 30px;
     font-weight: bold;
     /*background: #fafafa;*/
+    /*margin:4px;*/
     border-right: 2px solid ;
 }
 
-.name-cell{
-    .badge {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        padding:0;
-        /*margin-left: 8px;*/
-    }
+.name-gold {
+    background: gold !important;
+    color: black !important;
+}
 
-    .badge i {
-        font-size: 24px;
-        color: #FFD114;
-        /*margin-right: 4px;*/
-    }
+.name-silver {
+    background: silver !important;
+    color: black !important;
+}
 
-    .badge .badge-text {
-        /*background-color: #808080;*/
-        border-radius: 0px 6px 6px 0px;
-        border: 1px solid;
-        color: black;
-        letter-spacing: 1px;
-        padding: 2px 6px;
-        height: 21px;
-        /*transform: skew(-10deg);*/
-        display: flex;
-        align-items: center;
-        font-size: 15px;
-
-    }
-    .name-gold {
-        border-color: gold !important;
-    }
-
-    .name-silver {
-        border-color: silver !important;
-    }
-
-    .name-bronze {
-        border-color: #cd7f32 !important;
-    }
+.name-bronze {
+    background: #cd7f32 !important;
+    color: black !important;
 }
 
 
@@ -161,16 +139,16 @@ h3 {
     width: 120px;
     font-weight: bold;
     /*background: #f1f1f1;*/
-    /*border-right: 2px solid ;*/
+    border-right: 2px solid ;
 }
 
 .total-cell {
-    width: 50px;
+    width: 70px;
     text-align: center;
     font-weight: bold;
     /*background: #f1f1f1;*/
     border-right: 2px solid ;
-    border-left: 2px solid ;
+    /*border-left: 2px solid ;*/
 }
 
 .bar-container {
