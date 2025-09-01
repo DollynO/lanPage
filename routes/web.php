@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/admin/photos/bulk-delete',
             [AdminPhotoController::class,'bulkDestroy'])
             ->name('admin.photos.bulk');
+        // Users
+        Route::get('/settings', function (){ return view('settings');})->name('settings');
     });
 
     Route::get('/gallery',         [PhotoController::class,'index'])->name('gallery.index');

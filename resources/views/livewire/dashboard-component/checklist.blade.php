@@ -1,4 +1,7 @@
+<div id="spotify"></div>
+
 <div class="flex flex-row w-full justify-between gap-4 m-auto px-4">
+
     <div class="flex flex-col">
         {{__('Gaming')}}
         <ul class="list-disc">

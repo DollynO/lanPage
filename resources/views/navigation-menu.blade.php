@@ -35,6 +35,9 @@
                         <x-jet-nav-link class="custom-nav-link" href="{{ route('users') }}" :active="request()->routeIs('users')">
                             <span class="text-red-400 dark:text-red-400">{{ __('Users')}}</span>
                         </x-jet-nav-link>
+                        <x-jet-nav-link class="custom-nav-link" href="{{ route('settings') }}" :active="request()->routeIs('settings')">
+                            <span class="text-red-400 dark:text-red-400">{{ __('Settings')}}</span>
+                        </x-jet-nav-link>
                     @endif
                 </div>
             </div>
