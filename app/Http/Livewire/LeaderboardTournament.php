@@ -43,7 +43,19 @@ class LeaderboardTournament extends Component
         foreach ($tournament_rounds as $tournament_round) {
             $result = $tournament_round->results()->get();
 
+
+
             foreach ($result as $contestant_result) {
+
+                if (empty ($contestants[$contestant_result->user_id])) {
+                    $contestants[$contestant_result->user_id] = [
+                        'user' => $contestant_result->user,
+                        'total_points' => 0,
+                        'rounds' => [],
+                        'rank' => null,
+                    ];
+                }
+
                 $contestants[$contestant_result->user_id]['rounds'][] = $contestant_result;
                 $contestants[$contestant_result->user_id]['total_points'] += $contestant_result->points;
             }
@@ -72,9 +84,118 @@ class LeaderboardTournament extends Component
             )
         );
 
+
+        $roundResults = [];
+        $playerResults = [];
+
+        $rounds = $this->tournament->rounds()->get();
+        $users = $rounds->flatMap->results->map->user->unique('id');
+        foreach ($rounds as $key => $round) {
+            $userResult = [];
+            foreach ($users as $user) {
+                $result = $round->results()->where('user_id', $user->id)->first();
+                if ($result) {
+
+                    $userResult[] = [
+                        'name' => $user->name,
+                        'points' => $result->points,
+                        'rank' => 0,
+                    ];
+
+                    $roundResults[$round->id] = [
+                        'roundId' => $round->id,
+                        'gameName' => $round->is_decoy ? 'Round' . $key +1 : $round->game()->first()->name,
+                        'result' => $userResult
+                    ];
+                }
+
+                $scores = $playerResults[$user->id]['scores']??[];
+                $scores[] = $result->points??0;
+                $playerResult = [
+                    'name' => $user->name,
+                    'scores' => $scores
+                ];
+                $playerResults[$user->id] = $playerResult;
+
+            }
+
+        }
+        $playerResults = array_values($playerResults);
+
+
+        //sort
+        $playerResults = collect($playerResults)
+            ->map(function ($player) {
+                $player['total_points'] = array_sum($player['scores']);
+                return $player;
+            })
+            ->sortByDesc('total_points')
+            ->values() // numerische Indizes
+            ->toArray();
+
+        // Tiebreaker-Rank vergeben
+        $rankedResults = [];
+        $rank = 1;
+        $prevPoints = null;
+        $skip = 0;
+
+        foreach ($playerResults as $index => $player) {
+            if ($prevPoints === $player['total_points']) {
+                $player['rank'] = $rank;
+                $skip++;
+            } else {
+                $rank += $skip;
+                $player['rank'] = $rank;
+                $skip = 1;
+                $rankedResults[] = $player;
+                $prevPoints = $player['total_points'];
+                continue;
+            }
+            $rankedResults[] = $player;
+        }
+
+        $playerResults = $rankedResults;
+
+        //sort
+        foreach ($roundResults as &$round) {
+            // Sortiere nach points absteigend
+            usort($round['result'], fn($a, $b) => $b['points'] <=> $a['points']);
+
+            $rank = 1;
+            $prevPoints = null;
+            $skip = 0;
+
+            foreach ($round['result'] as $i => &$player) {
+                if ($prevPoints === $player['points']) {
+                    $player['rank'] = $rank; // gleicher Rank wie vorher
+                    $skip++;
+                } else {
+                    $rank += $skip;
+                    $player['rank'] = $rank;
+                    $skip = 1;
+                    $prevPoints = $player['points'];
+                }
+            }
+            unset($player);
+        }
+        unset($round);
+
+        foreach ($roundResults as $key => $round) {
+            usort($round['result'], fn($a, $b) => $b['points'] <=> $a['points']);
+
+            // Prüfen, ob das erste Ergebnis 0 Punkte hat
+            if (!empty($round['result']) && $round['result'][0]['points'] == 0) {
+                unset($roundResults[$key]);
+            }
+        }
+
+        $roundResults = array_values($roundResults);
+
         return view('livewire.leaderboard-tournament', [
+            'playerResults' => $playerResults,
             'contestants' => $contestants,
             'rounds' => $tournament_rounds,
+            'roundResults' => $roundResults,
         ]);
     }
 

@@ -70,3 +70,149 @@ h3 {
 .custom-podium-bar.silver { background: linear-gradient(to top, #C0C0C0, #A9A9A9); }
 .custom-podium-bar.bronze { background: linear-gradient(to top, #CD7F32, #8B4513); }
 .custom-podium-bar.other { background: linear-gradient(to top, #666, #444); }
+
+.leaderboard {
+    width: 100%;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(
+        to bottom,
+        #4d4d4d 0%,   /* oben etwas heller als #333 */
+        #333333 100%  /* unten Basisfarbe #333 */
+    );
+    border-radius: 8px;       /* optional: abgerundete Ecken */
+    padding: 10px;             /* etwas Abstand innen */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* optional: leichter Schatten */
+}
+
+.entry {
+    display: flex;
+    align-items: center;
+    /*margin-bottom: 12px;*/
+    /*background: #f9f9f9;*/
+    border-radius: 8px;
+    overflow: hidden;
+    /*border: 1px solid #ddd;*/
+}
+
+.rank-cell,
+.name-cell,
+.total-cell,
+.bar-container {
+ padding:5px;
+    color: black;
+    border-color: black;
+}
+
+
+
+.rank-cell {
+    width: 30px;
+    font-weight: bold;
+    /*background: #fafafa;*/
+    border-right: 2px solid ;
+}
+
+.name-cell{
+    .badge {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        padding:0;
+        /*margin-left: 8px;*/
+    }
+
+    .badge i {
+        font-size: 24px;
+        color: #FFD114;
+        /*margin-right: 4px;*/
+    }
+
+    .badge .badge-text {
+        /*background-color: #808080;*/
+        border-radius: 0px 6px 6px 0px;
+        border: 1px solid;
+        color: black;
+        letter-spacing: 1px;
+        padding: 2px 6px;
+        height: 21px;
+        /*transform: skew(-10deg);*/
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+
+    }
+    .name-gold {
+        border-color: gold !important;
+    }
+
+    .name-silver {
+        border-color: silver !important;
+    }
+
+    .name-bronze {
+        border-color: #cd7f32 !important;
+    }
+}
+
+
+.name-cell {
+    width: 120px;
+    font-weight: bold;
+    /*background: #f1f1f1;*/
+    /*border-right: 2px solid ;*/
+}
+
+.total-cell {
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+    /*background: #f1f1f1;*/
+    border-right: 2px solid ;
+    border-left: 2px solid ;
+}
+
+.bar-container {
+    width: 450px;
+    height: 30px;
+    display: flex;
+    position: relative;
+    /*background: #e0e0e0;*/
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.segment {
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    border-right: 2px solid rgb(31 41 55 / 1) ;
+}
+
+.segment:last-child {
+    border-right: none;
+}
+
+.segment span.score-text {
+    position: absolute;
+}
+
+.bar-container .segment {
+    border-radius: 0; /* keine Rundung zwischen Segmenten */
+}
+
+.bar-container .segment:first-child {
+    border-radius: 6px 0 0 6px;
+}
+
+.bar-container .segment:last-child {
+    border-radius: 0 6px 6px 0;
+}
+

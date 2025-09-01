@@ -8,8 +8,27 @@
 
 .dark {
     /* Farbvariablen */
-    --primary: #ccff00 !important;               /* helles Gelb */
-    --primary-rgba: rgba(153, 204, 0, 1) !important; /* dunkleres Gelb für stärkeren Kontrast */
+    --primary: #ccff33 !important;
+    --primary-rgba: rgba(204, 255, 51, 1) !important;
+
+    --primary-1: #ff33cc !important;
+    --primary-1-rgba: rgba(255, 51, 204, 1) !important;
+
+    /* 2. Leuchtendes Lime / Gelb-Grün */
+    --primary-2: #ccff33 !important;
+    --primary-2-rgba: rgba(204, 255, 51, 1) !important;
+
+    /* 3. Kräftiges Orange */
+    --primary-3: #ff9933 !important;
+    --primary-3-rgba: rgba(255, 153, 51, 1) !important;
+
+    /* 4. Neon-Violett */
+    --primary-4: #9933ff !important;
+    --primary-4-rgba: rgba(153, 51, 255, 1) !important;
+
+    /* 5. Kräftiges Rot */
+    --primary-5: #ff4444 !important;
+    --primary-5-rgba: rgba(255, 68, 68, 1) !important;
 
     --negative: #b91c1c;
     --text-light: whitesmoke;
@@ -26,6 +45,7 @@
     body * {
         font-family: 'Cyber', sans-serif;
     }
+
 
 
     /* Custom Navigation */
@@ -370,74 +390,58 @@
         background: transparent !important;
     }
 
+
     tbody > tr {
         background: linear-gradient(
-            91.89deg,
-            var(--bg-card) -8.76%,
-            rgba(35, 35, 43, 0.6) 103.97%
+            to bottom,
+            #4d4d4d 0%,   /* oben etwas heller als #333 */
+            #333333 100%  /* unten Basisfarbe #333 */
         );
-        border: 1px solid var(--text-light) !important;
-        border-bottom: 1px solid var(--border-light) !important;
-        border-left: 1px solid var(--text-light) !important;
-        border-right: 1px solid var(--text-light) !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
         color: var(--text-light);
     }
 
-    /*tbody > tr:hover {*/
-    /*    background: linear-gradient(*/
-    /*        91.89deg,*/
-    /*        var(--bg-hover) -8.76%,*/
-    /*        rgba(50, 50, 60, 0.7) 103.97%*/
-    /*    );*/
-    /*    box-shadow: inset 0 0 6px rgba(187, 187, 187, 0.15),*/
-    /*    inset 0 0 12px rgba(187, 187, 187, 0.1);*/
-    /*    color: #fff;*/
-    /*}*/
-
     .tr-select {
-        background: linear-gradient(
-            91.89deg,
-            var(--bg-select) -8.76%,
-            var(--primary-rgba) 103.97%
-        ) !important;
-        box-shadow: inset 0 0 8px rgba(187, 187, 187, 0.25),
-        inset 0 0 16px rgba(187, 187, 187, 0.15);
-        color: var(--primary);
+        background: #111827 !important; /* Dunkles Blau-Grau, neutral */
+        box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.08); /* sehr dezenter Glow */
+        color: var(--primary) !important; /* Textfarbe bleibt Neon */
+        transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
     }
 
-
-    /* Glow-Effekt auf Hover mit Puls */
+    /* Hover-Effekt */
     tbody > tr:hover {
-        background: linear-gradient(
-            100deg,
-            rgba(204, 255, 0, 0.15) 0%,    /* leichteres Gelb */
-            rgba(153, 204, 0, 0.15) 100%   /* abgeschwächtes dunkleres Gelb */
-        ) !important;
-        color: var(--primary) !important;
-        transform: scale(1.02) !important;
-        animation: neonPulse 1.5s infinite alternate !important; /* Puls aktiv auf Hover */
+        background: #1e293b !important; /* etwas helleres Dunkelblau für Hover */
+        color: var(--primary) !important; /* Neon Textfarbe bleibt */
+        box-shadow: 0 0 6px var(--primary); /* leichter Neon-Glow auf Hover */
+        transform: none !important;
+        animation: none !important;
     }
 
-    /* Aktivierung beim Hover */
-    tbody > tr:hover::after {
-        left: -20% !important;
-        opacity: 1 !important;
-        transition: all 0.5s ease-in-out !important;
+
+    .rank-cell,
+    .name-cell,
+    .total-cell,
+    .bar-container {
+        /*padding:5px;*/
+        color: white;
+        border-color: white;
     }
 
-    /* Aktive / ausgewählte Zeile */
-    .tr-select {
-        background: linear-gradient(
-            90deg,
-            rgba(204, 255, 0, 0.25) 0%,   /* abgeschwächtes Gelb */
-            rgba(153, 204, 0, 0.25) 100%
-        ) !important;
-        color: #fff !important;
-        font-weight: bold !important;
-        box-shadow:
-            0 0 10px rgba(204, 255, 0, 0.25),
-            0 0 20px rgba(153, 204, 0, 0.25),
-            inset 0 0 8px rgba(204, 255, 0, 0.2) !important;
+    .rank-cell{
+        /*color: #ccff00;*/
+    }
+
+
+    .name-cell{
+
+        .badge .badge-text {
+            color: white;
+        }
+    }
+
+    .user-info{
+        background: #50566a !important;
+        color: white !important;
     }
 
 }
