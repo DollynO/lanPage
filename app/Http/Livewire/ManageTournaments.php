@@ -10,7 +10,6 @@ use App\Models\TournamentRoundUser;
 use Livewire\Component;
 use App\Models\Tournament;
 use WireUi\Traits\Actions;
-
 class ManageTournaments extends Component
 {
     use Actions;
@@ -59,7 +58,7 @@ class ManageTournaments extends Component
     public function createTournament()
     {
         $tournament = new Tournament;
-        $tournament->name = "Tournament " . today()->format('d.m.Y');
+        $tournament->name = "Tournament " . today()->format('m.Y');
         $tournament->party_id = Party::all()->last()->id;
         $tournament->are_suggestions_closed = false;
         $tournament->is_completed = false;
