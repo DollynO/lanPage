@@ -437,6 +437,10 @@
         left: 3px !important;
     }
 
+    /*############################################*/
+    /*############################################*/
+    /*############################################*/
+
     /* === Schlichter Dark Table mit subtil abgehobenem Header === */
     table {
         width: 100% !important;
@@ -451,8 +455,8 @@
 
     /* Table Head */
     thead > tr {
-        background: linear-gradient(180deg, #1a1a1a, #161616) !important; /* leichter Gradient */
-        color: #e0e0e0 !important;          /* etwas hellere Schrift */
+        background: linear-gradient(180deg, #4a3f7d, #3a3262) !important; /* dunkler Violett-Gradient */
+        color: #f5f5ff !important;          /* helle Schrift für Kontrast */
         font-weight: 600 !important;
         text-transform: uppercase !important;
         letter-spacing: 0.5px !important;
@@ -466,27 +470,38 @@
     }
 
     /* Body Rows */
+    /* Body Rows */
     tbody > tr {
-        background: #0c0c0c !important;
-        color: #e6eef6 !important;
+        background-color: #2e2649 !important; /* dunkles Lila */
+        color: #f0f0f0 !important;            /* klare, helle Schrift */
+        font-weight: 500 !important;
         transition: background 0.25s ease, transform 0.15s ease !important;
-        box-shadow: inset 0 -1px 0 rgba(255,255,255,0.03) !important; /* zarter innerer Schatten */
+        border-radius: 6px !important;
+        margin-bottom: 2px !important;        /* leichte Trennung zwischen Zeilen */
     }
 
+    /* Alternierende Zeilen optional */
+    /*tbody > tr:nth-child(even) {*/
+    /*    background-color: #332b55 !important; !* leicht abweichender dunkler Ton *!*/
+    /*}*/
+
+    /* Ausgewählte Zeile */
     .tr-select {
-        /*background: rgba(204,255,51,0.05) !important; !* dezenter Lime-Hover *!*/
-        /*color: var(--primary) !important; !* Neon Textfarbe bleibt *!*/
-        border: solid 4px #4d4d00 !important;
+        background-color: #473a7a !important; /* etwas helleres Lila */
+        color: #ffffff !important;            /* kontrastreiche Schrift */
+        /*border: solid 3px #a386ff !important; !* dezenter violetter Rand *!*/
     }
 
+    /* Hover-Effekt */
     tbody > tr:hover {
-        background: rgba(204,255,51,0.05) !important; /* dezenter Lime-Hover */
-        color: var(--primary) !important; /* Neon Textfarbe bleibt */
+        background-color: #55449c !important; /* deutlich heller beim Hover */
+        color: #ffffff !important;            /* klare Schrift beim Hover */
+        /*transform: scale(1.01) !important;    !* dezenter Zoom-Effekt *!*/
     }
 
-    tbody > tr:nth-child(even) {
-        background: #101010 !important; /* leicht abwechselnde Zeilenfarbe */
-    }
+    /*tbody > tr:nth-child(even) {*/
+    /*    background-color: #2e2649 !important;*/
+    /*}*/
 
     /* Cells */
     tbody td {
@@ -495,11 +510,11 @@
     }
 
     /* erste Spalte mit dezentem Akzent */
-    tbody > tr td:first-child {
-        border-left: 3px solid rgba(204,255,51,0.6) !important; /* dezente Lime-Bar */
-        /*color: #ccc !important; !* Text neutral *!*/
-        font-weight: 500 !important;
-    }
+    /*tbody > tr td:first-child {*/
+    /*    border-left: 3px solid rgba(204,255,51,0.6) !important; !* dezente Lime-Bar *!*/
+    /*    !*color: #ccc !important; !* Text neutral *!*!*/
+    /*    font-weight: 500 !important;*/
+    /*}*/
 
     /* letzte Spalte rechtsbündig */
     tbody td:last-child {
@@ -507,7 +522,11 @@
         /*color: #ccc !important;*/
     }
 
-
+    /*############################################*/
+    /*############################################*/
+    /*############################################*/    /*############################################*/
+    /*############################################*/
+    /*############################################*/
 
     .rank-cell,
     .name-cell,
