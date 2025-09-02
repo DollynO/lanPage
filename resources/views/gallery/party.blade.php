@@ -9,7 +9,7 @@
             @auth
                 @if(auth()->user()->can_upload)
                     <button id="addPhotosBtn"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded dark:bg-blue-600 no-clip">
+                            class="px-4 py-2 bg-indigo-600 text-white rounded dark:bg-blue-600 gallery-button">
                         + Add Photos
                     </button>
                 @endif
@@ -33,7 +33,7 @@
         <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @foreach($photos as $photo)
                 <div class="bg-white shadow-sm rounded-lg overflow-hidden">
-                    <button class="block w-full no-clip" @click="open({{ $loop->index }})">
+                    <button class="block w-full gallery-button" @click="open({{ $loop->index }})">
                         <img loading="lazy"
                              src="{{ asset('storage/'.$photo->path) }}"
                              class="w-full h-48 object-cover"
@@ -68,7 +68,7 @@
                     <button
                         @click="showModal=false"
                         style="position:absolute; right:16px; transform:translateY(-50%); z-index:20;"
-                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg no-clip"
+                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg gallery-button translate-button"
                         aria-label="Close"
                     >&times;</button>
 
@@ -76,7 +76,7 @@
                     <button
                         @click="activeIdx = (activeIdx - 1 + photos.length) % photos.length"
                         style="position:absolute; left:16px; top:50%; transform:translateY(-50%); z-index:20;"
-                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg no-clip"
+                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg gallery-button translate-button"
                         aria-label="Previous"
                     >&lsaquo;</button>
 
@@ -84,7 +84,7 @@
                     <button
                         @click="activeIdx = (activeIdx + 1) % photos.length"
                         style="position:absolute; right:16px; top:50%; transform:translateY(-50%); z-index:20;"
-                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg no-clip"
+                        class="text-white bg-black/60 hover:bg-black/80 rounded-full p-4 shadow-lg gallery-button translate-button"
                         aria-label="Next"
                     >&rsaquo;</button>
 
@@ -123,7 +123,7 @@
             <!-- Header -->
             <div class="flex items-center justify-between border-b p-6">
                 <h3 class="text-lg font-semibold text-gray-800">Upload Photos</h3>
-                <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 focus:outline-none no-clip">
+                <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 focus:outline-none gallery-button">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                          viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -137,7 +137,7 @@
 
                 <!-- Select Button -->
                 <button id="selectPhotosBtn"
-                        class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 no-clip">
+                        class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 gallery-button">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none"
                          viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -161,7 +161,7 @@
                 <div class="flex items-center gap-4">
                     <button id="uploadBtn"
                             disabled
-                            class="flex-1 inline-flex justify-center items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500 no-clip">
+                            class="flex-1 inline-flex justify-center items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500 gallery-button">
                         <svg xmlns="http://www.w3.org/2000/svg" x-show="!loading" class="h-5 w-5"
                              fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -246,7 +246,7 @@
             </div>
             ${p.year !== partyYear
                         ? '<div class="text-red-500" title="Photo year mismatch">⚠</div>' : ''}
-            <button class="ml-2 text-gray-500 no-clip">&times;</button>
+            <button class="ml-2 text-gray-500 gallery-button">&times;</button>
           `;
                     div.querySelector('button').addEventListener('click', () => {
                         previews.splice(i,1);

@@ -5,9 +5,9 @@
     currentPage: @entangle('currentPage'),
     selectedRowId: @entangle('selectedRowId')}">
     @if ($this->tableTitle())
-    <div class="mb-4 text-xl leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white text-center">
+    <h2 class="mb-4 text-xl leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white text-center">
         {{__($this->tableTitle())}}
-    </div>
+    </h2>
     @endif
     @if(count($this->customButtons()))
         <div class="w-full flex flex-row justify-end gap-4">

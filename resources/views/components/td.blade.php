@@ -1,5 +1,5 @@
 <td {{$attributes}}>
-    <div class="py-3 px-6 flex items-center cursor-pointer">
+    <div class="py-2 px-4 flex items-center cursor-pointer">
         {{$slot}}
     </div>
 </td>

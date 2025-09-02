@@ -6,6 +6,7 @@
     font-display: swap;
 }
 
+
 .dark {
     /* Farbvariablen */
     --primary: #ccff33 !important;
@@ -44,6 +45,7 @@
     /* Global Font */
     body * {
         font-family: 'Cyber', sans-serif;
+        font-size: 16px;
     }
 
 
@@ -61,29 +63,44 @@
     /* Navigation Links */
     .custom-nav a,
     .custom-nav .custom-nav-link {
-        color: var(--text-light) !important;
+        color: #e5e7eb !important;       /* helles Grau für Dark Theme */
         padding: 0.5rem 1rem !important;
         position: relative !important;
-        text-transform: uppercase !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
+        text-transform: none !important;  /* keine Uppercase */
+        font-weight: 500 !important;
+        border-radius: 0.375rem !important; /* leichte Abrundung */
+        transition: background 0.3s ease, color 0.3s ease !important;
     }
 
     /* Hover Effekt für Links */
     .custom-nav a:hover,
     .custom-nav .custom-nav-link:hover {
-        color: black !important;
-        background: linear-gradient(
-            135deg,
-            rgba(204, 255, 0, 0.6),
-            var(--primary)
-        ) !important;
-        transform: translateY(-2px) scale(1.02) !important;
-        box-shadow:
-            0 0 12px var(--primary),
-            0 0 24px var(--primary-rgba) !important;
-        border-radius: 6px !important;
+        background-color: #374151 !important; /* dunkleres Grau */
+        color: #ffffff !important;           /* Text weiß */
     }
+
+    /* Active/Selected Link (optional) */
+    .custom-nav a.active,
+    .custom-nav .custom-nav-link.active {
+        background-color: #1f2937 !important; /* etwas dunkler als normal */
+        color: #ffffff !important;
+    }
+
+    /* Responsive Nav Links */
+    .custom-nav .sm:hidden a {
+        display: block !important;
+        padding: 0.5rem 1rem !important;
+        border-left: 2px solid transparent !important;
+        margin: 4px 0 !important;
+        transition: background 0.3s ease, border-color 0.3s ease !important;
+    }
+
+    .custom-nav .sm:hidden a:hover {
+        background-color: #374151 !important;
+        border-left-color: #2563eb !important; /* dezenter Akzent */
+        color: #ffffff !important;
+    }
+
 
     /* Aktiver Link */
     .custom-nav .active,
@@ -98,10 +115,10 @@
 
     /* Dropdown Button */
     .custom-nav button {
-        background: transparent !important;
+        background: #0b0b0b !important;
         color: var(--primary) !important;
         border: 2px solid var(--primary) !important;
-        padding: 8px 16px !important;
+        /*padding: 8px 16px !important;*/
         font-size: 0.875rem !important;
         text-transform: uppercase !important;
         font-family: 'Orbitron', sans-serif !important;
@@ -141,24 +158,6 @@
             0 0 12px var(--primary),
             0 0 24px var(--primary-rgba) !important;
     }
-
-    /* Responsive Nav Links */
-    .custom-nav .sm:hidden a {
-        display: block !important;
-        padding: 8px 12px !important;
-        border-left: 2px solid var(--primary) !important;
-        margin: 4px 0 !important;
-        transition: all 0.3s ease !important;
-    }
-
-    .custom-nav .sm:hidden a:hover {
-        background: var(--primary) !important;
-        color: black !important;
-        box-shadow:
-            0 0 10px var(--primary),
-            0 0 20px var(--primary-rgba) !important;
-    }
-
 
     /* Ausgefallene H2 für Dark-Theme */
     h2 {
@@ -202,15 +201,57 @@
         background: #2a2a36 !important;      /* minimal hellerer Hintergrund */
     }
 
+    .button-game-suggestion-positive {
+        background: #16a34a !important; /* grün */
+        color: #ffffff !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 0.5rem !important;
+        border: none !important;
+        cursor: pointer !important;
+        clip-path: none !important;
+        box-shadow: none !important;
+    }
+
+    .button-game-suggestion-positive:hover {
+        background: #15803d !important; /* dunkler grün */
+        clip-path: none !important;
+        box-shadow: none !important;
+    }
+
+    .button-game-suggestion-negative {
+        background: #dc2626 !important; /* rot */
+        color: #ffffff !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 0.5rem !important;
+        border: none !important;
+        cursor: pointer !important;
+        clip-path: none !important;
+        box-shadow: none !important;
+    }
+
+    .button-game-suggestion-negative:hover {
+        background: #b91c1c !important; /* dunkler rot */
+        clip-path: none !important;
+        box-shadow: none !important;
+    }
+
+    button.star-rating,
+    button.star-rating:hover{
+        padding: 0 !important;
+        margin: 0 !important;
+        transform: none !important;
+        transition: none !important;
+        border:none !important;
+    }
 
 
     /* Buttons */
     button {
 
-        background: transparent !important;         /* kein Hintergrund */
+        background: #0b0b0b  !important;         /* kein Hintergrund */
         color: var(--primary) !important;           /* Textfarbe */
         border: 2px solid var(--primary) !important; /* Rahmenfarbe */
-        padding: 10px 20px !important;
+        /*padding: 10px 20px !important;*/
         font-size: 1rem !important;
         font-family: 'Orbitron', sans-serif !important;
         text-transform: uppercase !important;
@@ -240,10 +281,10 @@
 
 
     button.negative {
-        background: transparent !important;       /* kein Hintergrund */
+        background: #0b0b0b !important;       /* kein Hintergrund */
         color: var(--negative) !important;        /* Textfarbe in Rot */
         border: 2px solid var(--negative) !important; /* Neon-Rahmen */
-        padding: 12px 24px !important;
+        /*padding: 12px 24px !important;*/
         font-size: 1rem !important;
         font-family: 'Orbitron', sans-serif !important;
         text-transform: uppercase !important;
@@ -253,21 +294,14 @@
 
     }
 
-    button.negative.trash {
-        padding: 0 !important;
+    .button-game-suggestion-negative.trash {
+        padding: 8px 4px !important;
     }
 
-    button .bi-trash {
-        height: 100% !important;
-        width: 100% !important;
-    }
-
-    button.star-rating,
-    button.star-rating:hover{
-       padding: 0 !important;
-        margin: 0 !important;
-        transform: none !important;
-    }
+    /*button .bi-trash {*/
+    /*    height: 100% !important;*/
+    /*    width: 100% !important;*/
+    /*}*/
 
 
     button.negative:hover {
@@ -283,11 +317,34 @@
             0 0 40px rgba(185, 28, 28, 0.8) !important; /* stärkerer Rot-Glow */
     }
 
-
-
-    button.no-clip {
+    button.gallery-button.translate-button {
         clip-path: none !important;
+        box-shadow: none !important;
+        transition: none !important;
+        transform:translateY(-50%) !important;
+        border: 1px solid white !important;
     }
+
+    button.gallery-button.translate-button:hover {
+        transition: none !important;
+        transform:translateY(-50%) !important;
+        border: 1px solid white !important;
+    }
+
+    button.gallery-button {
+        clip-path: none !important;
+        border:none !important;
+        box-shadow: none !important;
+        transition: none !important;
+        /*background:none;*/
+    }
+
+    button.gallery-button:hover {
+    transition: none !important;
+        transform: none !important;
+    }
+
+
 
     /* Headlines */
     h2 {
@@ -355,6 +412,31 @@
         }
     }
 
+    input[type="checkbox"] {
+        appearance: none !important;
+        width: 1.25rem !important;
+        height: 1.25rem !important;
+        border: 2px solid #555 !important;
+        border-radius: 0.25rem !important;
+        background: #1f2937 !important; /* dark background */
+        cursor: pointer !important;
+    }
+
+    input[type="checkbox"]:checked {
+        background: var(--primary) !important; /* blau, kannst du anpassen */
+        border-color: #2563eb !important;
+        position: relative !important;
+    }
+
+    input[type="checkbox"]:checked::after {
+        content: "✓" !important;
+        color: black !important;
+        font-size: 0.9rem !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 3px !important;
+    }
+
     /* === Schlichter Dark Table mit subtil abgehobenem Header === */
     table {
         width: 100% !important;
@@ -379,7 +461,7 @@
     }
 
     thead th {
-        padding: 14px 18px !important;
+        padding: 14px 0px !important;
         border-bottom: 1px solid rgba(255,255,255,0.12) !important; /* dezente Trennung */
     }
 
@@ -394,7 +476,7 @@
     .tr-select {
         /*background: rgba(204,255,51,0.05) !important; !* dezenter Lime-Hover *!*/
         /*color: var(--primary) !important; !* Neon Textfarbe bleibt *!*/
-        border: solid 2px #4d4d00 !important;
+        border: solid 4px #4d4d00 !important;
     }
 
     tbody > tr:hover {
@@ -451,6 +533,13 @@
     .user-info{
         background: #50566a !important;
         color: white !important;
+    }
+
+    figure {
+
+        h6 {
+            color: rgb(230, 238, 246);
+        }
     }
 
 }
