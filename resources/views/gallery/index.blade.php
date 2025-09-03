@@ -14,7 +14,7 @@
                   }"
                 class="bg-white shadow-md rounded-lg overflow-hidden dark:bg-gray-700 dark:text-white @if(!$loop->first) mt-2 @endif"
             >
-                <div class="flex items-center justify-between px-6 py-3 border-b">
+                <div class="flex items-center justify-between px-6 py-3 border-b custom-card">
                     <div class="flex items-baseline gap-3">
                         <div class="text-lg font-semibold">{{ $party->name }}</div>
                     </div>

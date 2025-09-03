@@ -7,6 +7,8 @@ use App\Models\Party;
 use App\Models\Suggestion;
 use App\Models\TournamentRound;
 use App\Models\TournamentRoundUser;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Tournament;
 use WireUi\Traits\Actions;
@@ -22,6 +24,12 @@ class ManageTournaments extends Component
     public $selectedTournamentRound;
     public $tournamentRoundUsers;
 
+    public $rollUsers = [];
+    public $selected = [];
+    public $lastRolled = null;
+
+    public $userSuggestions = [];
+
     protected $rules = [
         'tournamentRoundUsers.*.points' => 'required|numeric',
     ];
@@ -32,6 +40,7 @@ class ManageTournaments extends Component
         if ($this->tournaments->count() > 0){
             $this->selectTournament($this->tournaments->last()->id);
         }
+        $this->loadUserSuggestions();
     }
 
     public function selectTournament($tournamentId)
@@ -159,6 +168,58 @@ class ManageTournaments extends Component
 
         $this->notification()->info('Results saved');
     }
+
+    public function roll()
+    {
+        $remaining = $this->rollUsers->whereNotIn('id', $this->selected);
+
+        if ($remaining->isEmpty()) {
+            $this->lastRolled = null;
+            return;
+        }
+
+        $user = $remaining->random();
+
+        $this->lastRolled = $user;
+        $this->selected[] = $user->id;
+    }
+
+    public function resetRolls()
+    {
+        $this->selected = [];
+        $this->lastRolled = null;
+    }
+
+    public function loadUserSuggestions()
+    {
+        $party = Party::query()->where('is_active', true)->first() ?? null;
+
+        if ($party){
+            $this->rollUsers = $party->participants;
+
+            $participantIds = $this->rollUsers->pluck('id');
+
+            $this->userSuggestions = DB::table('users')
+                ->leftJoin('suggestions', function($join) use ($participantIds) {
+                    $join->on('users.id', '=', 'suggestions.user_id')
+                        ->whereIn('users.id', $participantIds);
+                })
+                ->whereIn('users.id', $participantIds)
+                ->select('users.name', DB::raw('COUNT(DISTINCT suggestions.game_id) as games_count'))
+                ->groupBy('users.id', 'users.name')
+                ->get()
+                ->map(function($item) {
+                    return (array) $item;
+                })
+                ->toArray();
+        }
+    }
+
+    public function refreshList()
+    {
+        $this->loadUserSuggestions();
+    }
+
 
     public function render()
     {

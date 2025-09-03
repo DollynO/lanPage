@@ -30,7 +30,12 @@ class GameSuggestions extends Component
      */
     public function removeGameSuggestion($id): void
     {
-        GameSuggestion::find($id)?->first()?->delete();
+//        GameSuggestion::find($id)?->first()?->delete();
+
+        $gameSuggestionDelete =GameSuggestion::where('game_id', $id)->first();
+        if ($gameSuggestionDelete) {
+            $gameSuggestionDelete->delete();
+        }
     }
 
     /**

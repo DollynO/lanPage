@@ -1,31 +1,29 @@
 <div>
     <div class="justify-between">
         <!-- The selected tournament, including the options to close voting and the tournament itself. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
-            <div class="relative overflow-x-auto shadow-md rounded-lg">
-                @if ($selectedTournament)
-                    <div class="w-full justify-center py-3 px-6 flex items-center bg-gray-700 text-gray-50 uppercase mb-3 ">
-                        <h3 class="text-sx font-bold">{{ $selectedTournament->name }}</h3>
+        @if ($selectedTournament)
+            <x-custom-card>
+                <x-slot name="title">
+                    {{ $selectedTournament->name }}
+                </x-slot>
+                <div class="px-4">
+                    <div class="flex mb-4">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 dark:bg-blue-500 dark:hover:bg-blue-700"
+                                wire:click="toggleSuggestionsClosed">
+                            {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
+                            {{ ' (' . $this->totalSuggestions . ')' }}
+                        </button>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 dark:bg-blue-500 dark:hover:bg-blue-700"
+                                wire:click="toggleCompleted">
+                            {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
+                        </button>
                     </div>
-                    <div class="px-4">
-                        <div class="flex mb-4">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 dark:bg-blue-500 dark:hover:bg-blue-700"
-                                    wire:click="toggleSuggestionsClosed">
-                                {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
-                                {{ ' (' . $this->totalSuggestions . ')' }}
-                            </button>
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 dark:bg-blue-500 dark:hover:bg-blue-700"
-                                    wire:click="toggleCompleted">
-                                {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
-                            </button>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </div>
+                </div>
+            </x-custom-card>
+        @endif
 
         <!-- List of tournaments, including a delete button and option to create a new tournament. -->
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border-1 dark:border-gray-700  custom-card">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 <x-table class="mr-4">
                     <x-thead>
@@ -143,7 +141,7 @@
         </div>
 
         <!-- A detailed view of the selected result, to edit them. -->
-        <div class="flex-1 bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border dark:border-gray-700">
+        <div class="flex-1 bg-white overflow-hidden shadow-xl sm:rounded-lg dark:bg-gray-800 dark:border dark:border-gray-700 custom-card">
             <div class="relative overflow-x-auto shadow-md rounded-lg">
                 @if(isset($selectedTournamentRound))
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 dark:bg-blue-500 dark:hover:bg-blue-700
@@ -182,6 +180,87 @@
                 @endif
             </div>
         </div>
+    </div>
+    <div class="flex flex-row justify-between mt-4 gap-5">
+        <x-custom-card>
+            <x-slot name="title">
+                {{__('User Game Suggestions')}}
+            </x-slot>
+            <div class="p-4 bg-whitetext-black dark:text-white">
+                <button
+                    wire:click="refreshList"
+                    class="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Refresh List
+                </button>
+
+                <ul>
+                    @foreach($userSuggestions as $user)
+                        <li
+                            class="px-2 py-1 rounded mb-1 {{ $user['games_count'] == 3 ? 'bg-green-500 ' : 'bg-red-500 ' }}">
+                            {{ $user['name'] }} {{ $user['games_count'] }}/3
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
+        </x-custom-card>
+        <x-custom-card>
+            <x-slot name="title">
+                {{__('User Roller')}}
+            </x-slot>
+
+            <div class="p-4">
+
+                <div class="grid grid-cols-2 gap-6">
+
+                    <div>
+                        <div class="flex gap-2 mb-4">
+                            <button wire:click="roll"
+                                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                Roll User
+                            </button>
+
+                            <button wire:click="resetRolls"
+                                    class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                Reset
+                            </button>
+                        </div>
+
+                        @if($lastRolled)
+                            <p class="rolled-user-dark inline-flex items-center gap-2 mb-4">
+                                <span class="icon">🎲</span>
+                                Gewählt: <strong>{{ $lastRolled->name }}</strong>
+                            </p>
+                        @endif
+
+                        <ul class="space-y-1">
+                            @foreach($rollUsers as $rollUser)
+                                <li>
+                                    <input type="checkbox" disabled {{ in_array($rollUser->id, $selected) ? 'checked' : '' }}>
+                                    {{ $rollUser->name }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold mb-2">Reihenfolge der gewählten User:</h3>
+                        <ol class="list-decimal list-inside space-y-1">
+                            @foreach($selected as $userId)
+                                @php
+                                    $rollUser = $rollUsers->firstWhere('id', $userId);
+                                @endphp
+                                <li>{{ $rollUser->name }}</li>
+                            @endforeach
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </x-custom-card>
     </div>
 </div>
 
