@@ -31,7 +31,6 @@ class LeaderboardOverview extends Component
             ]);
         }
 
-
         $roundResults = [];
         $playerResults = [];
 
