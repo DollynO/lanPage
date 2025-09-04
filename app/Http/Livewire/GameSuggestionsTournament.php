@@ -201,8 +201,8 @@ class GameSuggestionsTournament extends Component
                 ->where('user_id', Auth::id())->first();
             if ($suggestion){
                 $this->notification()->error('You already voted for this game.', 'You can only vote for a game once.');
-            }else{
-                Suggestion::create(['game_id' => $game->id, 'user_id' => Auth::id()]);
+            } else {
+                Suggestion::create(['game_id' => $game->id, 'user_id' => Auth::id(), 'tournament_id' => $this->tournament?->id]);
                 $this->emit('suggestionAdded');
             }
         }

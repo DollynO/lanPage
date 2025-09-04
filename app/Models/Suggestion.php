@@ -9,7 +9,7 @@ class Suggestion extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'game_id'];
+    protected $fillable = ['user_id', 'game_id', 'tournament_id'];
 
     public function votes() {
         return Suggestion::query()->where('game_id', $this->game_id)->get();
