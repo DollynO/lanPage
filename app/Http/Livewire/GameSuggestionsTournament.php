@@ -95,7 +95,7 @@ class GameSuggestionsTournament extends Component
 
         $suggestion = Suggestion::find($suggestionId);
         if ($suggestion) {
-            Suggestion::create(['game_id' => $suggestion->game_id, 'user_id' => Auth::id()]);
+            Suggestion::create(['game_id' => $suggestion->game_id, 'user_id' => Auth::id(), 'tournament_id' => $this->tournament?->id]);
             $this->emit('suggestionAdded');
         }
     }
