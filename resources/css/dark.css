@@ -34,8 +34,8 @@
     --negative: #b91c1c;
     --text-light: whitesmoke;
     --text-dark: #000;
-    --bg-dark: #0b0218;
-    --bg-darker: #1c0b33;
+    --bg-dark: #1a1a1a;   /* sehr dunkles Grau, fast schwarz */
+    --bg-darker: #0d0d0d; /* noch dunkler, echter Hintergrund */
     --bg-card: #23232b;
     --bg-hover: #2a2a36;
     --bg-select: #1b1b25;
@@ -500,7 +500,7 @@
 
     /* Table Head */
     thead > tr {
-        background: linear-gradient(180deg, #4a3f7d, #3a3262) !important; /* dunkler Violett-Gradient */
+        background: linear-gradient(180deg, #444, #333) !important; /* dunkler Grau-Gradient */
         color: #f5f5ff !important;          /* helle Schrift für Kontrast */
         font-weight: 600 !important;
         text-transform: uppercase !important;
@@ -515,34 +515,28 @@
     }
 
     /* Body Rows */
-    /* Body Rows */
     tbody > tr {
-        background-color: #2e2649 !important; /* dunkles Lila */
-        color: #f0f0f0 !important;            /* klare, helle Schrift */
+        background-color: #2b2b2b !important; /* dunkles Grau */
+        color: #f0f0f0 !important;
         font-weight: 500 !important;
         transition: background 0.25s ease, transform 0.15s ease !important;
         border-radius: 6px !important;
-        margin-bottom: 2px !important;        /* leichte Trennung zwischen Zeilen */
+        margin-bottom: 2px !important;
     }
-
-    /* Alternierende Zeilen optional */
-    /*tbody > tr:nth-child(even) {*/
-    /*    background-color: #332b55 !important; !* leicht abweichender dunkler Ton *!*/
-    /*}*/
 
     /* Ausgewählte Zeile */
     .tr-select {
-        background-color: #473a7a !important; /* etwas helleres Lila */
-        color: #ffffff !important;            /* kontrastreiche Schrift */
-        /*border: solid 3px #a386ff !important; !* dezenter violetter Rand *!*/
+        background-color: #444 !important;  /* etwas helleres Grau */
+        color: #ffffff !important;
     }
 
     /* Hover-Effekt */
     tbody > tr:hover {
-        background-color: #55449c !important; /* deutlich heller beim Hover */
-        color: #ffffff !important;            /* klare Schrift beim Hover */
-        /*transform: scale(1.01) !important;    !* dezenter Zoom-Effekt *!*/
+        background-color: #555 !important;  /* deutlich helleres Grau beim Hover */
+        color: #ffffff !important;
     }
+
+
 
     /*tbody > tr:nth-child(even) {*/
     /*    background-color: #2e2649 !important;*/
