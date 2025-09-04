@@ -47,7 +47,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="dark:pt-20">
+            <main class="dark:pt-0">
                 {{ $slot ?? '' }}
             </main>
         </div>
