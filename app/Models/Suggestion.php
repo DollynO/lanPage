@@ -12,7 +12,10 @@ class Suggestion extends Model
     protected $fillable = ['user_id', 'game_id', 'tournament_id'];
 
     public function votes() {
-        return Suggestion::query()->where('game_id', $this->game_id, 'tournament_id', $this->tournament_id)->get();
+        return Suggestion::query()
+            ->where('game_id', $this->game_id)
+            ->where('tournament_id', $this->tournament_id)
+            ->get();
     }
 
     public function userVote($userId)
