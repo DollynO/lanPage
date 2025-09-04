@@ -385,6 +385,10 @@
         transform: none !important;
     }
 
+    header{
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+
     /* Navigation / Header */
     .custom-nav,
     .custom-header {
@@ -411,7 +415,7 @@
 
     /* Background */
     .custom-main-background {
-        /*background: radial-gradient(var(--bg-darker) 10%, var(--bg-dark) 45%) ;*/
+        background: #2F2F2F !important;
         z-index: 0;
     }
 
@@ -422,7 +426,7 @@
     /* Card */
     .custom-card {
         background-color: rgba(17, 24, 39, 0) !important; /* Schwarz mit 20 % Deckkraft */
-
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
         background: linear-gradient(
             90deg,
             var(--primary) 2px,
