@@ -33,7 +33,7 @@ class GameSuggestionsTournament extends Component
 
     public function render()
     {
-        $this->suggestions = $this->retrieveSuggestions();
+        $this->suggestions = $this->retrieveSuggestions($this->tournament?->id);
         $this->updateAmountSuggestionsLeft();
 
         return view('livewire.game-suggestions-tournament');
@@ -44,14 +44,18 @@ class GameSuggestionsTournament extends Component
         $this->emitUp('leaveSuggestionsView');
     }
 
-    public function retrieveSuggestions()
+    public function retrieveSuggestions($tournament_id)
     {
         $gameIdCounts = Suggestion::query()
+            ->where('tournament_id', $tournament_id)
             ->select('game_id', DB::raw('count(*) as count'))
             ->groupBy('game_id')
             ->pluck('count', 'game_id');
 
-        $suggestions = Suggestion::with('game')->get()->unique('game_id');
+        $suggestions = Suggestion::with('game')
+            ->where('tournament_id', $tournament_id)
+            ->get()
+            ->unique('game_id');
 
         return $suggestions->sortByDesc(function ($suggestion) use ($gameIdCounts) {
             return $gameIdCounts[$suggestion->game_id] ?? 0;
@@ -60,12 +64,14 @@ class GameSuggestionsTournament extends Component
 
     public function updateAmountSuggestionsLeft()
     {
-        $this->suggestionsLeft = 3 - Suggestion::where('user_id', Auth::id())->count();
+        $this->suggestionsLeft = 3 - Suggestion::where('user_id', Auth::id())
+                ->where('tournament_id', $this->tournament->id)
+                ->count();
     }
 
     public function updateSuggestions()
     {
-        $this->suggestions = $this->retrieveSuggestions();
+        $this->suggestions = $this->retrieveSuggestions($this->tournament?->id);
         $this->updateAmountSuggestionsLeft();
     }
 
@@ -104,6 +110,7 @@ class GameSuggestionsTournament extends Component
 
         $userSuggestion = Suggestion::where('game_id', $suggestion['game_id'])
             ->where('user_id', Auth::id())
+            ->where('tournament_id', $this->tournament?->id)
             ->first();
 
         if ($userSuggestion) {
@@ -188,7 +195,10 @@ class GameSuggestionsTournament extends Component
 
         $game = Game::find($gameId);
         if ($game) {
-            $suggestion = Suggestion::query()->where('game_id', $game->id)->where('user_id', Auth::id())->first();
+            $suggestion = Suggestion::query()
+                ->where('tournament_id', $this->tournament?->id)
+                ->where('game_id', $game->id)
+                ->where('user_id', Auth::id())->first();
             if ($suggestion){
                 $this->notification()->error('You already voted for this game.', 'You can only vote for a game once.');
             }else{
