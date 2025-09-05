@@ -69,4 +69,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Photo::class);
     }
+
+    public function suggestions()
+    {
+        return $this->hasMany(Suggestion::class);
+    }
+
+
 }

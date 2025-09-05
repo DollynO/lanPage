@@ -193,24 +193,22 @@ class ManageTournaments extends Component
     public function loadUserSuggestions()
     {
         $party = Party::query()->where('is_active', true)->first() ?? null;
+        $tournamentId = Tournament::latest('created_at')->first()->id;
 
         if ($party){
             $this->rollUsers = $party->participants;
 
             $participantIds = $this->rollUsers->pluck('id');
 
-            $this->userSuggestions = DB::table('users')
-                ->leftJoin('suggestions', function($join) use ($participantIds) {
-                    $join->on('users.id', '=', 'suggestions.user_id')
-                        ->whereIn('users.id', $participantIds);
-                })
-                ->whereIn('users.id', $participantIds)
-                ->select('users.name', DB::raw('COUNT(DISTINCT suggestions.game_id) as games_count'))
-                ->groupBy('users.id', 'users.name')
+            $this->userSuggestions  = User::query()
+                ->whereIn('id', $participantIds)
+                ->withCount([
+                    'suggestions as games_count' => function ($query) use ($tournamentId) {
+                        $query->where('tournament_id', $tournamentId)
+                            ->select(DB::raw('COUNT(DISTINCT game_id)'));
+                    }
+                ])
                 ->get()
-                ->map(function($item) {
-                    return (array) $item;
-                })
                 ->toArray();
         }
     }
