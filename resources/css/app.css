@@ -223,6 +223,7 @@ figure {
         overflow: hidden;
         width: 500px;
         animation: expand 1.5s ease forwards;
+        padding: 0 !important;
     }
     .row + .row .chart {
         animation-delay: .2s;
