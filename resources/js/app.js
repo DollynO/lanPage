@@ -1,0 +1,5 @@
+import.meta.glob([
+
+    '../fonts/**',
+
+]);

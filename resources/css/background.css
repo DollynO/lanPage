@@ -1,0 +1,15 @@
+body{
+    background: var(--color-background);
+    /*background-image: url("/media/wavey-fingerprint1.svg");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+}
+
+body:where(.dark, .dark *) {
+    background: var(--color-background);
+    background-image: url("/media/endless-constellation2.svg");
+    /*background-image: url("/media/diamond-sunset6.svg");*/
+    /*background-image: url("/media/stacked-peaks-haikei.svg");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+}

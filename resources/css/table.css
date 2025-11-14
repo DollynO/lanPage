@@ -1,0 +1,67 @@
+
+.fi-ta:where(.dark, .dark *){
+}
+
+.fi-ta-ctn:where(.dark, .dark *) {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.fi-ta-header:where(.dark, .dark *) {
+    border: none;
+}
+
+table:where(.dark, .dark *) {
+    /*border-collapse: separate;     !* wichtig: spacing wirkt nur bei separate *!*/
+    /*border-spacing: 0px 4px;*/
+    /*background: #00000030;*/
+}
+
+thead{
+}
+
+.fi-ta-row:hover{
+    background: whitesmoke;
+}
+
+.fi-ta-row:hover:where(.dark, .dark *){
+    background: rgb(27, 35, 45);
+}
+
+.fi-ta-table > thead > tr:where(.dark, .dark *) {
+    background: #00000050;
+    box-sizing: border-box;
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: var(--color-neutral-700);
+    border-left: none;
+    border-right: none;
+}
+
+.fi-ta-header-toolbar, .fi-pagination:where(.dark, .dark *) {
+    border:none;
+}
+
+.fi-ta-row:where(.dark, .dark *){
+    background: #00000030;
+
+
+}
+
+.fi-ta-header-ctn{
+}
+
+.fi-ta-content-ctn:where(.dark, .dark *){
+    /*background: var(--color-background-table);*/
+    border: 1px solid transparent;
+    /*border-radius: 15px;*/
+}
+
+table:where(.dark, .dark *){
+    /*box-shadow: 0 0.15rem 0.5rem #00000050;*/
+}
+
+.custom-background table:where(.dark, .dark *){
+
+    box-shadow: none !important;
+}

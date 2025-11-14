@@ -1,0 +1,39 @@
+.custom-card:where(.dark, .dark *) {
+    --border-width: 2.5px;
+    border-radius: 12px;
+
+    background:
+        /* Oben links horizontale Linie */
+        linear-gradient(90deg, var(--color-accent) var(--border-width), transparent 0) 0 0,
+            /* Unten links horizontale Linie */
+        linear-gradient(90deg, var(--color-accent) var(--border-width), transparent 0) 0 100%,
+            /* Oben rechts horizontale Linie */
+        linear-gradient(270deg, var(--color-accent) var(--border-width), transparent 0) 100% 0,
+            /* Unten rechts horizontale Linie */
+        linear-gradient(270deg, var(--color-accent) var(--border-width), transparent 0) 100% 100%,
+            /* Oben links vertikale Linie */
+        linear-gradient(180deg, var(--color-accent) var(--border-width), transparent 0) 0 0,
+            /* Oben rechts vertikale Linie */
+        linear-gradient(180deg, var(--color-accent) var(--border-width), transparent 0) 100% 0,
+            /* Unten links vertikale Linie */
+        linear-gradient(0deg, var(--color-accent) var(--border-width), transparent 0) 0 100%,
+            /* Unten rechts vertikale Linie */
+        linear-gradient(0deg, var(--color-accent) var(--border-width), transparent 0) 100% 100%;
+
+    background-repeat: no-repeat;
+    background-size: 50px 15px;
+}
+
+.custom-background:where(.dark, .dark *) {
+    background-size: 8px 8px;
+    background-attachment: fixed;
+    background-image: repeating-linear-gradient(135deg,oklab(0.97 0 0 / 0.05) 0,rgba(50, 205, 50, 0.05) 1px,#fff0 0,#0000 50%);
+}
+
+.card-gap{
+    gap: 1rem;
+}
+
+.card-gap:where(.dark, .dark *) {
+    gap: 1rem;
+}

@@ -1,0 +1,42 @@
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../fonts/Orbitron-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Bangers';
+    src: url('../fonts/Bangers-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Exo2';
+    src: url('../fonts/Exo2-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Oxanium';
+    src: url('../fonts/Oxanium-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RussoOne';
+    src: url('../fonts/RussoOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

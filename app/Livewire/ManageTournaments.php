@@ -1,0 +1,276 @@
+<?php
+
+namespace App\Livewire;
+
+use App\Models\Game;
+use App\Models\Party;
+use App\Models\Suggestion;
+use App\Models\TournamentRound;
+use App\Models\TournamentRoundUser;
+use App\Models\User;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
+use App\Models\Tournament;
+
+class ManageTournaments extends Component
+{
+    public $tournaments;
+    public $selectedTournament;
+    public $totalSuggestions;
+    public $name;
+    public $tournamentRounds;
+    public $selectedTournamentRound;
+    public $tournamentRoundUsers;
+
+    public $rollUsers = [];
+    public $selected = [];
+    public $lastRolled = null;
+
+    public $userSuggestions = [];
+
+    protected $rules = [
+        'tournamentRoundUsers.*.points' => 'required|numeric',
+    ];
+
+    public function mount()
+    {
+        $this->tournaments = Tournament::all();
+        if ($this->tournaments->count() > 0){
+            $this->selectTournament($this->tournaments->last()->id);
+        }
+        $this->loadUserSuggestions();
+    }
+
+    public function selectTournament($tournamentId)
+    {
+        $this->selectedTournament = Tournament::find($tournamentId);
+        if ($this->selectedTournament){
+            $this->name = $this->selectedTournament->name;
+            $this->date = $this->selectedTournament->date;
+            $this->location = $this->selectedTournament->location;
+
+            $this->tournamentRounds = $this->selectedTournament->rounds;
+            $this->totalSuggestions = Suggestion::all()->count();
+        }
+    }
+
+    public function deleteTournament($tournamentId)
+    {
+        Tournament::destroy($tournamentId);
+        $this->tournaments = Tournament::all();
+        $this->selectedTournament = null;
+        $this->name = null;
+
+        Notification::make()
+            ->title('Tournament deleted')
+            ->success()
+            ->send();
+    }
+
+    public function createTournament()
+    {
+        if (count(Party::all()) < 1){
+            Notification::make()
+                ->title(    'No Party found.')
+                ->danger()
+                ->send();
+            return;
+        }
+
+        if (count(Game::all()) < 1){
+            Notification::make()
+                ->title(    'No Game found.')
+                ->danger()
+                ->send();
+            return;
+        }
+
+        $tournament = new Tournament;
+        $tournament->name = "Tournament " . today()->format('m.Y');
+        $tournament->party_id = Party::all()->last()->id;
+        $tournament->are_suggestions_closed = false;
+        $tournament->is_completed = false;
+        // The following two should be set by the default, but arent, so for now i hardcode them here.
+        $tournament->amount_rounds = 4;
+        $tournament->amount_game_votes = 3;
+        $tournament->save();
+
+        // Decoy rounds
+        for ($i = 0; $i < $tournament->amount_rounds; $i++){
+            $tournamentRound = new TournamentRound;
+            $tournamentRound->tournament_id = $tournament->id;
+            $tournamentRound->game_id = Game::all()->first()->id;
+            $tournamentRound->round_number = $i;
+            $tournamentRound->rules = "There is only one rule: There are no rules.";
+            $tournamentRound->is_decoy = true;
+            $tournamentRound->save();
+        }
+
+        $this->tournaments = Tournament::all();
+        $this->selectedTournament = $tournament;
+        $this->name = null;
+    }
+
+    public function toggleSuggestionsClosed()
+    {
+        $this->selectedTournament->are_suggestions_closed = !$this->selectedTournament->are_suggestions_closed;
+        $this->selectedTournament->save();
+        $this->tournaments = Tournament::all();
+    }
+
+    public function toggleCompleted()
+    {
+        $this->selectedTournament->is_completed = !$this->selectedTournament->is_completed;
+        $this->selectedTournament->save();
+        $this->tournaments = Tournament::all();
+    }
+
+    public function selectTournamentRound($tournamentRoundId)
+    {
+        $this->selectedTournamentRound = TournamentRound::find($tournamentRoundId);
+        $this->tournamentRoundUsers = TournamentRoundUser::query()
+            ->where('tournament_round_id', $tournamentRoundId)
+            ->with('user')
+            ->get()
+            ->toArray();
+
+    }
+
+    public function rollGameForRound($tournamentRoundId)
+    {
+        if ($this->totalSuggestions < $this->selectedTournament->amount_rounds){
+            Notification::make()
+                ->title('Not enough suggestions!')
+                ->body('There have to be at least ' . $this->selectedTournament->amount_rounds . ' unique suggestions to roll for a game.')
+                ->danger()
+                ->send();
+            return;
+        }
+
+        $rolledGameIds = TournamentRound::query()->where('is_decoy', false)->get()?->pluck('game_id');
+        $suggestions = Suggestion::query()->whereNotIn('game_id', $rolledGameIds)->get();
+
+        if ($suggestions->count() == 0){
+            Notification::make()
+                ->title('Not enough suggestions!')
+                ->body( 'There have to be at least ' . $this->selectedTournament->amount_rounds . ' unique suggestions to roll for a game.')
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        $rolledSuggestion = $suggestions[array_rand($suggestions->toArray())];
+        if ($rolledSuggestion) {
+            $tournamentRound = TournamentRound::find($tournamentRoundId);
+
+            $tournamentRound->game_id = $rolledSuggestion->game_id;
+//            $tournamentRound->rules = $rolledSuggestion->rules;
+            $tournamentRound->is_decoy = false;
+            $tournamentRound->save();
+        }
+
+        $this->selectTournament($this->selectedTournament->id);
+//        $this->tournamentRounds = $this->selectedTournament->rounds;
+    }
+
+    public function createUserResults()
+    {
+        foreach (Party::query()->where('is_active', true)->first()?->participants as $user) {
+            $userResult = new TournamentRoundUser;
+            $userResult->tournament_round_id = $this->selectedTournamentRound->id;
+            $userResult->user_id = $user->id;
+            $userResult->points = 0;
+            $userResult->has_won = false;
+
+            $userResult->save();
+        }
+
+        $this->tournamentRoundUsers = TournamentRoundUser::query()
+            ->where('tournament_round_id', $this->selectedTournamentRound->id)
+            ->with('user')
+            ->get()
+            ->toArray();
+    }
+
+    public function saveUserResults()
+    {
+        foreach ($this->tournamentRoundUsers as $userResult) {
+
+            $model = TournamentRoundUser::find($userResult['id']);
+
+            if ($model) {
+                $model->points = $userResult['points'];
+                $model->save();
+            }
+        }
+
+        Notification::make()
+            ->title('Results saved')
+            ->success()
+            ->send();
+    }
+
+    public function roll()
+    {
+        $remaining = $this->rollUsers->whereNotIn('id', $this->selected);
+
+        if ($remaining->isEmpty()) {
+            $this->lastRolled = null;
+            return;
+        }
+
+        $user = $remaining->random();
+
+        $this->lastRolled = $user;
+        $this->selected[] = $user->id;
+    }
+
+    public function resetRolls()
+    {
+        $this->selected = [];
+        $this->lastRolled = null;
+    }
+
+    public function loadUserSuggestions()
+    {
+        $party = Party::query()->where('is_active', true)->first() ?? null;
+        $tournamentId = Tournament::latest('created_at')->first()->id;
+
+        if ($party){
+            $this->rollUsers = $party->participants;
+
+            $participantIds = $this->rollUsers->pluck('id');
+
+            $this->userSuggestions  = User::query()
+                ->whereIn('id', $participantIds)
+                ->withCount([
+                    'suggestions as games_count' => function ($query) use ($tournamentId) {
+                        $query->where('tournament_id', $tournamentId)
+                            ->select(DB::raw('COUNT(DISTINCT game_id)'));
+                    }
+                ])
+                ->get()
+                ->toArray();
+        }
+    }
+
+    public function refreshList()
+    {
+        $this->loadUserSuggestions();
+    }
+
+    public function confirmDelete($id)
+    {
+        $this->dispatch('delete-tournament', [
+            'id' => $id,
+        ]);
+    }
+
+
+    public function render()
+    {
+        return view('livewire.manage-tournaments');
+    }
+}

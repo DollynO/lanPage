@@ -1,0 +1,40 @@
+
+
+.fi-btn.fi-color-primary{
+
+    background-color: var(--color-accent);
+    color: #fff;
+}
+
+.fi-btn.fi-color-primary:where(.dark, .dark *)
+{
+    font-family: var(--font-russoone);
+    transition: 0.25s;
+    color: var(--color-accent);
+    background-color: var(--color-zinc-900);
+    box-shadow:
+        0.1em 0.1em 0 0  var(--color-accent),
+        inset 0.1em 0.1em 0 0  var(--color-accent);
+
+    &:hover,
+    &:focus {
+        border-color: var(var(--color-accent-content));
+        color: var(--color-zinc-950);
+
+        box-shadow:
+            0 0 0 0 var(--color-accent-content),
+            inset 4em 3.5em 0 0 var(--color-accent-content);
+    }
+}
+
+.fi-input-wrp:focus-within{
+    --tw-ring-color: var(--color-accent);
+}
+
+.fi-bg-color-600 {
+    --dark-bg: var(--color-accent-content);
+}
+
+.fi-bg-color-700 {
+    --bg: var(--color-accent-content);
+}
