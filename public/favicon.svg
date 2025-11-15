@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 257">
-    <g id="hsi">
+    <g id="hsi" fill="oklch(84.1% 0.238 128.85)">
         <path d="M0 127h176v65H0z"/>
         <path d="M64 63h32v161H64z"/>
         <path d="M96 224h64v33H96z"/>
@@ -11,7 +11,7 @@
         <path d="M63 63h112v33H63z"/>
     </g>
 
-    <g transform="translate(350, 0) scale(-1, 1)">
+    <g transform="translate(350, 0) scale(-1, 1)" fill="oklch(84.1% 0.238 128.85)">
         <path d="M0 127h176v65H0z"/>
         <path d="M64 63h32v161H64z"/>
         <path d="M96 224h64v33H96z"/>
