@@ -25,11 +25,11 @@ thead{
 }
 
 .fi-ta-row:hover:where(.dark, .dark *){
-    background: rgb(27, 35, 45);
+    background: #212121e6;
 }
 
 .fi-ta-table > thead > tr:where(.dark, .dark *) {
-    background: #00000050;
+    background: var(--color-gray-950);
     box-sizing: border-box;
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -43,7 +43,7 @@ thead{
 }
 
 .fi-ta-row:where(.dark, .dark *){
-    background: #00000030;
+    background: var(--color-gray-900);
 
 
 }
