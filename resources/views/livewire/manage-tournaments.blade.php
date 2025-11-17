@@ -15,7 +15,6 @@
 
                         <flux:button
                             size="sm"
-                            variant="fi-btn"
                             wire:click="toggleSuggestionsClosed"
                         >
                             {{ $selectedTournament->are_suggestions_closed ? 'Open Suggestions' : 'Close Suggestions' }}
@@ -24,7 +23,6 @@
 
                         <flux:button
                             size="sm"
-                            variant="fi-btn"
                             wire:click="toggleCompleted"
                         >
                             {{ $selectedTournament->is_completed ? 'Mark as Open' : 'Mark as Complete' }}
@@ -164,7 +162,6 @@
                                 <x-td>{{ $round->is_decoy ? '-' : $round->game()->first()->name }}</x-td>
                                 <x-td>
                                     <flux:button wire:click="rollGameForRound({{ $round->id }})"
-                                                 variant="fi-btn"
                                                  class=" {{ $round->results->count() > 0 ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}"
                                                  size="sm">
                                         {{__('Roll Game')}}
