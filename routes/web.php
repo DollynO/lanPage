@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Photos\PhotoController;
+use App\Http\Controllers\Spotify\SpotifyAuthController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -44,6 +45,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/parties', function (){ return view('parties');})->name('parties');
         Route::get('/users', function (){ return view('users');})->name('users');
         Route::get('/tournament', function (){ return view('tournament');})->name('tournament');
+    });
+
+    Route::prefix('spotify')->group(function () {
+        Route::get('auth', [SpotifyAuthController::class, 'redirect']);
+        Route::get('callback', [SpotifyAuthController::class, 'callback']);
     });
 
     Route::get('settings/two-factor', TwoFactor::class)
